@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One For All — Menu</title>
+<meta name="theme-color" content="#EF3D3D">
+<style>
+  html,body{margin:0;background:#EF3D3D}
+  body{display:flex;flex-direction:column;align-items:center;min-height:100vh}
+  nav{position:sticky;top:0;display:flex;gap:8px;justify-content:center;width:100%;box-sizing:border-box;padding:10px;background:#EF3D3D}
+  button{font:600 16px/1 system-ui,sans-serif;padding:10px 18px;border-radius:999px;border:2px solid #fff;background:transparent;color:#fff;cursor:pointer}
+  button[aria-pressed=true]{background:#fff;color:#EF3D3D}
+  img{display:block;width:100%;max-width:600px;height:auto}
+</style>
+</head>
+<body>
+<nav>
+  <button id="en" aria-pressed="true">English</button>
+  <button id="ar" lang="ar" aria-pressed="false">عربي</button>
+</nav>
+<img id="menu-en" src="menu-en.png" width="1300" height="1845" alt="One For All menu (English)">
+<img id="menu-ar" src="menu-ar.png" width="1300" height="1845" alt="قائمة ون فور أول" lang="ar" hidden>
+<script>
+const show = l => {
+  for (const k of ['en','ar']) {
+    document.getElementById('menu-' + k).hidden = k !== l;
+    document.getElementById(k).setAttribute('aria-pressed', k === l);
+  }
+  document.documentElement.lang = l;
+};
+document.querySelectorAll('nav button').forEach(b => b.onclick = () => show(b.id));
+if (navigator.language.startsWith('ar')) show('ar');
+</script>
+</body>
+</html>
