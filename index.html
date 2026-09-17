@@ -1,37 +1,377 @@
 <!doctype html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>One For All — Menu</title>
+<title>One For All — القائمة | Menu | Irbid</title>
+<meta name="description" content="قائمة ون فور أول في The NST، طريق الحصن، إربد. برجر سماش، دجاج مقلي، راب وبطاطا لودد — كلشي عنا بدينار وشوي. One For All smashed burgers in Irbid: menu and prices.">
+<link rel="canonical" href="https://the-10th-floor.github.io/oneforall-menu/">
 <meta name="theme-color" content="#EF3D3D">
+<meta property="og:type" content="restaurant.menu">
+<meta property="og:title" content="One For All — القائمة | Menu">
+<meta property="og:description" content="برجر سماش في The NST، إربد. كلشي عنا بدينار وشوي.">
+<meta property="og:url" content="https://the-10th-floor.github.io/oneforall-menu/">
+<meta property="og:image" content="https://the-10th-floor.github.io/oneforall-menu/menu-ar.png">
+<meta property="og:locale" content="ar_JO">
+<meta property="og:locale:alternate" content="en_US">
 <style>
-  html,body{margin:0;background:#EF3D3D}
-  body{display:flex;flex-direction:column;align-items:center;min-height:100vh}
-  nav{position:sticky;top:0;display:flex;gap:8px;justify-content:center;width:100%;box-sizing:border-box;padding:10px;background:#EF3D3D}
-  button{font:600 16px/1 system-ui,sans-serif;padding:10px 18px;border-radius:999px;border:2px solid #fff;background:transparent;color:#fff;cursor:pointer}
-  button[aria-pressed=true]{background:#fff;color:#EF3D3D}
-  img{display:block;width:100%;max-width:600px;height:auto}
-  [hidden]{display:none}
+  :root{
+    --red:#EF3D3D; --card:#D82827; --yellow:#FFCC49; --cream:#FFF6EE; --brown:#4A2314; --blue:#2F4FCD;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--red);color:var(--cream)}
+  body{font:16px/1.45 system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;
+       display:flex;flex-direction:column;align-items:center;min-height:100vh}
+  .wrap{width:100%;max-width:600px;padding:0 14px 40px}
+  nav{position:sticky;top:0;z-index:2;display:flex;gap:8px;justify-content:center;
+      width:100%;padding:10px;background:var(--red)}
+  nav button{font:600 16px/1 inherit;padding:10px 18px;border-radius:999px;border:2px solid var(--cream);
+             background:transparent;color:var(--cream);cursor:pointer}
+  nav button[aria-pressed=true]{background:var(--cream);color:var(--red)}
+  img.menu-img{display:block;width:100%;max-width:600px;height:auto;border-radius:10px}
+  h1{font-size:1.6rem;margin:22px 0 4px;letter-spacing:.01em}
+  .tag{color:var(--yellow);font-weight:700;margin:0 0 18px}
+  h2{font-size:1.15rem;margin:26px 0 10px;color:var(--yellow);
+     border-bottom:2px dotted rgba(255,246,238,.45);padding-bottom:6px}
+  ul{list-style:none;margin:0;padding:0}
+  li{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:9px 0;
+     border-bottom:1px solid rgba(255,246,238,.16)}
+  .item{font-weight:700}
+  .desc{display:block;font-weight:400;font-size:.87rem;color:var(--yellow);margin-top:2px}
+  .price{font-weight:800;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .note{background:var(--blue);color:#fff;border-radius:8px;padding:9px 12px;margin:12px 0;
+        font-size:.9rem;font-weight:600;text-align:center}
+  .fries{background:var(--cream);color:var(--card);border-radius:12px;padding:4px 14px 12px;margin-top:22px}
+  .fries h2{color:var(--card);border-bottom-color:rgba(216,40,39,.3)}
+  .fries li{border-bottom-color:rgba(216,40,39,.18)}
+  .fries .desc{color:var(--card);opacity:.85}
+  .actions{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 8px}
+  .actions a{flex:1 1 140px;text-align:center;text-decoration:none;font-weight:700;
+             padding:13px 12px;border-radius:999px;background:var(--cream);color:var(--red)}
+  .actions a.ghost{background:transparent;color:var(--cream);border:2px solid var(--cream)}
+  footer{font-size:.85rem;opacity:.9;text-align:center;margin-top:18px;line-height:1.7}
+  [hidden]{display:none!important}
+  @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 </style>
 </head>
 <body>
+
 <nav>
-  <button id="en" aria-pressed="true">English</button>
-  <button id="ar" lang="ar" aria-pressed="false">عربي</button>
+  <button id="btn-ar" lang="ar" aria-pressed="true">عربي</button>
+  <button id="btn-en" lang="en" aria-pressed="false">English</button>
 </nav>
-<img id="menu-en" src="menu-en.png" width="1300" height="1845" alt="One For All menu (English)">
-<img id="menu-ar" src="menu-ar.png" width="1300" height="1845" alt="قائمة ون فور أول" lang="ar" hidden>
+
+<div class="wrap">
+
+  <img class="menu-img" id="img-ar" src="menu-ar.png" width="1300" height="1845" alt="قائمة ون فور أول" lang="ar">
+  <img class="menu-img" id="img-en" src="menu-en.png" width="1300" height="1845" alt="One For All menu (English)" lang="en" hidden>
+
+  <!-- ARABIC -->
+  <section id="txt-ar" lang="ar" dir="rtl">
+    <h1>ون فور أول — القائمة</h1>
+    <p class="tag">كلشي عنا بدينار وشوي · The NST، طريق الحصن، إربد</p>
+
+    <h2>برجر سماش</h2>
+    <ul>
+      <li><span class="item">ذا أو إف إيه<span class="desc">قطعة لحم، جبنة، صوص ون فور أول</span></span><span class="price">1.98</span></li>
+      <li><span class="item">ذا مشروم<span class="desc">قطعة لحم، جبنة شيدر، مشروم</span></span><span class="price">2.25</span></li>
+      <li><span class="item">ذا كلاسيك<span class="desc">قطعة لحم، جبنة، خس، بندورة، مخلل، صوص</span></span><span class="price">2.15</span></li>
+    </ul>
+    <p class="note">دبل باتي 0.69+ &nbsp;|&nbsp; تريبل باتي 1.38+</p>
+
+    <h2>دجاج</h2>
+    <ul>
+      <li><span class="item">برجر دجاج مقلي<span class="desc">حار أو رانش</span></span><span class="price">1.98</span></li>
+      <li><span class="item">راب دجاج</span><span class="price">2.15</span></li>
+      <li><span class="item">اعمل أي ساندويش وجبة</span><span class="price">1.25+</span></li>
+    </ul>
+
+    <div class="fries">
+      <h2>بطاطا</h2>
+      <ul>
+        <li><span class="item">ون فور أول لودد فرايز 🔥<span class="desc">بطاطا، صوصاتنا، قطع دجاج مقلي — الأكثر طلباً</span></span><span class="price">2.15</span></li>
+        <li><span class="item">بطاطا وصوص<span class="desc">بطاطا، صوص أو إف إيه، رانش وهني مسترد</span></span><span class="price">1.45</span></li>
+        <li><span class="item">بطاطا</span><span class="price">0.95</span></li>
+        <li><span class="item">صوصات<span class="desc">ون فور أول، هني مسترد، رانش</span></span><span class="price">0.25</span></li>
+      </ul>
+    </div>
+
+    <h2>مشروبات</h2>
+    <ul>
+      <li><span class="item">ميلك شيك<span class="desc">جديد · كريمة إضافية 0.5+</span></span><span class="price">2.50</span></li>
+      <li><span class="item">مشروبات غازية</span><span class="price">0.40</span></li>
+      <li><span class="item">مي</span><span class="price">0.25</span></li>
+    </ul>
+
+    <div class="actions">
+      <a id="dir-ar" href="https://www.google.com/maps/search/?api=1&query=32.507500,35.874622">الاتجاهات</a>
+      <a class="ghost" href="https://instagram.com/oneforall.jo">إنستغرام</a>
+    </div>
+    <footer>الأسعار بالدينار الأردني · ون فور أول في The NST — مكان واحد، بمداخل مختلفة</footer>
+  </section>
+
+  <!-- ENGLISH -->
+  <section id="txt-en" lang="en" dir="ltr" hidden>
+    <h1>One For All — Menu</h1>
+    <p class="tag">Deliciously affordable · The NST, Al-Hosn Road, Irbid</p>
+
+    <h2>Smashed Burgers</h2>
+    <ul>
+      <li><span class="item">The OFA<span class="desc">Patty, cheese, One For All sauce</span></span><span class="price">1.98</span></li>
+      <li><span class="item">The Mushroom<span class="desc">Patty, cheddar cheese, mushrooms</span></span><span class="price">2.25</span></li>
+      <li><span class="item">The Classic<span class="desc">Patty, cheese, lettuce, tomato, pickles, sauce</span></span><span class="price">2.15</span></li>
+    </ul>
+    <p class="note">Double patty 0.69+ &nbsp;|&nbsp; Triple patty 1.38+</p>
+
+    <h2>Chicken</h2>
+    <ul>
+      <li><span class="item">Fried Chicken Burger<span class="desc">Spicy or ranch</span></span><span class="price">1.98</span></li>
+      <li><span class="item">Chicken Wrap</span><span class="price">2.15</span></li>
+      <li><span class="item">Make any sandwich a meal</span><span class="price">1.25+</span></li>
+    </ul>
+
+    <div class="fries">
+      <h2>Fries</h2>
+      <ul>
+        <li><span class="item">One For All Loaded Fries 🔥<span class="desc">Fries, our delicious sauces, fried chicken bites — crowd's favourite</span></span><span class="price">2.15</span></li>
+        <li><span class="item">Fries &amp; Sauce<span class="desc">Fries, OFA sauce, ranch &amp; honey mustard</span></span><span class="price">1.45</span></li>
+        <li><span class="item">Fries</span><span class="price">0.95</span></li>
+        <li><span class="item">Sauces<span class="desc">One For All, honey mustard, ranch</span></span><span class="price">0.25</span></li>
+      </ul>
+    </div>
+
+    <h2>Drinks</h2>
+    <ul>
+      <li><span class="item">Milkshake<span class="desc">New · extra cream 0.5+</span></span><span class="price">2.50</span></li>
+      <li><span class="item">Fizzy drinks</span><span class="price">0.40</span></li>
+      <li><span class="item">Water</span><span class="price">0.25</span></li>
+    </ul>
+
+    <div class="actions">
+      <a id="dir-en" href="https://www.google.com/maps/search/?api=1&query=32.507500,35.874622">Directions</a>
+      <a class="ghost" href="https://instagram.com/oneforall.jo">@oneforall.jo</a>
+    </div>
+    <footer>Prices in Jordanian dinar · One For All at the NST — one place, different ways in</footer>
+  </section>
+
+</div>
+
 <script>
-const show = l => {
-  for (const k of ['en','ar']) {
-    document.getElementById('menu-' + k).hidden = k !== l;
-    document.getElementById(k).setAttribute('aria-pressed', k === l);
-  }
+/* Language: ?lang= wins, then a remembered choice, then the phone's language,
+   then Arabic. Arabic is the default because the menu hangs on a window in Irbid.
+   Spec: nfc-piece/README.md "Menu language". */
+var KEY = 'ofa-lang';
+function show(l, remember) {
+  l = (l === 'en') ? 'en' : 'ar';
+  ['ar','en'].forEach(function (k) {
+    var on = (k === l);
+    document.getElementById('img-' + k).hidden = !on;
+    document.getElementById('txt-' + k).hidden = !on;
+    document.getElementById('btn-' + k).setAttribute('aria-pressed', on);
+  });
   document.documentElement.lang = l;
-};
-document.querySelectorAll('nav button').forEach(b => b.onclick = () => show(b.id));
-if (navigator.language.startsWith('ar')) show('ar');
+  document.documentElement.dir = (l === 'ar') ? 'rtl' : 'ltr';
+  if (remember) { try { localStorage.setItem(KEY, l); } catch (e) {} }
+}
+var param = new URLSearchParams(location.search).get('lang');
+var saved = null; try { saved = localStorage.getItem(KEY); } catch (e) {}
+show(param || saved || (navigator.language.indexOf('ar') === 0 ? 'ar' : 'en'), false);
+['ar','en'].forEach(function (k) {
+  document.getElementById('btn-' + k).onclick = function () { show(k, true); };
+});
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Restaurant",
+      "@id": "https://the-10th-floor.github.io/oneforall-menu/#restaurant",
+      "name": "One For All",
+      "alternateName": "ون فور أول",
+      "description": "Smashed-burger counter at the NST on Al-Hosn Road, Irbid. Deliciously affordable — burgers, fried chicken, wraps and loaded fries.",
+      "url": "https://the-10th-floor.github.io/oneforall-menu/",
+      "servesCuisine": [
+        "Burgers",
+        "Fast Food",
+        "American"
+      ],
+      "priceRange": "$",
+      "currenciesAccepted": "JOD",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Al-Hosn Road, ~200 m from Al-Hosn intersection",
+        "addressLocality": "Irbid",
+        "addressRegion": "Irbid Governorate",
+        "addressCountry": "JO"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "32.507500",
+        "longitude": "35.874622"
+      },
+      "sameAs": [
+        "https://instagram.com/oneforall.jo"
+      ],
+      "containedInPlace": {
+        "@type": "Place",
+        "name": "The NST"
+      }
+    },
+    {
+      "@type": "Menu",
+      "@id": "https://the-10th-floor.github.io/oneforall-menu/#menu",
+      "name": "One For All menu",
+      "inLanguage": [
+        "ar-JO",
+        "en"
+      ],
+      "hasMenuSection": [
+        {
+          "@type": "MenuSection",
+          "name": "Smashed Burgers",
+          "hasMenuItem": [
+            {
+              "@type": "MenuItem",
+              "name": "The OFA",
+              "description": "Patty, cheese, One For All sauce",
+              "offers": {
+                "@type": "Offer",
+                "price": "1.98",
+                "priceCurrency": "JOD"
+              }
+            },
+            {
+              "@type": "MenuItem",
+              "name": "The Mushroom",
+              "description": "Patty, cheddar cheese, mushrooms",
+              "offers": {
+                "@type": "Offer",
+                "price": "2.25",
+                "priceCurrency": "JOD"
+              }
+            },
+            {
+              "@type": "MenuItem",
+              "name": "The Classic",
+              "description": "Patty, cheese, lettuce, tomato, pickles, sauce",
+              "offers": {
+                "@type": "Offer",
+                "price": "2.15",
+                "priceCurrency": "JOD"
+              }
+            }
+          ]
+        },
+        {
+          "@type": "MenuSection",
+          "name": "Chicken",
+          "hasMenuItem": [
+            {
+              "@type": "MenuItem",
+              "name": "Fried Chicken Burger",
+              "description": "Spicy or ranch",
+              "offers": {
+                "@type": "Offer",
+                "price": "1.98",
+                "priceCurrency": "JOD"
+              }
+            },
+            {
+              "@type": "MenuItem",
+              "name": "Chicken Wrap",
+              "offers": {
+                "@type": "Offer",
+                "price": "2.15",
+                "priceCurrency": "JOD"
+              }
+            }
+          ]
+        },
+        {
+          "@type": "MenuSection",
+          "name": "Fries",
+          "hasMenuItem": [
+            {
+              "@type": "MenuItem",
+              "name": "One For All Loaded Fries",
+              "description": "Fries, our delicious sauces, fried chicken bites",
+              "offers": {
+                "@type": "Offer",
+                "price": "2.15",
+                "priceCurrency": "JOD"
+              }
+            },
+            {
+              "@type": "MenuItem",
+              "name": "Fries & Sauce",
+              "description": "Fries, OFA sauce, ranch & honey mustard",
+              "offers": {
+                "@type": "Offer",
+                "price": "1.45",
+                "priceCurrency": "JOD"
+              }
+            },
+            {
+              "@type": "MenuItem",
+              "name": "Fries",
+              "offers": {
+                "@type": "Offer",
+                "price": "0.95",
+                "priceCurrency": "JOD"
+              }
+            },
+            {
+              "@type": "MenuItem",
+              "name": "Sauces",
+              "description": "One For All, honey mustard, ranch",
+              "offers": {
+                "@type": "Offer",
+                "price": "0.25",
+                "priceCurrency": "JOD"
+              }
+            }
+          ]
+        },
+        {
+          "@type": "MenuSection",
+          "name": "Drinks",
+          "hasMenuItem": [
+            {
+              "@type": "MenuItem",
+              "name": "Milkshake",
+              "description": "Extra cream +0.50",
+              "offers": {
+                "@type": "Offer",
+                "price": "2.50",
+                "priceCurrency": "JOD"
+              }
+            },
+            {
+              "@type": "MenuItem",
+              "name": "Fizzy drinks",
+              "offers": {
+                "@type": "Offer",
+                "price": "0.40",
+                "priceCurrency": "JOD"
+              }
+            },
+            {
+              "@type": "MenuItem",
+              "name": "Water",
+              "offers": {
+                "@type": "Offer",
+                "price": "0.25",
+                "priceCurrency": "JOD"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
 </script>
 </body>
 </html>
