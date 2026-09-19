@@ -16,15 +16,15 @@
 <meta property="og:locale:alternate" content="en_US">
 <link rel="icon" href="../stamp.png">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;800&family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
 :root{--red:#EF3D3D;--card:#D82827;--yellow:#FFCC49;--cream:#FFF6EE;--navy:#253D8D;--ink:#181617;--bone:#FBF9F4}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--red);color:var(--cream)}
-body{min-height:100dvh;display:flex;flex-direction:column;align-items:center;font:16px/1.45 "Inter Tight",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-:lang(ar){font-family:"IBM Plex Sans Arabic","Inter Tight",system-ui,sans-serif}
+body{min-height:100dvh;display:flex;flex-direction:column;align-items:center;font:500 16px/1.5 "Baloo Bhaijaan 2",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 main{flex:1;width:100%;display:flex;flex-direction:column;padding-top:calc(24px + env(safe-area-inset-top))}
 .mark{display:block;width:96px;height:96px;margin:0 auto}
+.hero{display:block;width:calc(100% - 32px);max-width:568px;aspect-ratio:16/9;object-fit:cover;object-position:50% 58%;border-radius:18px;margin:16px auto 0;background:var(--card)}
 .wrap{width:100%;max-width:600px;margin:0 auto;padding:0 16px 8px;animation:fadeup .6s ease-out .1s both}
 h1{font-size:1.6rem;font-weight:800;margin:16px 0 4px;letter-spacing:.01em;text-align:center}
 .tag{color:var(--yellow);font-weight:700;margin:0 0 16px;text-align:center}
@@ -56,8 +56,8 @@ footer{font-size:.85rem;opacity:.9;text-align:center;margin-top:24px;line-height
 .dock::before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(115deg,rgba(255,255,255,.20),rgba(255,255,255,0) 48%);pointer-events:none}
 .thumb{position:absolute;top:4px;left:4px;width:calc(50% - 6px);height:calc(100% - 8px);border-radius:22px;background:var(--navy);transition:transform .32s cubic-bezier(.2,.8,.2,1)}
 .dock[data-lang=ar] .thumb{transform:translateX(calc(100% + 4px))}
-.dock button{position:relative;z-index:1;flex:1;appearance:none;border:0;border-radius:22px;background:transparent;color:var(--cream);font:600 15px/1 "Inter Tight",system-ui,sans-serif;cursor:pointer;padding:0}
-.dock button[lang=ar]{font:500 16px/1 "IBM Plex Sans Arabic","Inter Tight",sans-serif}
+.dock button{position:relative;z-index:1;flex:1;appearance:none;border:0;border-radius:22px;background:transparent;color:var(--cream);font:700 15px/1 "Baloo Bhaijaan 2",system-ui,sans-serif;cursor:pointer;padding:0}
+.dock button[lang=ar]{font:700 16px/1 "Baloo Bhaijaan 2",system-ui,sans-serif}
 .dock button:focus-visible,a:focus-visible{outline:2px solid var(--cream);outline-offset:2px}
 [hidden]{display:none!important}
 @keyframes fadeup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
@@ -68,6 +68,7 @@ footer{font-size:.85rem;opacity:.9;text-align:center;margin-top:24px;line-height
 <body>
 <main>
   <img class="mark" src="../stamp.png" width="96" height="96" alt="One For All">
+  <video class="hero" autoplay muted loop playsinline preload="metadata" poster="burger-loop-poster.jpg" aria-hidden="true"><source src="burger-loop.webm" type="video/webm"><source src="burger-loop.mp4" type="video/mp4"></video>
 <div class="wrap">
 
   <section id="txt-ar" lang="ar" dir="rtl">
@@ -171,6 +172,8 @@ footer{font-size:.85rem;opacity:.9;text-align:center;margin-top:24px;line-height
 </nav>
 
 <script>
+/* the hero loop is decoration: it stays a still poster for people who asked for less motion */
+if(matchMedia('(prefers-reduced-motion: reduce)').matches){var hv=document.querySelector('.hero');if(hv){hv.removeAttribute('autoplay');hv.pause()}}
 /* The loyalty card's address. Empty until the card is live: the "My card" button stays hidden. */
 const LOYALTY_URL = '';
 /* Language: ?lang= wins, then a remembered choice, then the phone's language, then Arabic. Same key as the menu card page. */
