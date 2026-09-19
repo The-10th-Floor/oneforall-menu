@@ -41,7 +41,13 @@ main{flex:1;width:100%;display:flex;flex-direction:column;padding-top:env(safe-a
 .prints figure{margin:0;background:var(--cream);padding:5px;border-radius:12px;box-shadow:0 10px 22px rgba(0,0,0,.22)}
 .prints figure:nth-child(odd){transform:rotate(-1.2deg)}
 .prints figure:nth-child(even){transform:rotate(1deg)}
-.prints img,.prints video{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:8px;background:var(--card)}
+.prints .f{display:block;overflow:hidden;border-radius:8px;aspect-ratio:1/1;background:var(--card)}
+.prints img{display:block;width:100%;height:100%;object-fit:cover;animation:drift 24s ease-in-out infinite alternate;will-change:transform}
+.prints figure:nth-child(1) img{transform-origin:62% 38%;animation-duration:26s}
+.prints figure:nth-child(2) img{transform-origin:40% 60%;animation-duration:21s;animation-delay:-7s}
+.prints figure:nth-child(3) img{transform-origin:50% 45%;animation-duration:29s;animation-delay:-13s}
+.prints figure:nth-child(4) img{transform-origin:35% 55%;animation-duration:23s;animation-delay:-4s}
+@keyframes drift{from{transform:scale(1.02)}to{transform:scale(1.13)}}
 .wrap{width:100%;max-width:600px;margin:0 auto;padding:0 16px 8px;animation:fadeup .6s ease-out .1s both}
 h1{font-size:1.6rem;font-weight:800;margin:16px 0 4px;letter-spacing:.01em;text-align:center}
 .tag{color:var(--yellow);font-weight:700;margin:0 0 16px;text-align:center}
@@ -83,7 +89,7 @@ footer{font-size:.85rem;opacity:.9;text-align:center;margin-top:24px;line-height
 [hidden]{display:none!important}
 @keyframes fadeup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){.wrap,.dock,.poster span{animation:none}.thumb{transition:none}.prints figure{transform:none}}
+@media (prefers-reduced-motion:reduce){.wrap,.dock,.poster span,.prints img{animation:none}.thumb{transition:none}.prints figure{transform:none}}
 </style>
 </head>
 <body>
@@ -96,11 +102,11 @@ footer{font-size:.85rem;opacity:.9;text-align:center;margin-top:24px;line-height
     <button id="btn-ar" lang="ar" aria-pressed="true">عربي</button>
   </nav>
   <div class="poster" aria-hidden="true"><span><i>ONE FOR ALL</i><i>ONE FOR ALL</i><i>ONE FOR ALL</i><i>ONE FOR ALL</i></span><span><i>FOR ALL ONE</i><i>FOR ALL ONE</i><i>FOR ALL ONE</i><i>FOR ALL ONE</i></span></div>
-  <div class="prints" aria-hidden="true">
-    <figure><video autoplay muted loop playsinline preload="metadata" poster="burger-loop-poster.jpg"><source src="burger-loop.webm" type="video/webm"><source src="burger-loop.mp4" type="video/mp4"></video></figure>
-    <figure><video autoplay muted loop playsinline preload="metadata" poster="tray-hood-loop-poster.jpg"><source src="tray-hood-loop.webm" type="video/webm"><source src="tray-hood-loop.mp4" type="video/mp4"></video></figure>
-    <figure><video autoplay muted loop playsinline preload="metadata" poster="shake-cherry-loop-poster.jpg"><source src="shake-cherry-loop.webm" type="video/webm"><source src="shake-cherry-loop.mp4" type="video/mp4"></video></figure>
-    <figure><video autoplay muted loop playsinline preload="metadata" poster="chicken-bun-loop-poster.jpg"><source src="chicken-bun-loop.webm" type="video/webm"><source src="chicken-bun-loop.mp4" type="video/mp4"></video></figure>
+  <div class="prints">
+    <figure><span class="f"><img src="door-1-place.jpg" alt="The shopfront on Al-Hosn Road" width="640" height="640" loading="lazy" decoding="async"></span></figure>
+    <figure><span class="f"><img src="door-2-art.jpg" alt="A painting night at One For All" width="640" height="640" loading="lazy" decoding="async"></span></figure>
+    <figure><span class="f"><img src="door-3-game.jpg" alt="The One For All shirt" width="640" height="640" loading="lazy" decoding="async"></span></figure>
+    <figure><span class="f"><img src="door-4-eat.jpg" alt="Loaded fries and a milkshake" width="640" height="640" loading="lazy" decoding="async"></span></figure>
   </div>
 <div class="wrap">
 
@@ -203,7 +209,6 @@ footer{font-size:.85rem;opacity:.9;text-align:center;margin-top:24px;line-height
 
 <script>
 /* the hero loop is decoration: it stays a still poster for people who asked for less motion */
-if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.querySelectorAll('.prints video').forEach(function(hv){hv.removeAttribute('autoplay');hv.pause()})}
 /* The loyalty card's address. Empty until the card is live: the "My card" button stays hidden. */
 const LOYALTY_URL = '';
 /* Language: ?lang= wins, then a remembered choice, then the phone's language, then Arabic. Same key as the menu card page. */
