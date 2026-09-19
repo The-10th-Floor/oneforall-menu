@@ -91,9 +91,9 @@ footer{font-size:.85rem;opacity:.9;text-align:center;margin-top:24px;line-height
   <div class="poster" aria-hidden="true"><span>ONE FOR</span><span>ALL ONE FOR</span></div>
   <div class="prints" aria-hidden="true">
     <figure><video autoplay muted loop playsinline preload="metadata" poster="burger-loop-poster.jpg"><source src="burger-loop.webm" type="video/webm"><source src="burger-loop.mp4" type="video/mp4"></video></figure>
-    <figure><img src="ofa-tray.jpg" alt="" loading="lazy" width="480" height="480"></figure>
+    <figure><video autoplay muted loop playsinline preload="metadata" poster="tray-hood-loop-poster.jpg"><source src="tray-hood-loop.webm" type="video/webm"><source src="tray-hood-loop.mp4" type="video/mp4"></video></figure>
     <figure><img src="ofa-shake.jpg" alt="" loading="lazy" width="480" height="480"></figure>
-    <figure><img src="ofa-chicken.jpg" alt="" loading="lazy" width="480" height="480"></figure>
+    <figure><video autoplay muted loop playsinline preload="metadata" poster="chicken-bun-loop-poster.jpg"><source src="chicken-bun-loop.webm" type="video/webm"><source src="chicken-bun-loop.mp4" type="video/mp4"></video></figure>
   </div>
 <div class="wrap">
 
@@ -201,7 +201,7 @@ footer{font-size:.85rem;opacity:.9;text-align:center;margin-top:24px;line-height
 
 <script>
 /* the hero loop is decoration: it stays a still poster for people who asked for less motion */
-if(matchMedia('(prefers-reduced-motion: reduce)').matches){var hv=document.querySelector('.prints video');if(hv){hv.removeAttribute('autoplay');hv.pause()}}
+if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.querySelectorAll('.prints video').forEach(function(hv){hv.removeAttribute('autoplay');hv.pause()})}
 /* The loyalty card's address. Empty until the card is live: the "My card" button stays hidden. */
 const LOYALTY_URL = '';
 /* Language: ?lang= wins, then a remembered choice, then the phone's language, then Arabic. Same key as the menu card page. */
