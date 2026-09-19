@@ -7,7 +7,7 @@ This URL is written on the NFC tag at the ordering window (and printed as `qr.sv
 ## Two pages, two jobs
 | Page | For | What is on it |
 |---|---|---|
-| `/` — **the tap page** (`index.html`, kept by hand) | the customer at the window | the menu card, which lands in six panels; the language switch; one quiet link to the landing page; the **My card** button once loyalty is live |
+| `/` — **the tap page** (`index.html`, kept by hand) | the customer at the window | the menu card, which lands in six panels, and the language switch — **nothing else shows**. The link to the landing page is in the page for screen readers and keyboards only (founder, 2026-09-19: the NFC menu is the menu, no extra line). The **My card** button appears once loyalty is live |
 | `/irbid/` — **the landing page** (`irbid/index.html`, **generated**) | Google, Maps, anyone arriving from Instagram | the menu as real text with prices, the `Restaurant` + `Menu` schema, Directions, Instagram. This is the Website and Menu link for the Google Business Profile, and the canonical URL of both pages |
 
 One menu per page: a customer never sees the card and the text stacked. `irbid/index.html` is written by `node fill.mjs` in the `nst-irbid-geo` repo (template `templates/oneforall-index.html`, values from `DATA.json`) — do not edit it here; edit the template, run `node fill.mjs --force`, copy `out/oneforall-index.html` over it.
