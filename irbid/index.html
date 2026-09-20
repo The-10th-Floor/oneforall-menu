@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>One For All — القائمة | Menu | Irbid</title>
-<meta name="description" content="ون فور اول — واحد للكل. القائمة الكاملة في The NST، طريق الحصن، إربد: سماشد برجر، دجاج مقلي، راب الدجاج ولودد فرايز. One For All in Irbid: the full menu and prices.">
+<title>One For All — Menu | القائمة | Irbid</title>
+<meta name="description" content="One For All in Irbid — the full menu and prices at The NST, Al-Hosn Road: smashed burgers, fried chicken, wraps and loaded fries. ون فور اول — واحد للكل، القائمة الكاملة بالعربية.">
 <link rel="canonical" href="https://the-10th-floor.github.io/oneforall-menu/irbid/">
 <meta name="theme-color" content="#EF3D3D">
 <meta property="og:type" content="restaurant.menu">
@@ -21,10 +21,10 @@
 <meta property="og:image:width" content="1000">
 <meta property="og:image:height" content="747">
 <meta property="og:image:alt" content="One For All at the NST, Al-Hosn Road, Irbid, at dusk">
-<meta property="og:locale" content="ar_JO">
-<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ar_JO">
 <link rel="icon" href="../stamp.png">
-<noscript><style>.dock{display:none}</style></noscript>
+<noscript><style>.lang{display:none}</style></noscript>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- the wall's six characters, 2.4 KB: preloaded because the inline @font-face is only found
      after the CSS is parsed, and the swap was the page's whole layout shift -->
@@ -62,21 +62,22 @@ main{flex:1;width:100%;display:flex;flex-direction:column}
   gap:14px;width:100%;padding:8px 16px 9px;background:rgba(12,7,8,.92);
   border-bottom:3px solid transparent;border-image:repeating-linear-gradient(90deg,var(--awn-red) 0 8px,var(--awn-bone) 8px 16px) 3}
 @supports (backdrop-filter:blur(2px)){.topbar{background:rgba(12,7,8,.72);backdrop-filter:saturate(1.15) blur(9px)}}
-.bar-mark{display:block;width:auto;height:34px;flex:none;filter:drop-shadow(0 2px 6px rgba(0,0,0,.8))}
-.topbar .dock{margin:0;gap:14px}
+/* the bar lays out left-to-right in both languages, so the mark's landing slot never moves */
+.topbar{direction:ltr;justify-content:flex-end;padding-left:62px}
 .awning{position:relative;width:100%;height:44px;flex:none;margin-bottom:15px;overflow:visible;margin-top:env(safe-area-inset-top);
   background:repeating-linear-gradient(90deg,var(--awn-bone) 0 30px,var(--awn-red) 30px 60px);filter:saturate(1.08);box-shadow:0 12px 30px rgba(0,0,0,.7)}
 .awning::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,186,132,.10),rgba(40,11,6,.13) 52%,rgba(14,7,8,.46))}
 .awning::after{content:"";position:absolute;left:0;right:0;top:100%;height:15px;background:radial-gradient(circle at 15px 0,var(--awn-bone) 14.5px,transparent 15px) 0 0/60px 15px repeat-x,radial-gradient(circle at 45px 0,var(--awn-red) 14.5px,transparent 15px) 0 0/60px 15px repeat-x;filter:drop-shadow(0 6px 8px rgba(0,0,0,.6)) brightness(.86) saturate(1.08)}
 /* --- their poster: heavy red capitals on warm white, cropped by the edge (their post of 2026-07) --- */
-/* their badge, over their shopfront: the vector, not the photographed lightbox, because the
-   lightbox is soft at this size and their artwork is not */
-.mark{position:absolute;left:50%;top:50%;z-index:2;width:min(46vw,232px);height:auto;margin:0;
-  transform:translate(-50%,-54%);
+/* Their mark is one element, fixed, and it travels. It rests in the bar's slot - top-left, 34px
+   - and the scroll animation below starts it big over the shopfront and brings it home. Without
+   scroll-driven animation it simply sits in the bar, which is the right still frame anyway. */
+.mark{position:fixed;left:16px;top:calc(9px + env(safe-area-inset-top));z-index:7;
+  height:34px;width:auto;
   filter:drop-shadow(0 0 26px rgba(255,150,110,.42)) drop-shadow(0 12px 24px rgba(0,0,0,.72))}
 .hero{position:sticky;top:0;z-index:0;width:100%;margin:-6px 0 0;aspect-ratio:5/4;max-height:74vh;overflow:hidden}
 .hero picture{display:contents}
-.hero img:not(.mark){display:block;width:100%;height:108%;object-fit:cover;object-position:50% 56%;filter:saturate(1.06)}
+.hero img{display:block;width:100%;height:108%;object-fit:cover;object-position:50% 56%;filter:saturate(1.06)}
 .hero::after{content:'';position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(180deg,transparent 74%,rgba(12,7,8,.5) 92%,rgba(12,7,8,.9)),radial-gradient(66% 50% at 50% 48%,rgba(12,7,8,.30),rgba(12,7,8,.16) 62%,rgba(12,7,8,.7))}
 /* the night sky at the top of their photograph is the same black as the page, so the frame has no edge */
@@ -135,10 +136,15 @@ h1{margin:26px 0 4px;color:var(--cream);font:900 clamp(1.7rem,7.4vw,2.3rem)/1 "A
 [dir=rtl] h1{font:800 clamp(1.5rem,6.4vw,2rem)/1.15 "Baloo Bhaijaan 2",system-ui,sans-serif;letter-spacing:0;text-transform:none}
 .tag{color:var(--yellow);font-weight:700;margin:0 0 20px;text-align:start}
 /* section names in the display face, flush to the screen edge, the rule running off the other side */
-h2{display:table;margin:38px 0 10px;padding:6px 16px 7px;color:var(--cream);
-  font:900 clamp(1.5rem,6.6vw,2.1rem)/1 "Archivo","Arial Black",system-ui,sans-serif;font-stretch:112%;letter-spacing:-.03em;text-transform:uppercase;
-  box-shadow:5px 5px 0 rgba(0,0,0,.55);transform:translateX(-4px)}
-[dir=rtl] h2{font:800 clamp(1.3rem,5.8vw,1.75rem)/1.2 "Baloo Bhaijaan 2",system-ui,sans-serif;letter-spacing:0;text-transform:none;transform:translateX(4px);box-shadow:-5px 5px 0 rgba(0,0,0,.55)}
+/* Their printed card sets section names as heavy cream capitals on the red - no box, no shadow.
+   The hairline is the card's own rule, running off the edge instead of stopping. */
+h2{display:flex;align-items:center;gap:16px;margin:44px 0 12px;color:var(--cream);
+  font:900 clamp(1.45rem,6.2vw,2rem)/1 "Archivo","Arial Black",system-ui,sans-serif;
+  font-stretch:112%;letter-spacing:-.03em;text-transform:uppercase}
+h2::after{content:"";flex:1;height:1px;min-width:24px;
+  background:linear-gradient(90deg,rgba(255,246,238,.32),rgba(255,246,238,0))}
+[dir=rtl] h2{font:800 clamp(1.3rem,5.6vw,1.7rem)/1.25 "Baloo Bhaijaan 2",system-ui,sans-serif;letter-spacing:0;text-transform:none}
+[dir=rtl] h2::after{background:linear-gradient(270deg,rgba(255,246,238,.32),rgba(255,246,238,0))}
 ul{list-style:none;margin:0;padding:0;
   background-image:linear-gradient(90deg,rgba(216,40,39,.042) 50%,transparent 50%),linear-gradient(rgba(216,40,39,.042) 50%,transparent 50%);background-size:26px 26px}
 .fries ul{background-image:none}
@@ -156,7 +162,11 @@ li:last-child{border-bottom:0}
   background-image:linear-gradient(90deg,rgba(216,40,39,.55) 50%,transparent 50%),linear-gradient(rgba(216,40,39,.55) 50%,transparent 50%);background-size:26px 26px}
 .fries{background:linear-gradient(180deg,#F2E2D4,#E4CEBE);color:#8E1F1D;border-radius:0;padding:10px 16px 16px;outline:2px dashed rgba(199,32,30,.4);outline-offset:-10px;
   box-shadow:inset 0 22px 34px -22px rgba(255,200,150,.55),inset 0 -20px 40px -18px rgba(90,30,20,.35)}
-.fries h2{color:var(--cream);margin-top:18px}
+/* the heading was cream because it sat on a red sticker; with the sticker gone it has to be
+   their red on their cream, the same red the prices are set in */
+.fries h2{color:#8E1F1D;margin-top:18px}
+.fries h2::after{background:linear-gradient(90deg,rgba(142,31,29,.38),rgba(142,31,29,0))}
+[dir=rtl] .fries h2::after{background:linear-gradient(270deg,rgba(142,31,29,.38),rgba(142,31,29,0))}
 .fries .price{color:#8E1F1D}
 .fries li{border-bottom:1.5px dotted rgba(199,32,30,.45)}
 .fries .desc{color:#8E1F1D;opacity:1}
@@ -224,48 +234,44 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
   padding:30px 16px calc(24px + env(safe-area-inset-bottom));margin-top:30px;background:none;
   border-top:3px solid transparent;border-image:repeating-linear-gradient(90deg,var(--awn-red) 0 8px,var(--awn-bone) 8px 16px) 3}
 .floor img{height:22px;width:auto;display:block;opacity:.42}
-.dock{position:relative;display:flex;justify-content:center;gap:18px;direction:ltr;z-index:2}
-.dock .thumb{display:none}
-.dock button{position:relative;appearance:none;border:0;background:none;cursor:pointer;padding:6px 2px;
-  font:700 .95rem/1 "Baloo Bhaijaan 2",system-ui,sans-serif;color:#BCA69D;transition:color .18s ease}
-/* their stacked red sticker, painted once: the section names and the pressed language pill */
-h2,.dock button[aria-pressed="true"]{color:var(--cream);background-color:#C7201E;
-  background-image:repeating-linear-gradient(90deg,rgba(255,246,238,.34) 0 1.5px,transparent 1.5px 7px)}
-.dock button[aria-pressed="true"]{padding:5px 12px;box-shadow:3px 3px 0 rgba(0,0,0,.55)}
-/* the pills are small on purpose; the finger target is not */
-.dock button::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+/* One word, quiet on purpose: it is a way out, not a feature. The hit area is still 44px. */
+.lang{position:relative;appearance:none;border:0;background:none;cursor:pointer;padding:6px 2px;
+  font:700 .92rem/1 "Baloo Bhaijaan 2",system-ui,sans-serif;color:rgba(255,233,220,.62);
+  transition:color .18s ease}
+.lang:hover,.lang:focus-visible{color:var(--cream)}
+.lang::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
   width:max(100%,44px);height:44px}
-.dock button:focus-visible,a:focus-visible{outline:2px solid var(--cream);outline-offset:2px}
+.lang:focus-visible,a:focus-visible{outline:2px solid var(--cream);outline-offset:2px}
 [hidden]{display:none!important}
 @keyframes fadeup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 /* The photographs pan inside fixed frames as they cross the screen — the page reads as a camera
    walking past the shop. Nothing animates on load, and it reverses when you scroll back up, which is
    what keeps it from reading as a screensaver. Frames never move, so nothing below ever reflows. */
-/* the big mark hands over to the bar as the page moves */
+/* the mark starts over the shopfront and lands in the bar; the bar arrives to catch it */
 @media (prefers-reduced-motion:no-preference){@supports (animation-timeline:scroll()){
-  .mark{animation:handover linear both;animation-timeline:scroll(root block);animation-range:0 46vh}
-  @keyframes handover{from{opacity:1}70%{opacity:.35}to{opacity:0}}
+  .mark{animation:land linear both;animation-timeline:scroll(root block);animation-range:0 46vh}
+  @keyframes land{
+    from{left:calc(50vw - min(23vw,116px));top:26vh;height:calc(min(46vw,232px) * 1.185)}
+    to{left:16px;top:calc(9px + env(safe-area-inset-top));height:34px}}
+  .topbar{animation:barin linear both;animation-timeline:scroll(root block);animation-range:0 40vh}
+  @keyframes barin{from{opacity:0;transform:translateY(-101%)}55%{opacity:0;transform:translateY(-101%)}to{opacity:1;transform:none}}
 }}
 @media (prefers-reduced-motion:no-preference){@supports (animation-timeline:view()){
-  .hero img:not(.mark){animation:pan linear both;animation-timeline:view();animation-range:cover 0% cover 100%;will-change:transform}
+  .hero img{animation:pan linear both;animation-timeline:view();animation-range:cover 0% cover 100%;will-change:transform}
   /* the two things rise onto the glass as it comes into the screen */
   .stage .obj{animation:stand linear both;animation-timeline:view();animation-range:cover 6% cover 62%}
   @keyframes stand{from{transform:translateY(26px);opacity:.25}to{transform:translateY(0);opacity:1}}
   @keyframes pan{from{transform:translateY(0)}to{transform:translateY(-7.4%)}}
 }}
-@media (prefers-reduced-motion:reduce){.wrap,.dock,.mark,.hero img:not(.mark),.stage .obj{animation:none!important}.thumb{transition:none}}
+@media (prefers-reduced-motion:reduce){.wrap,.mark,.topbar,.hero img,.stage .obj{animation:none!important}}
 </style>
 </head>
 <body>
 <div class="awning" aria-hidden="true"></div>
+<img class="mark" src="../ofa-badge.webp" width="480" height="568" alt="One For All" fetchpriority="high">
 <header class="topbar">
-  <img class="bar-mark" src="../ofa-badge.webp" width="480" height="568" alt="One For All">
-<nav class="dock" data-lang="ar" aria-label="Language">
-    <span class="thumb" aria-hidden="true"></span>
-    <button id="btn-en" lang="en" aria-pressed="false">English</button>
-    <button id="btn-ar" lang="ar" aria-pressed="true">عربي</button>
-  </nav>
+  <button class="lang" id="btn-lang" type="button" lang="ar">عربي</button>
 </header>
 <main>
   <figure class="hero">
@@ -273,14 +279,13 @@ h2,.dock button[aria-pressed="true"]{color:var(--cream);background-color:#C7201E
       <source srcset="n-street.webp" type="image/webp">
       <img src="n-street.jpg" alt="One For All's lit sign on their red wall under the NST, Al-Hosn Road, at dusk" width="1000" height="747" fetchpriority="high" decoding="async">
     </picture>
-    <img class="mark" src="../ofa-badge.webp" width="480" height="568" alt="One For All" fetchpriority="high">
   </figure>
   <section class="slogan" lang="ar" dir="rtl" aria-label="واحد للكل">
     <p><span>واحد</span><span>للكل</span></p>
   </section>
 <div class="wrap">
 
-  <section id="txt-ar" lang="ar" dir="rtl">
+  <section id="txt-ar" lang="ar" dir="rtl" hidden>
     <h1>ون فور اول — القائمة</h1>
     <p class="tag">واحد للكل · The NST، طريق الحصن، إربد</p>
     <p class="hours" data-on=" · مفتوح الآن" data-off=" · مغلق · يفتح 14:00"><span class="dot" aria-hidden="true"></span><span>يومياً 14:00 – 01:30</span><span class="st"></span></p>
@@ -327,7 +332,7 @@ h2,.dock button[aria-pressed="true"]{color:var(--cream);background-color:#C7201E
     <footer>الأسعار بالدينار الأردني · ون فور اول في The NST، طريق الحصن، إربد</footer>
   </section>
 
-  <section id="txt-en" lang="en" dir="ltr" hidden>
+  <section id="txt-en" lang="en" dir="ltr">
     <h1>One For All — Menu</h1>
     <p class="tag">One for all · The NST, Al-Hosn Road, Irbid</p>
     <p class="hours" data-on=" · Open now" data-off=" · Closed · opens 14:00"><span class="dot" aria-hidden="true"></span><span>Daily 14:00 – 01:30</span><span class="st"></span></p>
@@ -388,11 +393,11 @@ h2,.dock button[aria-pressed="true"]{color:var(--cream);background-color:#C7201E
     </div>
   </section>
   <nav class="cta" id="cta" aria-label="Call or directions">
-    <span id="cta-ar">
+    <span id="cta-ar" hidden>
       <a class="cta-tel" href="tel:+962799098080">اتصل</a>
       <a class="cta-dir" href="https://www.google.com/maps/dir/?api=1&destination=32.507500,35.874622">الاتجاهات</a>
     </span>
-    <span id="cta-en" hidden>
+    <span id="cta-en">
       <a class="cta-tel" href="tel:+962799098080">Call</a>
       <a class="cta-dir" href="https://www.google.com/maps/dir/?api=1&destination=32.507500,35.874622">Directions</a>
     </span>
@@ -404,23 +409,24 @@ h2,.dock button[aria-pressed="true"]{color:var(--cream);background-color:#C7201E
 /* the hero loop is decoration: it stays a still poster for people who asked for less motion */
 /* The loyalty card's address. Empty until the card is live: the "My card" button stays hidden. */
 const LOYALTY_URL = '';
-/* Language: ?lang= wins, then a remembered choice, then the phone's language, then Arabic. Same key as the menu card page. */
-const KEY = 'ofa-lang', dock = document.querySelector('.dock');
+/* Language: ?lang= wins, then a remembered choice, then English. Same key as the menu card page. */
+const KEY = 'ofa-lang', langBtn = document.getElementById('btn-lang');
+const OTHER = { en: ['ar', 'عربي'], ar: ['en', 'English'] };
 const show = (l, remember) => {
   l = String(l || '').toLowerCase().indexOf('en') === 0 ? 'en' : 'ar';   /* EN, en-US, en_GB */
-  for (const k of ['ar', 'en']) {
-    document.getElementById('txt-' + k).hidden = k !== l;
-    document.getElementById('btn-' + k).setAttribute('aria-pressed', k === l);
-  }
+  for (const k of ['ar', 'en']) document.getElementById('txt-' + k).hidden = k !== l;
+  /* the button offers the language you are NOT reading, in that language */
+  langBtn.textContent = OTHER[l][1];
+  langBtn.lang = OTHER[l][0];
+  langBtn.setAttribute('aria-label', l === 'en' ? 'اقرأ بالعربية' : 'Read in English');
   document.getElementById('cta-' + (l === 'ar' ? 'ar' : 'en')).hidden = false;
   document.getElementById('cta-' + (l === 'ar' ? 'en' : 'ar')).hidden = true;
   for (const a of document.querySelectorAll('.card-link')) if (LOYALTY_URL) { a.href = LOYALTY_URL + '?lang=' + l; a.hidden = false; }
-  dock.dataset.lang = l;
   document.documentElement.lang = l;
   document.documentElement.dir = (l === 'ar') ? 'rtl' : 'ltr';
   if (remember) { try { localStorage.setItem(KEY, l); } catch (e) {} }
 };
-for (const k of ['ar', 'en']) document.getElementById('btn-' + k).onclick = () => show(k, true);
+langBtn.onclick = () => show(OTHER[document.documentElement.lang === 'ar' ? 'ar' : 'en'][0], true);
 /* Hours: the shop's clock, not the phone's, and its day runs past midnight. */
 try {
   const now = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Amman', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date());
@@ -444,10 +450,11 @@ if (cta && 'IntersectionObserver' in window) {
 }
 const param = new URLSearchParams(location.search).get('lang');
 let saved = null; try { saved = localStorage.getItem(KEY); } catch (e) {}
-/* Arabic is the default because the served document is Arabic: <html lang=ar>, an Arabic title,
-   an Arabic description and og:locale ar_JO. Letting the phone's language decide meant a crawler
-   rendered English and indexed the Arabic menu inside a hidden element. */
-show(param || saved || 'ar', false);
+/* English is the default, on the founder's call, and the served document now says so: html
+   lang=en, an English-led title and description, og:locale en_US with ar_JO as the alternate.
+   The two must agree - when they did not, a crawler rendered one language and indexed the
+   other inside a hidden element. */
+show(param || saved || 'en', false);
 </script>
 
 <script type="application/ld+json">
