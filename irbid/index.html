@@ -210,9 +210,12 @@ li:last-child{border-bottom:0}
 .hours[data-open="1"]{color:var(--warm)}
 /* the way into the flight: the same weight as the hours line, and after it, so the menu is */
 /* never behind a film for someone standing at the counter */
-.walk{display:inline-flex;align-items:center;gap:8px;margin:-10px 0 20px;
+.walk{position:relative;display:inline-flex;align-items:center;gap:8px;margin:-10px 0 20px;
   color:rgba(255,233,220,.66);text-decoration:none;font-weight:700;font-size:.92rem}
 .walk::after{content:"";width:18px;height:1px;background:currentColor;transition:width .18s ease}
+/* the line is small; the finger target is not */
+.walk::before{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:calc(100% + 16px);height:44px}
 .walk:hover,.walk:focus-visible{color:var(--cream)}
 .walk:hover::after,.walk:focus-visible::after{width:30px}
 [dir=rtl] .walk{flex-direction:row-reverse}
