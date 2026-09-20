@@ -297,6 +297,13 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
   </section>
 <div class="wrap">
 
+  <!-- Both languages ship in one document and one is hidden, so EVERY interactive element exists
+       twice: the language button, the action tiles, Call, Directions, Find us. querySelector
+       returns the ARABIC one first, because it is earlier in the document, and its box is 0x0
+       while hidden. Any automated check - tap targets, contrast, links, text - must filter to the
+       section that is not hidden, or it reports a failure on an element no visitor can reach.
+       Two separate checks filed exactly that false failure on 2026-09-21 before this comment.
+       Filter with: [...document.querySelectorAll(sel)].filter(e => e.getBoundingClientRect().width > 0) -->
   <section id="txt-ar" lang="ar" dir="rtl" hidden>
     <h1>ون فور اول — القائمة</h1>
     <p class="tag">واحد للكل · The NST، طريق الحصن، إربد</p>
