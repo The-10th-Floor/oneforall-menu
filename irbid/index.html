@@ -16,87 +16,104 @@
 <meta property="og:locale:alternate" content="en_US">
 <link rel="icon" href="../stamp.png">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&family=Archivo:wdth,wght@112,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;600;700;800&family=Archivo:wdth,wght@112,900&display=swap" rel="stylesheet">
 <style>
-:root{--red:#EF3D3D;--card:#D82827;--yellow:#FFCC49;--cream:#FFF6EE;--navy:#253D8D;--ink:#181617;--bone:#FBF9F4}
+:root{--red:#EF3D3D;--card:#D82827;--yellow:#FFCC49;--cream:#FFF6EE;--navy:#253D8D;--ink:#181617;--bone:#FBF9F4;
+  --night:#0C0708;--night2:#150C0D;--lit:#FF5A4E;--blue:#3E6BFF;--warm:#FFE9DC;--dim:#C79A8C}
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--red);color:var(--cream)}
+html,body{margin:0;overflow-x:clip;background:var(--night);color:var(--warm)}
+body{background:radial-gradient(150% 46% at 50% 0%,rgba(255,90,78,.20),transparent 68%),var(--night)}
 body{min-height:100dvh;display:flex;flex-direction:column;align-items:center;font:500 16px/1.5 "Baloo Bhaijaan 2",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 main{flex:1;width:100%;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top)}
 .mark{margin-top:14px}
-.mark{display:block;width:96px;height:96px;margin:0 auto}
+.mark{display:block;width:76px;height:76px;margin:16px auto -34px;position:relative;z-index:2;border-radius:50%;
+  filter:drop-shadow(0 6px 18px rgba(0,0,0,.75))}
 /* --- their shopfront: striped awning, the badge under it --- */
-.awning{position:relative;width:100%;height:44px;flex:none;margin-bottom:15px;background:repeating-linear-gradient(90deg,var(--cream) 0 30px,var(--card) 30px 60px);box-shadow:0 8px 14px rgba(0,0,0,.18)}
-.awning::after{content:"";position:absolute;left:0;right:0;top:100%;height:15px;background:radial-gradient(circle at 15px 0,var(--cream) 14.5px,transparent 15px) 0 0/60px 15px repeat-x,radial-gradient(circle at 45px 0,var(--card) 14.5px,transparent 15px) 0 0/60px 15px repeat-x;filter:drop-shadow(0 5px 5px rgba(0,0,0,.2))}
+.awning{position:relative;width:100%;height:44px;flex:none;margin-bottom:15px;overflow:visible;
+  background:repeating-linear-gradient(90deg,#6E3A35 0 30px,#8C332F 30px 60px);box-shadow:0 12px 30px rgba(0,0,0,.7)}
+.awning::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55),transparent 55%,rgba(255,120,96,.38))}
+.awning::after{content:"";position:absolute;left:0;right:0;top:100%;height:15px;background:radial-gradient(circle at 15px 0,#7A4039 14.5px,transparent 15px) 0 0/60px 15px repeat-x,radial-gradient(circle at 45px 0,#98392F 14.5px,transparent 15px) 0 0/60px 15px repeat-x;filter:drop-shadow(0 6px 8px rgba(0,0,0,.6))}
 /* --- their poster: heavy red capitals on warm white, cropped by the edge (their post of 2026-07) --- */
-.hero{position:relative;width:100%;overflow:hidden;background:linear-gradient(#F4E8E2 0 68%,var(--red) 68%)}
-.poster{direction:ltr;color:#F70E00;text-align:center;padding:22px 0 0;
-  font:900 clamp(60px,19vw,132px)/.82 "Archivo","Arial Black",system-ui,sans-serif;font-stretch:112%;letter-spacing:-.045em;white-space:nowrap;user-select:none}
-.poster span{display:block}
-.poster span:nth-child(1){transform:translateX(-7%)}
-.poster span:nth-child(2){transform:translateX(6%)}
-.poster span:nth-child(3){transform:translateX(-3%)}
-/* --- their pictures, as prints on the counter --- */
-.prints{position:relative;display:grid;grid-template-columns:repeat(2,1fr);gap:12px;width:100%;max-width:600px;margin:0 auto;padding:0 16px 18px}
-@media (min-width:560px){.prints{grid-template-columns:repeat(4,1fr)}.hero{background:linear-gradient(#F4E8E2 0 62%,var(--red) 62%)}}
-.prints figure{margin:0;background:var(--cream);padding:5px;border-radius:12px;box-shadow:0 14px 30px rgba(74,35,20,.32)}
-.prints figure:nth-child(odd){transform:rotate(-1.2deg)}
-.prints figure:nth-child(even){transform:rotate(1deg)}
-.prints .f{display:block;overflow:hidden;border-radius:8px;aspect-ratio:1/1;background:var(--card)}
-.prints img{display:block;width:100%;height:100%;object-fit:cover;animation:drift 24s ease-in-out infinite alternate;will-change:transform}
-.prints figure:nth-child(1) img{transform-origin:62% 38%;animation-duration:26s}
-.prints figure:nth-child(2) img{transform-origin:40% 60%;animation-duration:21s;animation-delay:-7s}
-.prints figure:nth-child(3) img{transform-origin:50% 45%;animation-duration:29s;animation-delay:-13s}
-.prints figure:nth-child(4) img{transform-origin:35% 55%;animation-duration:23s;animation-delay:-4s}
-@keyframes drift{from{transform:scale(1.02)}to{transform:scale(1.13)}}
+.hero{position:relative;width:100%;margin:-6px 0 0}
+.hero img{display:block;width:100%;height:auto}
+/* the night sky at the top of their photograph is the same black as the page, so the frame has no edge */
+.hero figcaption{margin:9px 16px 0;font-size:.84rem;font-weight:600;color:var(--dim)}
+.prints{display:grid;gap:0;width:100%;max-width:none;margin:22px 0 0;padding:0;
+  grid-template-columns:1fr 1fr;grid-template-areas:'big big' 'neon art'}
+.prints figure{position:relative;margin:0;overflow:hidden;border-radius:0;background:#150C0D}
+.prints .a1{grid-area:big;aspect-ratio:16/10}
+.prints .a2{grid-area:neon;aspect-ratio:1/1}
+.prints .a4{grid-area:art;aspect-ratio:1/1}
+.prints .f{display:block;overflow:hidden;height:100%;background:#1A0F10}
+.prints img{display:block;width:100%;height:100%;object-fit:cover;filter:saturate(1.05) contrast(1.03)}
+.prints .a2 img{animation:drift 34s ease-in-out infinite alternate;transform-origin:34% 48%;will-change:transform}
+@keyframes drift{from{transform:scale(1.02)}to{transform:scale(1.09)}}
 .wrap{width:100%;max-width:600px;margin:0 auto;padding:0 16px 8px;animation:fadeup .6s ease-out .1s both}
-h1{font-size:1.6rem;font-weight:800;margin:16px 0 4px;letter-spacing:.01em;text-align:center}
-.tag{color:var(--yellow);font-weight:700;margin:0 0 16px;text-align:center}
-h2{display:table;font-size:1.06rem;font-weight:800;letter-spacing:.01em;margin:30px 0 12px;padding:7px 15px 8px;color:var(--cream);
-  background-color:var(--card);background-image:repeating-linear-gradient(90deg,rgba(255,246,238,.42) 0 1.5px,transparent 1.5px 7px);
-  border-radius:3px;box-shadow:0 0 0 2px var(--cream),0 4px 0 2px rgba(74,35,20,.3),0 10px 18px rgba(74,35,20,.24);transform:translateX(6px)}
-h2::first-line{color:var(--cream)}
-[dir=rtl] h2{transform:translateX(-6px)}
+h1{margin:26px 0 4px;color:var(--cream);font:900 clamp(1.7rem,7.4vw,2.3rem)/1 "Archivo","Arial Black",system-ui,sans-serif;
+  font-stretch:112%;letter-spacing:-.035em;text-transform:uppercase;text-align:start}
+[dir=rtl] h1{font:800 clamp(1.5rem,6.4vw,2rem)/1.15 "Baloo Bhaijaan 2",system-ui,sans-serif;letter-spacing:0;text-transform:none}
+.tag{color:var(--yellow);font-weight:700;margin:0 0 20px;text-align:start}
+/* section names in the display face, flush to the screen edge, the rule running off the other side */
+h2{display:flex;align-items:center;gap:14px;margin:38px 0 6px;padding:0;background:none;box-shadow:none;transform:none;color:var(--cream);
+  font:900 clamp(1.9rem,8.4vw,2.7rem)/1 "Archivo","Arial Black",system-ui,sans-serif;font-stretch:112%;letter-spacing:-.035em;text-transform:uppercase}
+h2::after{content:"";flex:1;height:1px;background:rgba(255,150,132,.38);margin-inline-end:-16px}
+/* Archivo carries no Arabic, so the Arabic side keeps their own face at its heaviest */
+[dir=rtl] h2{font:800 clamp(1.5rem,6.6vw,2rem)/1.1 "Baloo Bhaijaan 2",system-ui,sans-serif;letter-spacing:0;text-transform:none}
 ul{list-style:none;margin:0;padding:0}
-li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:8px 0;border-bottom:1px solid rgba(255,246,238,.16)}
-.item{font-weight:700}
-.desc{display:block;font-weight:400;font-size:.87rem;color:var(--yellow);margin-top:2px}
-.price{font-weight:800;white-space:nowrap;font-variant-numeric:tabular-nums}
-.note{background:var(--navy);color:var(--cream);border-radius:8px;padding:8px 12px;margin:12px 0;font-size:.9rem;font-weight:600;text-align:center}
+li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:11px 0;border-bottom:1px solid rgba(255,246,238,.11)}
+li:last-child{border-bottom:0}
+.item{font-weight:600;font-size:1rem;line-height:1.25}
+.desc{display:block;font-weight:400;font-size:.79rem;color:var(--dim);opacity:.85;margin-top:3px}
+.price{white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--cream);
+  font:900 clamp(1.45rem,6vw,1.95rem)/1 "Archivo","Arial Black",system-ui,sans-serif;font-stretch:112%;letter-spacing:-.03em}
+.note{background:none;box-shadow:none;border-radius:0;padding:0;margin:12px 0 0;text-align:start;
+  font-size:.84rem;font-weight:600;color:var(--dim)}
+.note::before{content:"— "}
 /* --- their tray paper under the sides --- */
-.tray{margin-top:24px;padding:9px;border-radius:18px;background-color:var(--cream);
-  background-image:linear-gradient(90deg,rgba(216,40,39,.55) 50%,transparent 50%),linear-gradient(rgba(216,40,39,.55) 50%,transparent 50%);background-size:26px 26px;box-shadow:0 12px 26px rgba(0,0,0,.2)}
-.fries{background:var(--cream);color:var(--card);border-radius:12px;padding:4px 16px 12px}
-.fries h2{color:var(--cream);margin-top:14px}
+.tray{margin:34px -16px 0;padding:14px 0;border-radius:0;box-shadow:none;background-color:#E9D6CB;
+  background-image:linear-gradient(90deg,rgba(216,40,39,.55) 50%,transparent 50%),linear-gradient(rgba(216,40,39,.55) 50%,transparent 50%);background-size:26px 26px;--x:0 rgba(0,0,0,.2)}
+.fries{background:#FFF6EE;color:#8E1F1D;border-radius:0;padding:2px 16px 14px;box-shadow:none}
+.fries h2{color:#8E1F1D;margin-top:16px}
+.fries h2::after{background:rgba(142,31,29,.3);margin-inline-end:0}
+.fries .price{color:#8E1F1D}
 .fries li{border-bottom-color:rgba(216,40,39,.18)}
 .fries .desc{color:var(--card);opacity:.85}
-.actions{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0 8px}
-.actions a{flex:1 1 140px;text-align:center;text-decoration:none;font-weight:700;padding:13px 12px;border-radius:26px;background:var(--cream);color:var(--red);
-  box-shadow:0 6px 0 rgba(74,35,20,.22),inset 0 1px 0 rgba(255,255,255,.7);transition:transform .12s ease,box-shadow .12s ease}
-.actions a:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(74,35,20,.22),inset 0 1px 0 rgba(255,255,255,.7)}
-.actions a.ghost{background:transparent;color:var(--cream);border:2px solid var(--cream);box-shadow:0 6px 0 rgba(24,22,23,.18)}
-.actions a:first-child{background:var(--navy);color:var(--cream);box-shadow:0 6px 0 #16265C,0 12px 22px rgba(37,61,141,.4)}
-.actions a:first-child:active{transform:translateY(4px);box-shadow:0 2px 0 #16265C}
-.actions a.card-link{background:var(--navy);color:var(--cream)}
-footer{font-size:.85rem;opacity:.9;text-align:center;margin-top:24px;line-height:1.7}
-.floor{flex:1;min-height:160px;display:flex;align-items:flex-end;justify-content:center;padding:32px 0 calc(28px + env(safe-area-inset-bottom));
-  background:linear-gradient(rgba(255,246,238,.14) 1.5px,transparent 1.5px) 0 2px/46px 46px,
-    linear-gradient(90deg,rgba(255,246,238,.14) 1.5px,transparent 1.5px) 2px 0/46px 46px,
-    linear-gradient(rgba(24,22,23,.16) 2px,transparent 2px) 0 0/46px 46px,
-    linear-gradient(90deg,rgba(24,22,23,.16) 2px,transparent 2px) 0 0/46px 46px,
-    linear-gradient(to bottom,var(--red),#C03435)}
-.floor img{height:28px;width:auto;display:block}
-.dock{position:relative;margin:14px auto 0;flex:none;z-index:2;direction:ltr;width:208px;height:52px;padding:4px;display:flex;gap:4px;border-radius:26px;
-  background:rgba(24,22,23,.22);border:1px solid rgba(255,255,255,.30);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.38),inset 0 0 4px rgba(250,250,250,.30),0 14px 34px rgba(0,0,0,.28);
-  -webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4);
-  backdrop-filter:blur(2px) url('data:image/svg+xml;utf8,%3Csvg%20height%3D%2252%22%20width%3D%22208%22%20viewBox%3D%220%200%20208%2052%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cdefs%3E%3Cfilter%20id%3D%22displace%22%20color-interpolation-filters%3D%22sRGB%22%3E%3CfeImage%20x%3D%220%22%20y%3D%220%22%20height%3D%2252%22%20width%3D%22208%22%20href%3D%22data%3Aimage/svg%2Bxml%3Butf8%2C%253Csvg%2520height%253D%252252%2522%2520width%253D%2522208%2522%2520viewBox%253D%25220%25200%2520208%252052%2522%2520xmlns%253D%2522http%253A//www.w3.org/2000/svg%2522%253E%253Cstyle%253E.mix%257Bmix-blend-mode%253Ascreen%257D%253C/style%253E%253Cdefs%253E%253ClinearGradient%2520id%253D%2522Y%2522%2520x1%253D%25220%2522%2520x2%253D%25220%2522%2520y1%253D%25228%2525%2522%2520y2%253D%252292%2525%2522%253E%253Cstop%2520offset%253D%25220%2525%2522%2520stop-color%253D%2522%25230F0%2522/%253E%253Cstop%2520offset%253D%2522100%2525%2522%2520stop-color%253D%2522%2523000%2522/%253E%253C/linearGradient%253E%253ClinearGradient%2520id%253D%2522X%2522%2520x1%253D%25222%2525%2522%2520x2%253D%252298%2525%2522%2520y1%253D%25220%2522%2520y2%253D%25220%2522%253E%253Cstop%2520offset%253D%25220%2525%2522%2520stop-color%253D%2522%2523F00%2522/%253E%253Cstop%2520offset%253D%2522100%2525%2522%2520stop-color%253D%2522%2523000%2522/%253E%253C/linearGradient%253E%253C/defs%253E%253Crect%2520x%253D%25220%2522%2520y%253D%25220%2522%2520height%253D%252252%2522%2520width%253D%2522208%2522%2520fill%253D%2522%2523808080%2522/%253E%253Cg%2520filter%253D%2522blur%25282px%2529%2522%253E%253Crect%2520x%253D%25220%2522%2520y%253D%25220%2522%2520height%253D%252252%2522%2520width%253D%2522208%2522%2520fill%253D%2522%2523000080%2522/%253E%253Crect%2520x%253D%25220%2522%2520y%253D%25220%2522%2520height%253D%252252%2522%2520width%253D%2522208%2522%2520fill%253D%2522url%2528%2523Y%2529%2522%2520class%253D%2522mix%2522/%253E%253Crect%2520x%253D%25220%2522%2520y%253D%25220%2522%2520height%253D%252252%2522%2520width%253D%2522208%2522%2520fill%253D%2522url%2528%2523X%2529%2522%2520class%253D%2522mix%2522/%253E%253Crect%2520x%253D%25228%2522%2520y%253D%25228%2522%2520height%253D%252236%2522%2520width%253D%2522192%2522%2520fill%253D%2522%2523808080%2522%2520rx%253D%252226%2522%2520ry%253D%252226%2522%2520filter%253D%2522blur%25288px%2529%2522/%253E%253C/g%253E%253C/svg%253E%22%20result%3D%22displacementMap%22/%3E%3CfeDisplacementMap%20transform-origin%3D%22center%22%20in%3D%22SourceGraphic%22%20in2%3D%22displacementMap%22%20scale%3D%2264%22%20xChannelSelector%3D%22R%22%20yChannelSelector%3D%22G%22/%3E%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%221%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200%201%200%22%20result%3D%22displacedR%22/%3E%3CfeDisplacementMap%20in%3D%22SourceGraphic%22%20in2%3D%22displacementMap%22%20scale%3D%2262%22%20xChannelSelector%3D%22R%22%20yChannelSelector%3D%22G%22/%3E%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%200%200%201%200%200%200%200%200%200%200%200%200%200%200%201%200%22%20result%3D%22displacedG%22/%3E%3CfeDisplacementMap%20in%3D%22SourceGraphic%22%20in2%3D%22displacementMap%22%20scale%3D%2260%22%20xChannelSelector%3D%22R%22%20yChannelSelector%3D%22G%22/%3E%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%200%200%200%200%200%200%200%200%201%200%200%200%200%200%201%200%22%20result%3D%22displacedB%22/%3E%3CfeBlend%20in%3D%22displacedR%22%20in2%3D%22displacedG%22%20mode%3D%22screen%22/%3E%3CfeBlend%20in2%3D%22displacedB%22%20mode%3D%22screen%22/%3E%3C/filter%3E%3C/defs%3E%3C/svg%3E#displace') blur(6px) saturate(1.4);
-  animation:rise .55s cubic-bezier(.16,.8,.18,1) .3s both}
-.dock::before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(115deg,rgba(255,255,255,.20),rgba(255,255,255,0) 48%);pointer-events:none}
-.thumb{position:absolute;top:4px;left:4px;width:calc(50% - 6px);height:calc(100% - 8px);border-radius:22px;background:var(--navy);transition:transform .32s cubic-bezier(.2,.8,.2,1)}
-.dock[data-lang=ar] .thumb{transform:translateX(calc(100% + 4px))}
-.dock button{position:relative;z-index:1;flex:1;appearance:none;border:0;border-radius:22px;background:transparent;color:var(--cream);font:700 15px/1 "Baloo Bhaijaan 2",system-ui,sans-serif;cursor:pointer;padding:0}
-.dock button[lang=ar]{font:700 16px/1 "Baloo Bhaijaan 2",system-ui,sans-serif}
+/* Four different jobs, so four different objects: a slab you walk to, a number you read out,
+   their own account badge, and the printed card itself. None of them is a pill. */
+.actions{display:block;margin:20px -16px 0}
+.actions a{display:flex;align-items:center;text-decoration:none;color:var(--warm)}
+.actions a:focus-visible{outline:2px solid var(--yellow);outline-offset:-3px}
+.act-k{font:700 .72rem/1 "Baloo Bhaijaan 2",system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;opacity:.72}
+[dir=rtl] .act-k{letter-spacing:0;text-transform:none;font-size:.82rem}
+/* 1 — the way there: a full-bleed slab, the one blue thing on the page */
+.act-dir{flex-direction:column;align-items:flex-start;gap:5px;padding:18px 16px 20px;background:#14267C;color:#EAF0FF;
+  border-top:1px solid rgba(140,170,255,.4);border-bottom:1px solid rgba(140,170,255,.4)}
+.act-dir .act-v{font:900 clamp(1.25rem,5.4vw,1.7rem)/1.05 "Archivo","Arial Black",system-ui,sans-serif;font-stretch:112%;letter-spacing:-.03em}
+[dir=rtl] .act-dir .act-v{font:800 1.15rem/1.35 "Baloo Bhaijaan 2",system-ui,sans-serif;letter-spacing:0}
+.act-dir:active{background:#0E1B5C}
+/* 2 — the number itself, read out loud, no container */
+.act-tel{justify-content:space-between;gap:14px;padding:16px;border-bottom:1px solid rgba(255,150,132,.18)}
+.act-tel .act-v{font:900 clamp(1.3rem,5.6vw,1.75rem)/1 "Archivo","Arial Black",system-ui,sans-serif;font-stretch:112%;
+  letter-spacing:-.02em;color:var(--cream);direction:ltr}
+/* 3 — their own account, wearing their own badge */
+.act-ig{justify-content:space-between;gap:14px;padding:14px 16px;border-bottom:1px solid rgba(255,150,132,.18)}
+.act-ig .act-v{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--yellow);direction:ltr}
+.badge-mk{width:30px;height:30px;flex:none;border-radius:50%;display:block}
+/* 4 — the printed card is the button */
+.act-card{align-items:center;gap:15px;padding:18px 16px 4px}
+.card-mk{width:118px;height:auto;flex:none;transform:rotate(-3deg);box-shadow:0 12px 26px rgba(0,0,0,.6)}
+.act-card:active .card-mk{transform:rotate(-3deg) translateY(2px)}
+.act-card .act-v{font-weight:700}
+footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-height:1.7}
+.floor{flex:1;min-height:90px;display:flex;align-items:flex-end;justify-content:flex-start;
+  padding:30px 16px calc(24px + env(safe-area-inset-bottom));border-top:1px solid rgba(255,150,132,.16);margin-top:30px;background:none}
+.floor img{height:22px;width:auto;display:block;opacity:.42}
+.dock{position:relative;display:flex;justify-content:center;gap:18px;margin:14px auto 0;padding:0;
+  width:auto;height:auto;background:none;border:0;border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;direction:ltr;z-index:2}
+.dock .thumb{display:none}
+.dock button{position:relative;appearance:none;border:0;background:none;cursor:pointer;padding:6px 2px;
+  font:700 .95rem/1 "Baloo Bhaijaan 2",system-ui,sans-serif;color:rgba(255,233,220,.38);transition:color .18s ease}
+.dock button[aria-pressed="true"]{color:var(--yellow)}
 .dock button:focus-visible,a:focus-visible{outline:2px solid var(--cream);outline-offset:2px}
 [hidden]{display:none!important}
 @keyframes fadeup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
@@ -107,31 +124,31 @@ footer{font-size:.85rem;opacity:.9;text-align:center;margin-top:24px;line-height
 <body>
 <main>
   <div class="awning" aria-hidden="true"></div>
-  <img class="mark" src="../stamp.png" width="96" height="96" alt="One For All">
   <nav class="dock" data-lang="ar" aria-label="Language">
     <span class="thumb" aria-hidden="true"></span>
     <button id="btn-en" lang="en" aria-pressed="false">English</button>
     <button id="btn-ar" lang="ar" aria-pressed="true">عربي</button>
   </nav>
-  <section class="hero">
-  <div class="poster" aria-hidden="true"><span>ONE FOR ALL</span><span>ONE FOR ALL</span><span>ONE FOR ALL</span></div>
-    <div class="prints">
-      <figure><span class="f"><img src="door-1-place.jpg" alt="The shopfront on Al-Hosn Road" width="640" height="640" loading="lazy" decoding="async"></span></figure>
-      <figure><span class="f"><img src="door-2-art.jpg" alt="A painting night at One For All" width="640" height="640" loading="lazy" decoding="async"></span></figure>
-      <figure><span class="f"><img src="door-3-game.jpg" alt="The One For All shirt" width="640" height="640" loading="lazy" decoding="async"></span></figure>
-      <figure><span class="f"><img src="door-4-eat.jpg" alt="Loaded fries and a milkshake" width="640" height="640" loading="lazy" decoding="async"></span></figure>
-    </div>
-  </section>
+  <img class="mark" src="../stamp.png" width="96" height="96" alt="One For All">
+  <figure class="hero">
+    <img src="n-street.jpg" alt="One For All at night on Al-Hosn Road, the sign lit over the shopfront, people outside" width="1200" height="917" fetchpriority="high" decoding="async">
+    <figcaption data-en="Al-Hosn Road, after dark" data-ar="طريق الحصن، بعد المغرب">Al-Hosn Road, after dark</figcaption>
+  </figure>
+  <div class="prints">
+    <figure class="a1"><span class="f"><img src="door-1-place.jpg" alt="The One For All shopfront on Al-Hosn Road" width="640" height="640" loading="lazy" decoding="async"></span></figure>
+    <figure class="a2"><span class="f"><img src="n-neon.jpg" alt="The blue neon One For All sign inside the shop" width="600" height="952" loading="lazy" decoding="async"></span></figure>
+    <figure class="a4"><span class="f"><img src="n-art.jpg" alt="A painting night at One For All" width="680" height="680" loading="lazy" decoding="async"></span></figure>
+  </div>
 <div class="wrap">
 
   <section id="txt-ar" lang="ar" dir="rtl">
     <h1>ون فور اول — القائمة</h1>
     <p class="tag">واحد للكل · The NST، طريق الحصن، إربد</p>
     <div class="actions">
-      <a id="dir-ar" href="https://www.google.com/maps/search/?api=1&query=32.507500,35.874622">الاتجاهات</a>
-      <a class="ghost" href="tel:+962799098080">اتصل</a>
-      <a class="ghost" href="https://instagram.com/oneforall.jo">إنستغرام</a>
-      <a class="ghost" href="../?lang=ar">المنيو المصوّر</a>
+      <a class="act-dir" id="dir-ar" href="https://www.google.com/maps/search/?api=1&query=32.507500,35.874622"><span class="act-k">الاتجاهات</span><span class="act-v">Al-Hosn Road, ~200 m from Al-Hosn intersection</span></a>
+      <a class="act-tel" href="tel:+962799098080"><span class="act-k">اتصل</span><span class="act-v">079 909 8080</span></a>
+      <a class="act-ig" href="https://instagram.com/oneforall.jo"><span class="act-k">إنستغرام</span><span class="act-v"><img class="badge-mk" src="../stamp.png" alt="" width="30" height="30" loading="lazy">@oneforall.jo</span></a>
+      <a class="act-card" href="../?lang=ar"><img class="card-mk" src="menu-ar-thumb.jpg" alt="" width="118" height="85" loading="lazy"><span class="act-v">المنيو المصوّر</span></a>
       <a class="card-link" href="#" hidden>بطاقتي</a>
     </div>
 
@@ -154,7 +171,7 @@ footer{font-size:.85rem;opacity:.9;text-align:center;margin-top:24px;line-height
     <div class="tray"><div class="fries">
       <h2>بطاطا</h2>
       <ul>
-        <li><span class="item">ون فور اول لودد فرايز 🔥<span class="desc">بطاطا مقلية، صوصات، قطع دجاج مقلي — محبوب الجماهير</span></span><span class="price">2.15</span></li>
+        <li><span class="item">ون فور اول لودد فرايز<span class="desc">بطاطا مقلية، صوصات، قطع دجاج مقلي — محبوب الجماهير</span></span><span class="price">2.15</span></li>
         <li><span class="item">فرايز و صوص<span class="desc">بطاطا مقلية، صوص ون فور اول، رانش وهوني ماسترد</span></span><span class="price">1.45</span></li>
         <li><span class="item">بطاطا مقلية</span><span class="price">0.95</span></li>
         <li><span class="item">صوصات<span class="desc">صوص ون فور اول، هوني ماسترد، رانش</span></span><span class="price">0.25</span></li>
@@ -174,10 +191,10 @@ footer{font-size:.85rem;opacity:.9;text-align:center;margin-top:24px;line-height
     <h1>One For All — Menu</h1>
     <p class="tag">One for all · The NST, Al-Hosn Road, Irbid</p>
     <div class="actions">
-      <a id="dir-en" href="https://www.google.com/maps/search/?api=1&query=32.507500,35.874622">Directions</a>
-      <a class="ghost" href="tel:+962799098080">Call</a>
-      <a class="ghost" href="https://instagram.com/oneforall.jo">@oneforall.jo</a>
-      <a class="ghost" href="../?lang=en">The menu card</a>
+      <a class="act-dir" id="dir-en" href="https://www.google.com/maps/search/?api=1&query=32.507500,35.874622"><span class="act-k">Directions</span><span class="act-v">Al-Hosn Road, ~200 m from Al-Hosn intersection</span></a>
+      <a class="act-tel" href="tel:+962799098080"><span class="act-k">Call</span><span class="act-v">079 909 8080</span></a>
+      <a class="act-ig" href="https://instagram.com/oneforall.jo"><span class="act-k">Instagram</span><span class="act-v"><img class="badge-mk" src="../stamp.png" alt="" width="30" height="30" loading="lazy">@oneforall.jo</span></a>
+      <a class="act-card" href="../?lang=en"><img class="card-mk" src="menu-en-thumb.jpg" alt="" width="118" height="85" loading="lazy"><span class="act-v">The menu card</span></a>
       <a class="card-link" href="#" hidden>My card</a>
     </div>
 
@@ -200,7 +217,7 @@ footer{font-size:.85rem;opacity:.9;text-align:center;margin-top:24px;line-height
     <div class="tray"><div class="fries">
       <h2>Fries</h2>
       <ul>
-        <li><span class="item">One For All Loaded Fries 🔥<span class="desc">Fries, our delicious sauces, fried chicken bites — crowd's favourite</span></span><span class="price">2.15</span></li>
+        <li><span class="item">One For All Loaded Fries<span class="desc">Fries, our delicious sauces, fried chicken bites — crowd's favourite</span></span><span class="price">2.15</span></li>
         <li><span class="item">Fries &amp; Sauce<span class="desc">Fries, OFA sauce, ranch &amp; honey mustard</span></span><span class="price">1.45</span></li>
         <li><span class="item">Fries</span><span class="price">0.95</span></li>
         <li><span class="item">Sauces<span class="desc">One For All, honey mustard, ranch</span></span><span class="price">0.25</span></li>
@@ -441,5 +458,7 @@ show(param || saved || (navigator.language.indexOf('ar') === 0 ? 'ar' : 'en'), f
   ]
 }
 </script>
+
+<script>(function(){var f=document.querySelector(".hero figcaption"),a=document.getElementById("txt-ar");if(!f||!a)return;var set=function(){var isAr=!a.hidden;f.textContent=isAr?f.dataset.ar:f.dataset.en;f.setAttribute("lang",isAr?"ar":"en")};set();new MutationObserver(set).observe(a,{attributes:true,attributeFilter:["hidden"]});})();</script>
 </body>
 </html>
