@@ -32,13 +32,13 @@ main{flex:1;width:100%;display:flex;flex-direction:column;padding-top:env(safe-a
 .mark{margin-top:14px}
 .mark{position:absolute;left:50%;top:50%;z-index:2;width:min(46vw,232px);height:auto;margin:0;
   transform:translate(-50%,-54%);
-  filter:drop-shadow(0 0 18px rgba(255,190,150,.5)) drop-shadow(0 0 54px rgba(255,120,80,.34)) drop-shadow(0 14px 26px rgba(0,0,0,.7))}
+  filter:drop-shadow(0 0 26px rgba(255,150,110,.42)) drop-shadow(0 12px 24px rgba(0,0,0,.72))}
 
 /* --- their shopfront: striped awning, the badge under it --- */
 .awning{position:relative;width:100%;height:44px;flex:none;margin-bottom:15px;overflow:visible;
-  background:repeating-linear-gradient(90deg,#6E3A35 0 30px,#8C332F 30px 60px);box-shadow:0 12px 30px rgba(0,0,0,.7)}
-.awning::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,150,120,.28),rgba(0,0,0,.26) 46%,rgba(0,0,0,.6))}
-.awning::after{content:"";position:absolute;left:0;right:0;top:100%;height:15px;background:radial-gradient(circle at 15px 0,#7A4039 14.5px,transparent 15px) 0 0/60px 15px repeat-x,radial-gradient(circle at 45px 0,#98392F 14.5px,transparent 15px) 0 0/60px 15px repeat-x;filter:drop-shadow(0 6px 8px rgba(0,0,0,.6))}
+  background:repeating-linear-gradient(90deg,#F4E8E2 0 30px,#F70E00 30px 60px);filter:brightness(.66) saturate(.92);box-shadow:0 12px 30px rgba(0,0,0,.7)}
+.awning::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.3),rgba(0,0,0,.46) 46%,rgba(0,0,0,.62))}
+.awning::after{content:"";position:absolute;left:0;right:0;top:100%;height:15px;background:radial-gradient(circle at 15px 0,#F4E8E2 14.5px,transparent 15px) 0 0/60px 15px repeat-x,radial-gradient(circle at 45px 0,#F70E00 14.5px,transparent 15px) 0 0/60px 15px repeat-x;filter:drop-shadow(0 6px 8px rgba(0,0,0,.6)) brightness(.58)}
 /* --- their poster: heavy red capitals on warm white, cropped by the edge (their post of 2026-07) --- */
 .hero{position:sticky;top:0;z-index:0;width:100%;margin:-6px 0 0;aspect-ratio:5/4;overflow:hidden}
 .hero img:not(.mark){display:block;width:100%;height:108%;object-fit:cover;object-position:50% 58%}
@@ -48,7 +48,7 @@ main{flex:1;width:100%;display:flex;flex-direction:column;padding-top:env(safe-a
 .prints{position:relative;z-index:1;display:grid;gap:2px;width:100%;margin:0;padding:0;background:var(--night)}
 .prints.pair{grid-template-columns:1fr 1fr;margin:24px 0 0;order:3;max-width:none}
 .prints figure{position:relative;margin:0;overflow:hidden;border-radius:0;background:#150C0D}
-.prints .a1{aspect-ratio:720/455}
+.prints .a1{aspect-ratio:1000/590}
 .prints .a2,.prints .a4{aspect-ratio:1/1}
 .prints .f{display:block;overflow:hidden;height:100%;background:#150C0D}
 .prints img{display:block;width:100%;height:112%;object-fit:cover}
@@ -59,12 +59,14 @@ h1{margin:26px 0 4px;color:var(--cream);font:900 clamp(1.7rem,7.4vw,2.3rem)/1 "A
 [dir=rtl] h1{font:800 clamp(1.5rem,6.4vw,2rem)/1.15 "Baloo Bhaijaan 2",system-ui,sans-serif;letter-spacing:0;text-transform:none}
 .tag{color:var(--yellow);font-weight:700;margin:0 0 20px;text-align:start}
 /* section names in the display face, flush to the screen edge, the rule running off the other side */
-h2{display:flex;align-items:center;gap:14px;margin:38px 0 6px;padding:0;background:none;box-shadow:none;transform:none;color:var(--cream);
-  font:900 clamp(1.9rem,8.4vw,2.7rem)/1 "Archivo","Arial Black",system-ui,sans-serif;font-stretch:112%;letter-spacing:-.035em;text-transform:uppercase}
-h2::after{content:"";flex:1;height:1px;background:rgba(255,150,132,.38);margin-inline-end:-16px}
-/* Archivo carries no Arabic, so the Arabic side keeps their own face at its heaviest */
-[dir=rtl] h2{font:800 clamp(1.5rem,6.6vw,2rem)/1.1 "Baloo Bhaijaan 2",system-ui,sans-serif;letter-spacing:0;text-transform:none}
-ul{list-style:none;margin:0;padding:0}
+h2{display:table;margin:38px 0 10px;padding:6px 16px 7px;color:var(--cream);
+  font:900 clamp(1.5rem,6.6vw,2.1rem)/1 "Archivo","Arial Black",system-ui,sans-serif;font-stretch:112%;letter-spacing:-.03em;text-transform:uppercase;
+  background-color:#C7201E;background-image:repeating-linear-gradient(90deg,rgba(255,246,238,.34) 0 1.5px,transparent 1.5px 7px);
+  box-shadow:5px 5px 0 rgba(0,0,0,.55);transform:translateX(-4px)}
+[dir=rtl] h2{font:800 clamp(1.3rem,5.8vw,1.75rem)/1.2 "Baloo Bhaijaan 2",system-ui,sans-serif;letter-spacing:0;text-transform:none;transform:translateX(4px);box-shadow:-5px 5px 0 rgba(0,0,0,.55)}
+ul{list-style:none;margin:0;padding:0;
+  background-image:linear-gradient(90deg,rgba(216,40,39,.042) 50%,transparent 50%),linear-gradient(rgba(216,40,39,.042) 50%,transparent 50%);background-size:26px 26px}
+.fries ul{background-image:none}
 li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:11px 0;border-bottom:1px solid rgba(255,246,238,.11)}
 li:last-child{border-bottom:0}
 .item{font-weight:600;font-size:1rem;line-height:1.25}
@@ -79,8 +81,7 @@ li:last-child{border-bottom:0}
   background-image:linear-gradient(90deg,rgba(216,40,39,.55) 50%,transparent 50%),linear-gradient(rgba(216,40,39,.55) 50%,transparent 50%);background-size:26px 26px;--x:0 rgba(0,0,0,.2)}
 .fries{background:linear-gradient(180deg,#F2E2D4,#E4CEBE);color:#8E1F1D;border-radius:0;padding:2px 16px 16px;
   box-shadow:inset 0 22px 34px -22px rgba(255,200,150,.55),inset 0 -20px 40px -18px rgba(90,30,20,.35)}
-.fries h2{color:#8E1F1D;margin-top:16px}
-.fries h2::after{background:rgba(142,31,29,.3);margin-inline-end:0}
+.fries h2{color:var(--cream);margin-top:18px}
 .fries .price{color:#8E1F1D}
 .fries li{border-bottom-color:rgba(216,40,39,.18)}
 .fries .desc{color:#8E1F1D;opacity:1}
@@ -112,14 +113,17 @@ li:last-child{border-bottom:0}
 .act-card .act-v{font-weight:700}
 footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-height:1.7}
 .floor{position:relative;z-index:1;background:var(--night);flex:1;min-height:90px;display:flex;align-items:flex-end;justify-content:flex-start;
-  padding:30px 16px calc(24px + env(safe-area-inset-bottom));border-top:1px solid rgba(255,150,132,.16);margin-top:30px;background:none}
+  padding:30px 16px calc(24px + env(safe-area-inset-bottom));margin-top:30px;background:none;
+  border-top:3px solid transparent;border-image:repeating-linear-gradient(90deg,#F70E00 0 8px,#F4E8E2 8px 16px) 3}
 .floor img{height:22px;width:auto;display:block;opacity:.42}
 .dock{position:relative;display:flex;justify-content:center;gap:18px;margin:14px auto 0;padding:0;
   width:auto;height:auto;background:none;border:0;border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;direction:ltr;z-index:2}
 .dock .thumb{display:none}
 .dock button{position:relative;appearance:none;border:0;background:none;cursor:pointer;padding:6px 2px;
   font:700 .95rem/1 "Baloo Bhaijaan 2",system-ui,sans-serif;color:#BCA69D;transition:color .18s ease}
-.dock button[aria-pressed="true"]{color:var(--yellow)}
+.dock button[aria-pressed="true"]{color:var(--cream);background-color:#C7201E;
+  background-image:repeating-linear-gradient(90deg,rgba(255,246,238,.34) 0 1.5px,transparent 1.5px 7px);
+  padding:5px 12px;box-shadow:3px 3px 0 rgba(0,0,0,.55)}
 .dock button:focus-visible,a:focus-visible{outline:2px solid var(--cream);outline-offset:2px}
 [hidden]{display:none!important}
 @keyframes fadeup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
@@ -147,7 +151,7 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
     <img class="mark" src="../ofa-badge.png" width="480" height="569" alt="One For All" fetchpriority="high">
   </figure>
   <div class="prints">
-    <figure class="a1"><span class="f"><img src="n-wall.jpg" alt="Hand lettering on the wall inside One For All reading: we stopped selling burgers" width="720" height="455" loading="lazy" decoding="async"></span></figure>
+    <figure class="a1"><span class="f"><img src="n-wall.jpg" alt="Hand lettering on the wall inside One For All reading: we stopped selling burgers" width="1000" height="590" loading="lazy" decoding="async"></span></figure>
   </div>
 <div class="wrap">
 
@@ -246,7 +250,7 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
 </div>
 
   <div class="prints pair">
-    <figure class="a2"><span class="f"><img src="n-window.jpg" alt="The lit One For All sign on the corner at The NST" width="520" height="520" loading="lazy" decoding="async"></span></figure>
+    <figure class="a2"><span class="f"><img src="n-mudir.jpg" alt="«المدير», the One For All character, on their tiled wall" width="520" height="520" loading="lazy" decoding="async"></span></figure>
     <figure class="a4"><span class="f"><img src="n-shake.jpg" alt="A One For All milkshake under the striped awning" width="520" height="520" loading="lazy" decoding="async"></span></figure>
   </div>
   <div class="floor"><img src="../lockup.svg" alt="The X Floor"></div>
