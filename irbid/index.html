@@ -208,6 +208,14 @@ li:last-child{border-bottom:0}
 .hours .dot{flex:none;width:9px;height:9px;border-radius:50%;background:var(--dim);
   box-shadow:0 0 0 3px rgba(255,246,238,.06)}
 .hours[data-open="1"]{color:var(--warm)}
+/* the way into the flight: the same weight as the hours line, and after it, so the menu is */
+/* never behind a film for someone standing at the counter */
+.walk{display:inline-flex;align-items:center;gap:8px;margin:-10px 0 20px;
+  color:rgba(255,233,220,.66);text-decoration:none;font-weight:700;font-size:.92rem}
+.walk::after{content:"";width:18px;height:1px;background:currentColor;transition:width .18s ease}
+.walk:hover,.walk:focus-visible{color:var(--cream)}
+.walk:hover::after,.walk:focus-visible::after{width:30px}
+[dir=rtl] .walk{flex-direction:row-reverse}
 .hours[data-open="1"] .dot{background:var(--yellow);
   box-shadow:0 0 0 3px rgba(255,204,73,.16),0 0 11px rgba(255,204,73,.65)}
 /* On a phone the buttons are a screen and a half behind you by the time you are reading prices,
@@ -289,6 +297,7 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
     <h1>ون فور اول — القائمة</h1>
     <p class="tag">واحد للكل · The NST، طريق الحصن، إربد</p>
     <p class="hours" data-on=" · مفتوح الآن" data-off=" · مغلق · يفتح 14:00"><span class="dot" aria-hidden="true"></span><span>يومياً 14:00 – 01:30</span><span class="st"></span></p>
+    <a class="walk" href="world/"><span>ادخل المحل</span></a>
 
 
     <h2>سماشد برجر</h2>
@@ -336,6 +345,7 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
     <h1>One For All — Menu</h1>
     <p class="tag">One for all · The NST, Al-Hosn Road, Irbid</p>
     <p class="hours" data-on=" · Open now" data-off=" · Closed · opens 14:00"><span class="dot" aria-hidden="true"></span><span>Daily 14:00 – 01:30</span><span class="st"></span></p>
+    <a class="walk" href="world/"><span>Walk in</span></a>
 
 
     <h2>Smashed Burgers</h2>
