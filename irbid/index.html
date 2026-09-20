@@ -15,9 +15,9 @@
      oneforall-menu/irbid/. They have broken twice by naming a photo a later change had deleted, and a
      broken og:image is invisible - the share preview just goes blank. Re-check both after any photo swap. -->
 <meta property="og:image" content="https://the-10th-floor.github.io/oneforall-menu/irbid/n-street.jpg">
-<meta property="og:image:width" content="974">
-<meta property="og:image:height" content="780">
-<meta property="og:image:alt" content="The lit One For All sign under the NST, Al-Hosn Road, Irbid">
+<meta property="og:image:width" content="1488">
+<meta property="og:image:height" content="1181">
+<meta property="og:image:alt" content="One For All at the NST, Al-Hosn Road, Irbid, at dusk">
 <meta property="og:locale" content="ar_JO">
 <meta property="og:locale:alternate" content="en_US">
 <link rel="icon" href="../stamp.png">
@@ -47,10 +47,15 @@ main{flex:1;width:100%;display:flex;flex-direction:column;padding-top:env(safe-a
 .awning::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,186,132,.10),rgba(40,11,6,.13) 52%,rgba(14,7,8,.46))}
 .awning::after{content:"";position:absolute;left:0;right:0;top:100%;height:15px;background:radial-gradient(circle at 15px 0,#F4E8E2 14.5px,transparent 15px) 0 0/60px 15px repeat-x,radial-gradient(circle at 45px 0,#F70E00 14.5px,transparent 15px) 0 0/60px 15px repeat-x;filter:drop-shadow(0 6px 8px rgba(0,0,0,.6)) brightness(.86) saturate(1.08)}
 /* --- their poster: heavy red capitals on warm white, cropped by the edge (their post of 2026-07) --- */
+/* their badge, over their shopfront: the vector, not the photographed lightbox, because the
+   lightbox is soft at this size and their artwork is not */
+.mark{position:absolute;left:50%;top:50%;z-index:2;width:min(46vw,232px);height:auto;margin:0;
+  transform:translate(-50%,-54%);
+  filter:drop-shadow(0 0 26px rgba(255,150,110,.42)) drop-shadow(0 12px 24px rgba(0,0,0,.72))}
 .hero{position:sticky;top:0;z-index:0;width:100%;margin:-6px 0 0;aspect-ratio:5/4;max-height:74vh;overflow:hidden}
-.hero img{display:block;width:100%;height:106%;object-fit:cover;object-position:50% 50%;filter:saturate(1.06)}
+.hero img:not(.mark){display:block;width:100%;height:108%;object-fit:cover;object-position:50% 56%;filter:saturate(1.06)}
 .hero::after{content:'';position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(180deg,transparent 80%,rgba(12,7,8,.42) 93%,rgba(12,7,8,.86)),radial-gradient(70% 54% at 50% 46%,rgba(12,7,8,.10),rgba(12,7,8,.08) 60%,rgba(12,7,8,.66))}
+  background:linear-gradient(180deg,transparent 74%,rgba(12,7,8,.5) 92%,rgba(12,7,8,.9)),radial-gradient(66% 50% at 50% 48%,rgba(12,7,8,.30),rgba(12,7,8,.16) 62%,rgba(12,7,8,.7))}
 /* the night sky at the top of their photograph is the same black as the page, so the frame has no edge */
 /* Their line, on their wall. The tile is drawn as one SVG unit in a running bond and repeated,
    so it is sharp at any width and costs 600 bytes; the colours are sampled off their own wall
@@ -67,32 +72,32 @@ main{flex:1;width:100%;display:flex;flex-direction:column;padding-top:env(safe-a
   transform:rotate(-2.6deg);text-shadow:0 2px 0 rgba(120,18,6,.55),0 12px 26px rgba(0,0,0,.5)}
 .slogan span{display:block}
 .slogan span+span{font-size:1.16em;margin-top:-.04em}
-/* The page ends on one sheet of glass: the two things themselves, cut out of their own
-   photographs, standing on the same edge with what the glass gives back, and their prices. No
-   frames, no rooms, nothing behind them. */
-.glass{position:relative;z-index:1;width:100%;margin:22px 0 0;padding:26px 16px 24px;background:var(--night)}
-.pane{--refl:64px;--cap:46px;position:relative;max-width:600px;margin:0 auto;padding:16px 16px 16px;border-radius:22px;
-  background:linear-gradient(180deg,rgba(255,246,238,.085),rgba(255,246,238,.02) 56%,rgba(255,246,238,0));
-  box-shadow:inset 0 1px 0 rgba(255,214,198,.3),inset 0 0 0 1px rgba(255,150,132,.13),0 26px 60px rgba(0,0,0,.6)}
-@supports (backdrop-filter:blur(2px)){.pane{backdrop-filter:blur(7px) saturate(1.12)}}
-.shelf{display:grid;grid-template-columns:auto auto;justify-content:center;align-items:end;gap:0 20px}
-.shelf figure{margin:0;display:grid;justify-items:center;grid-template-rows:auto var(--refl) var(--cap)}
-.obj{grid-row:1}.shelf figure::after{grid-row:2}.shelf figcaption{grid-row:3}
-.obj{display:block;width:auto;filter:drop-shadow(0 18px 20px rgba(0,0,0,.72))}
+/* The page ends on one sheet of glass. The two things are cut out of their own photographs and
+   stand ON it: the sheet's top edge is the line they stand on, their contact shadows sit on that
+   edge, and what the glass gives back runs down into it. No card, no frame, no prices. */
+.glass{--refl:62px;--pad:30px;position:relative;z-index:1;width:100%;margin:20px 0 0;
+  padding:30px 16px var(--pad);background:var(--night);overflow:hidden}
+.sheet{position:absolute;left:0;right:0;bottom:0;height:calc(var(--refl) + var(--pad));
+  background:linear-gradient(180deg,rgba(255,238,228,.16),rgba(255,238,228,.05) 44%,rgba(255,238,228,.012) 78%,transparent);
+  border-top:1px solid rgba(255,206,190,.5)}
+@supports (backdrop-filter:blur(2px)){.sheet{backdrop-filter:blur(6px) saturate(1.1)}}
+/* the light that runs along a glass edge, brightest where the two things sit on it */
+.sheet::before{content:"";position:absolute;left:0;right:0;top:-1px;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(255,224,208,.85) 26%,rgba(255,224,208,.85) 74%,transparent)}
+.stage{position:relative;z-index:1;display:grid;grid-template-columns:auto auto;justify-content:center;
+  align-items:end;gap:0 18px;max-width:600px;margin:0 auto}
+.stage figure{position:relative;margin:0;display:grid;justify-items:center;grid-template-rows:auto var(--refl)}
+.obj{grid-row:1;display:block;width:auto;filter:drop-shadow(0 14px 16px rgba(0,0,0,.7))}
 .g-burger .obj{height:248px}
 .g-shake .obj{height:286px}
-/* what the glass gives back: the object again, upside down and dimmed, fading as it goes */
-.shelf figure::after{content:"";width:100%;background-repeat:no-repeat;background-position:50% 100%;
-  transform:scaleY(-1);opacity:.17;filter:blur(1px);
+/* the dark where the object meets the glass, without which it floats */
+.stage figure::before{content:"";position:absolute;z-index:1;left:6%;right:6%;top:calc(100% - var(--refl) - 7px);
+  height:17px;background:radial-gradient(50% 52% at 50% 50%,rgba(4,2,3,.92),rgba(4,2,3,.45) 55%,rgba(4,2,3,0) 78%)}
+.stage figure::after{content:"";grid-row:2;width:100%;background-repeat:no-repeat;background-position:50% 100%;
+  transform:scaleY(-1);opacity:.34;filter:blur(.8px);
   -webkit-mask-image:linear-gradient(180deg,transparent,#000);mask-image:linear-gradient(180deg,transparent,#000)}
 .g-burger::after{background-image:url(n-burger-cut.webp);background-size:auto 248px}
 .g-shake::after{background-image:url(n-shake-cut.webp);background-size:auto 286px}
-.edge{position:absolute;left:0;right:0;bottom:calc(var(--refl) + var(--cap) + 16px);height:1px;
-  background:linear-gradient(90deg,transparent,rgba(255,196,180,.55) 18%,rgba(255,196,180,.55) 82%,transparent)}
-.shelf figcaption{align-self:end;display:grid;justify-items:center;gap:2px;text-align:center}
-.shelf figcaption b{font-weight:700;font-size:.92rem;color:var(--warm)}
-.shelf figcaption span{color:var(--cream);font:900 1.35rem/1 "Archivo","Arial Black",system-ui,sans-serif;
-  font-stretch:112%;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 @media (max-width:359px){.g-burger .obj{height:210px}.g-shake .obj{height:244px}
   .g-burger::after{background-size:auto 210px}.g-shake::after{background-size:auto 244px}}
 .wrap{position:relative;z-index:1;width:100%;max-width:600px;margin:0 auto;padding:0 16px 8px;background:var(--night)}
@@ -175,14 +180,19 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
 /* The photographs pan inside fixed frames as they cross the screen — the page reads as a camera
    walking past the shop. Nothing animates on load, and it reverses when you scroll back up, which is
    what keeps it from reading as a screensaver. Frames never move, so nothing below ever reflows. */
-@media (prefers-reduced-motion:no-preference){@supports (animation-timeline:view()){
-  .hero img{animation:pan linear both;animation-timeline:view();animation-range:cover 0% cover 100%;will-change:transform}
-  /* the two things rise onto the glass as it comes into the screen */
-  .shelf .obj{animation:stand linear both;animation-timeline:view();animation-range:cover 6% cover 62%}
-  @keyframes stand{from{transform:translateY(26px);opacity:.25}to{transform:translateY(0);opacity:1}}
-  @keyframes pan{from{transform:translateY(0)}to{transform:translateY(-5.6%)}}
+/* the big mark hands over to the bar as the page moves */
+@media (prefers-reduced-motion:no-preference){@supports (animation-timeline:scroll()){
+  .mark{animation:handover linear both;animation-timeline:scroll(root block);animation-range:0 46vh}
+  @keyframes handover{from{opacity:1}70%{opacity:.35}to{opacity:0}}
 }}
-@media (prefers-reduced-motion:reduce){.wrap,.dock,.hero img,.shelf .obj{animation:none!important}.thumb{transition:none}}
+@media (prefers-reduced-motion:no-preference){@supports (animation-timeline:view()){
+  .hero img:not(.mark){animation:pan linear both;animation-timeline:view();animation-range:cover 0% cover 100%;will-change:transform}
+  /* the two things rise onto the glass as it comes into the screen */
+  .stage .obj{animation:stand linear both;animation-timeline:view();animation-range:cover 6% cover 62%}
+  @keyframes stand{from{transform:translateY(26px);opacity:.25}to{transform:translateY(0);opacity:1}}
+  @keyframes pan{from{transform:translateY(0)}to{transform:translateY(-7.4%)}}
+}}
+@media (prefers-reduced-motion:reduce){.wrap,.dock,.mark,.hero img:not(.mark),.stage .obj{animation:none!important}.thumb{transition:none}}
 </style>
 </head>
 <body>
@@ -197,7 +207,8 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
     </nav>
   </header>
   <figure class="hero">
-    <img src="n-street.jpg" alt="The lit One For All sign on their red wall under the NST, Al-Hosn Road at dusk" width="974" height="780" fetchpriority="high" decoding="async">
+    <img src="n-street.jpg" alt="Their shopfront at dusk under the NST on Al-Hosn Road, the sign lit" width="1488" height="1181" fetchpriority="high" decoding="async">
+    <img class="mark" src="../ofa-badge.png" width="480" height="569" alt="One For All" fetchpriority="high">
   </figure>
   <section class="slogan" aria-label="واحد للكل">
     <p><span>واحد</span><span>للكل</span></p>
@@ -299,18 +310,14 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
 </div>
 
   <section class="glass" aria-label="The OFA and the milkshake">
-    <div class="pane">
-      <div class="shelf">
-        <figure class="g-burger">
-          <img class="obj" src="n-burger-cut.webp" alt="The OFA smashed burger, three patties" width="560" height="615" loading="lazy" decoding="async">
-          <figcaption><b data-ar="الـOFA" data-en="The OFA">الـOFA</b><span>1.98</span></figcaption>
-        </figure>
-        <figure class="g-shake">
-          <img class="obj" src="n-shake-cut.webp" alt="A One For All milkshake, whipped cream and a cherry" width="330" height="776" loading="lazy" decoding="async">
-          <figcaption><b data-ar="ميلك شيك" data-en="Milkshake">ميلك شيك</b><span>2.50</span></figcaption>
-        </figure>
-      </div>
-      <span class="edge" aria-hidden="true"></span>
+    <div class="sheet" aria-hidden="true"></div>
+    <div class="stage">
+      <figure class="g-burger">
+        <img class="obj" src="n-burger-cut.webp" alt="The OFA smashed burger, three patties" width="560" height="615" loading="lazy" decoding="async">
+      </figure>
+      <figure class="g-shake">
+        <img class="obj" src="n-shake-cut.webp" alt="A One For All milkshake, whipped cream and a cherry" width="330" height="787" loading="lazy" decoding="async">
+      </figure>
     </div>
   </section>
   <div class="floor"><img src="../lockup.svg" alt="The X Floor"></div>
@@ -328,7 +335,6 @@ const show = (l, remember) => {
     document.getElementById('txt-' + k).hidden = k !== l;
     document.getElementById('btn-' + k).setAttribute('aria-pressed', k === l);
   }
-  for (const el of document.querySelectorAll('[data-ar]')) el.textContent = el.dataset[l];
   dock.dataset.lang = l;
   document.documentElement.lang = l;
   document.documentElement.dir = (l === 'ar') ? 'rtl' : 'ltr';
