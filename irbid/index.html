@@ -11,6 +11,9 @@
 <meta property="og:title" content="One For All — القائمة | Menu">
 <meta property="og:description" content="واحد للكل — برجر سماش في The NST، طريق الحصن، إربد.">
 <meta property="og:url" content="https://the-10th-floor.github.io/oneforall-menu/irbid/">
+<!-- These two image URLs and the "image" in the JSON-LD below must name a file that actually exists in
+     oneforall-menu/irbid/. They have broken twice by naming a photo a later change had deleted, and a
+     broken og:image is invisible - the share preview just goes blank. Re-check both after any photo swap. -->
 <meta property="og:image" content="https://the-10th-floor.github.io/oneforall-menu/irbid/n-street.jpg">
 <meta property="og:image:width" content="974">
 <meta property="og:image:height" content="780">
@@ -377,6 +380,22 @@ show(param || saved || (navigator.language.indexOf('ar') === 0 ? 'ar' : 'en'), f
         "@type": "Place",
         "name": "The NST"
       },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Saturday",
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+          "opens": "14:00",
+          "closes": "01:30"
+        }
+      ],
       "hasMenu": {
         "@id": "https://the-10th-floor.github.io/oneforall-menu/irbid/#menu"
       }
