@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>One For All — القائمة | Menu | Irbid</title>
-<meta name="description" content="ون فور اول — واحد للكل. القائمة الكاملة في The NST، طريق الحصن، إربد: برجر سماش، دجاج مقلي، راب وبطاطا لودد. One For All in Irbid: the full menu and prices.">
+<meta name="description" content="ون فور اول — واحد للكل. القائمة الكاملة في The NST، طريق الحصن، إربد: سماشد برجر، دجاج مقلي، راب الدجاج ولودد فرايز. One For All in Irbid: the full menu and prices.">
 <link rel="canonical" href="https://the-10th-floor.github.io/oneforall-menu/irbid/">
 <link rel="icon" href="stamp.png">
 <meta name="theme-color" content="#EF3D3D">
 <meta property="og:type" content="restaurant.menu">
 <meta property="og:title" content="One For All — القائمة | Menu">
-<meta property="og:description" content="واحد للكل — برجر سماش في The NST، طريق الحصن، إربد.">
-<meta property="og:url" content="https://the-10th-floor.github.io/oneforall-menu/">
+<meta property="og:description" content="واحد للكل — سماشد برجر في The NST، طريق الحصن، إربد.">
+<meta property="og:url" content="https://the-10th-floor.github.io/oneforall-menu/irbid/">
 <meta property="og:image" content="https://the-10th-floor.github.io/oneforall-menu/menu-ar.png">
 <meta property="og:locale" content="ar_JO">
 <meta property="og:locale:alternate" content="en_US">
@@ -143,6 +143,7 @@ const parallax = (nx, ny) => {
 const clamp = v => Math.max(-1, Math.min(1, v));
 const tilt = e => { if (e.gamma != null) parallax(clamp(e.gamma / 22), clamp((e.beta - 45) / 22)); };
 const armTilt = () => {
+  if (still) return;   /* asked for less motion: do not even ask iOS for the sensor */
   if (typeof DeviceOrientationEvent === 'undefined') return;
   if (typeof DeviceOrientationEvent.requestPermission === 'function') {
     DeviceOrientationEvent.requestPermission().then(s => { if (s === 'granted') addEventListener('deviceorientation', tilt); }).catch(() => {});
