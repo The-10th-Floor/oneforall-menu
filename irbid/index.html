@@ -30,29 +30,30 @@ body{min-height:100dvh;display:flex;flex-direction:column;align-items:center;fon
 main{flex:1;width:100%;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top)}
 .hero{order:1}.prints{order:2}.wrap{order:2}.floor{order:4}
 .mark{margin-top:14px}
-.mark{display:block;width:58px;height:58px;margin:14px 0 -26px 20px;position:relative;z-index:2;border-radius:50%;
-  filter:drop-shadow(0 8px 20px rgba(0,0,0,.85))}
-[dir=rtl] .mark{margin-left:0;margin-right:20px}
+.mark{position:absolute;left:50%;top:50%;z-index:2;width:min(46vw,232px);height:auto;margin:0;
+  transform:translate(-50%,-54%);
+  filter:drop-shadow(0 0 18px rgba(255,190,150,.5)) drop-shadow(0 0 54px rgba(255,120,80,.34)) drop-shadow(0 14px 26px rgba(0,0,0,.7))}
+
 /* --- their shopfront: striped awning, the badge under it --- */
 .awning{position:relative;width:100%;height:44px;flex:none;margin-bottom:15px;overflow:visible;
   background:repeating-linear-gradient(90deg,#6E3A35 0 30px,#8C332F 30px 60px);box-shadow:0 12px 30px rgba(0,0,0,.7)}
 .awning::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,150,120,.28),rgba(0,0,0,.26) 46%,rgba(0,0,0,.6))}
 .awning::after{content:"";position:absolute;left:0;right:0;top:100%;height:15px;background:radial-gradient(circle at 15px 0,#7A4039 14.5px,transparent 15px) 0 0/60px 15px repeat-x,radial-gradient(circle at 45px 0,#98392F 14.5px,transparent 15px) 0 0/60px 15px repeat-x;filter:drop-shadow(0 6px 8px rgba(0,0,0,.6))}
 /* --- their poster: heavy red capitals on warm white, cropped by the edge (their post of 2026-07) --- */
-.hero{position:relative;width:100%;margin:-6px 0 0;aspect-ratio:3/2;overflow:hidden}
-.hero img{display:block;width:100%;height:108%;object-fit:cover;object-position:50% 34%}
-.hero::after{content:'';position:absolute;left:0;right:0;bottom:0;height:17%;pointer-events:none;
-  background:linear-gradient(180deg,rgba(12,7,8,0),var(--night) 92%)}
+.hero{position:sticky;top:0;z-index:0;width:100%;margin:-6px 0 0;aspect-ratio:5/4;overflow:hidden}
+.hero img:not(.mark){display:block;width:100%;height:108%;object-fit:cover;object-position:50% 58%}
+.hero::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(64% 48% at 50% 50%,rgba(12,7,8,.42),rgba(12,7,8,.14) 62%,rgba(12,7,8,.72))}
 /* the night sky at the top of their photograph is the same black as the page, so the frame has no edge */
-.prints{display:grid;gap:2px;width:100%;margin:20px 0 0;padding:0;background:var(--night)}
-.prints.pair{grid-template-columns:1fr 1fr;margin:24px 0 0;order:3}
+.prints{position:relative;z-index:1;display:grid;gap:2px;width:100%;margin:0;padding:0;background:var(--night)}
+.prints.pair{grid-template-columns:1fr 1fr;margin:24px 0 0;order:3;max-width:none}
 .prints figure{position:relative;margin:0;overflow:hidden;border-radius:0;background:#150C0D}
 .prints .a1{aspect-ratio:720/455}
 .prints .a2,.prints .a4{aspect-ratio:1/1}
 .prints .f{display:block;overflow:hidden;height:100%;background:#150C0D}
 .prints img{display:block;width:100%;height:112%;object-fit:cover}
-.hero img,.prints img{filter:saturate(1.05) contrast(1.03)}
-.wrap{width:100%;max-width:600px;margin:0 auto;padding:0 16px 8px;}
+.hero img:not(.mark),.prints img{filter:saturate(1.05) contrast(1.03)}
+.wrap{position:relative;z-index:1;width:100%;max-width:600px;margin:0 auto;padding:0 16px 8px;background:var(--night)}
 h1{margin:26px 0 4px;color:var(--cream);font:900 clamp(1.7rem,7.4vw,2.3rem)/1 "Archivo","Arial Black",system-ui,sans-serif;
   font-stretch:112%;letter-spacing:-.035em;text-transform:uppercase;text-align:start}
 [dir=rtl] h1{font:800 clamp(1.5rem,6.4vw,2rem)/1.15 "Baloo Bhaijaan 2",system-ui,sans-serif;letter-spacing:0;text-transform:none}
@@ -103,14 +104,14 @@ li:last-child{border-bottom:0}
 /* 3 — their own account, wearing their own badge */
 .act-ig{justify-content:space-between;gap:14px;padding:14px 16px;border-bottom:1px solid rgba(255,150,132,.18)}
 .act-ig .act-v{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--yellow);direction:ltr}
-.badge-mk{width:30px;height:30px;flex:none;border-radius:50%;display:block}
+.badge-mk{width:auto;height:30px;flex:none;display:block}
 /* 4 — the printed card is the button */
 .act-card{align-items:center;gap:15px;padding:18px 16px 4px}
 .card-mk{width:118px;height:auto;flex:none;transform:rotate(-3deg);box-shadow:0 12px 26px rgba(0,0,0,.6)}
 .act-card:active .card-mk{transform:rotate(-3deg) translateY(2px)}
 .act-card .act-v{font-weight:700}
 footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-height:1.7}
-.floor{flex:1;min-height:90px;display:flex;align-items:flex-end;justify-content:flex-start;
+.floor{position:relative;z-index:1;background:var(--night);flex:1;min-height:90px;display:flex;align-items:flex-end;justify-content:flex-start;
   padding:30px 16px calc(24px + env(safe-area-inset-bottom));border-top:1px solid rgba(255,150,132,.16);margin-top:30px;background:none}
 .floor img{height:22px;width:auto;display:block;opacity:.42}
 .dock{position:relative;display:flex;justify-content:center;gap:18px;margin:14px auto 0;padding:0;
@@ -127,10 +128,10 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
    walking past the shop. Nothing animates on load, and it reverses when you scroll back up, which is
    what keeps it from reading as a screensaver. Frames never move, so nothing below ever reflows. */
 @media (prefers-reduced-motion:no-preference){@supports (animation-timeline:view()){
-  .hero img,.prints img{animation:pan linear both;animation-timeline:view();animation-range:cover 0% cover 100%;will-change:transform}
+  .hero img:not(.mark),.prints img{animation:pan linear both;animation-timeline:view();animation-range:cover 0% cover 100%;will-change:transform}
   @keyframes pan{from{transform:translateY(0)}to{transform:translateY(-10.7%)}}
 }}
-@media (prefers-reduced-motion:reduce){.wrap,.dock,.hero img,.prints img,.prints .a1 img,.prints .a2 img,.prints .a4 img{animation:none!important}.thumb{transition:none}.prints figure{transform:none}}
+@media (prefers-reduced-motion:reduce){.wrap,.dock,.hero img:not(.mark),.prints img,.prints .a1 img,.prints .a2 img,.prints .a4 img{animation:none!important}.thumb{transition:none}.prints figure{transform:none}}
 </style>
 </head>
 <body>
@@ -141,9 +142,9 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
     <button id="btn-en" lang="en" aria-pressed="false">English</button>
     <button id="btn-ar" lang="ar" aria-pressed="true">عربي</button>
   </nav>
-  <img class="mark" src="../stamp.png" width="128" height="128" alt="One For All">
   <figure class="hero">
     <img src="n-street.jpg" alt="The lit One For All sign over the windows at The NST, Al-Hosn Road" width="1000" height="765" fetchpriority="high" decoding="async">
+    <img class="mark" src="../ofa-badge.png" width="480" height="569" alt="One For All" fetchpriority="high">
   </figure>
   <div class="prints">
     <figure class="a1"><span class="f"><img src="n-wall.jpg" alt="Hand lettering on the wall inside One For All reading: we stopped selling burgers" width="720" height="455" loading="lazy" decoding="async"></span></figure>
@@ -156,7 +157,7 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
     <div class="actions">
       <a class="act-dir" id="dir-ar" href="https://www.google.com/maps/dir/?api=1&destination=32.507500,35.874622"><span class="act-k">الاتجاهات</span><span class="act-v">طريق الحصن، على بعد 200 م تقريباً من إشارة الحصن</span></a>
       <a class="act-tel" href="tel:+962799098080"><span class="act-k">اتصل</span><span class="act-v">079 909 8080</span></a>
-      <a class="act-ig" href="https://instagram.com/oneforall.jo"><span class="act-k">إنستغرام</span><span class="act-v"><img class="badge-mk" src="../stamp.png" alt="" width="128" height="128" loading="lazy">@oneforall.jo</span></a>
+      <a class="act-ig" href="https://instagram.com/oneforall.jo"><span class="act-k">إنستغرام</span><span class="act-v"><img class="badge-mk" src="../ofa-badge.png" alt="" width="480" height="569" loading="lazy">@oneforall.jo</span></a>
       <a class="act-card" href="../?lang=ar"><img class="card-mk" src="menu-ar-thumb.jpg" alt="" width="245" height="178" loading="lazy"><span class="act-v">المنيو المصوّر</span></a>
       <a class="card-link" href="#" hidden>بطاقتي</a>
     </div>
@@ -202,7 +203,7 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
     <div class="actions">
       <a class="act-dir" id="dir-en" href="https://www.google.com/maps/dir/?api=1&destination=32.507500,35.874622"><span class="act-k">Directions</span><span class="act-v">Al-Hosn Road, ~200 m from Al-Hosn intersection</span></a>
       <a class="act-tel" href="tel:+962799098080"><span class="act-k">Call</span><span class="act-v">079 909 8080</span></a>
-      <a class="act-ig" href="https://instagram.com/oneforall.jo"><span class="act-k">Instagram</span><span class="act-v"><img class="badge-mk" src="../stamp.png" alt="" width="128" height="128" loading="lazy">@oneforall.jo</span></a>
+      <a class="act-ig" href="https://instagram.com/oneforall.jo"><span class="act-k">Instagram</span><span class="act-v"><img class="badge-mk" src="../ofa-badge.png" alt="" width="480" height="569" loading="lazy">@oneforall.jo</span></a>
       <a class="act-card" href="../?lang=en"><img class="card-mk" src="menu-en-thumb.jpg" alt="" width="245" height="178" loading="lazy"><span class="act-v">The menu card</span></a>
       <a class="card-link" href="#" hidden>My card</a>
     </div>
