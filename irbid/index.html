@@ -52,7 +52,11 @@ main{flex:1;width:100%;display:flex;flex-direction:column;padding-top:env(safe-a
 .wrap{width:100%;max-width:600px;margin:0 auto;padding:0 16px 8px;animation:fadeup .6s ease-out .1s both}
 h1{font-size:1.6rem;font-weight:800;margin:16px 0 4px;letter-spacing:.01em;text-align:center}
 .tag{color:var(--yellow);font-weight:700;margin:0 0 16px;text-align:center}
-h2{font-size:1.15rem;margin:24px 0 8px;color:var(--yellow);border-bottom:2px dotted rgba(255,246,238,.45);padding-bottom:8px}
+h2{display:table;font-size:1.06rem;font-weight:800;letter-spacing:.01em;margin:30px 0 12px;padding:7px 15px 8px;color:var(--cream);
+  background-color:var(--card);background-image:repeating-linear-gradient(90deg,rgba(255,246,238,.42) 0 1.5px,transparent 1.5px 7px);
+  border-radius:3px;box-shadow:0 0 0 2px var(--cream),0 4px 0 2px rgba(74,35,20,.3),0 10px 18px rgba(74,35,20,.24);transform:translateX(6px)}
+h2::first-line{color:var(--cream)}
+[dir=rtl] h2{transform:translateX(-6px)}
 ul{list-style:none;margin:0;padding:0}
 li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:8px 0;border-bottom:1px solid rgba(255,246,238,.16)}
 .item{font-weight:700}
@@ -63,7 +67,7 @@ li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padd
 .tray{margin-top:24px;padding:9px;border-radius:18px;background-color:var(--cream);
   background-image:linear-gradient(90deg,rgba(216,40,39,.55) 50%,transparent 50%),linear-gradient(rgba(216,40,39,.55) 50%,transparent 50%);background-size:26px 26px;box-shadow:0 12px 26px rgba(0,0,0,.2)}
 .fries{background:var(--cream);color:var(--card);border-radius:12px;padding:4px 16px 12px}
-.fries h2{color:var(--card);border-bottom-color:rgba(216,40,39,.3)}
+.fries h2{color:var(--cream);margin-top:14px}
 .fries li{border-bottom-color:rgba(216,40,39,.18)}
 .fries .desc{color:var(--card);opacity:.85}
 .actions{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0 8px}
@@ -76,7 +80,11 @@ li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padd
 .actions a.card-link{background:var(--navy);color:var(--cream)}
 footer{font-size:.85rem;opacity:.9;text-align:center;margin-top:24px;line-height:1.7}
 .floor{flex:1;min-height:160px;display:flex;align-items:flex-end;justify-content:center;padding:32px 0 calc(28px + env(safe-area-inset-bottom));
-  background:linear-gradient(rgba(24,22,23,.13) 2px,transparent 2px) 0 0/46px 46px,linear-gradient(90deg,rgba(24,22,23,.13) 2px,transparent 2px) 0 0/46px 46px,linear-gradient(to bottom,var(--red),#C03435)}
+  background:linear-gradient(rgba(255,246,238,.14) 1.5px,transparent 1.5px) 0 2px/46px 46px,
+    linear-gradient(90deg,rgba(255,246,238,.14) 1.5px,transparent 1.5px) 2px 0/46px 46px,
+    linear-gradient(rgba(24,22,23,.16) 2px,transparent 2px) 0 0/46px 46px,
+    linear-gradient(90deg,rgba(24,22,23,.16) 2px,transparent 2px) 0 0/46px 46px,
+    linear-gradient(to bottom,var(--red),#C03435)}
 .floor img{height:28px;width:auto;display:block}
 .dock{position:relative;margin:14px auto 0;flex:none;z-index:2;direction:ltr;width:208px;height:52px;padding:4px;display:flex;gap:4px;border-radius:26px;
   background:rgba(24,22,23,.22);border:1px solid rgba(255,255,255,.30);
