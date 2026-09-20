@@ -22,33 +22,34 @@
   --night:#0C0708;--night2:#150C0D;--lit:#FF5A4E;--blue:#3E6BFF;--warm:#FFE9DC;--dim:#C79A8C}
 *{box-sizing:border-box}
 html,body{margin:0;overflow-x:clip;background:var(--night);color:var(--warm)}
-body{background:radial-gradient(150% 46% at 50% 0%,rgba(255,90,78,.20),transparent 68%),var(--night)}
+body{background:radial-gradient(120% 52% at 16% 10%,rgba(255,90,78,.24),transparent 64%),var(--night)}
 body{min-height:100dvh;display:flex;flex-direction:column;align-items:center;font:500 16px/1.5 "Baloo Bhaijaan 2",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 main{flex:1;width:100%;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top)}
+.hero{order:1}.prints{order:2}.wrap{order:2}.floor{order:4}
 .mark{margin-top:14px}
-.mark{display:block;width:76px;height:76px;margin:16px auto -34px;position:relative;z-index:2;border-radius:50%;
-  filter:drop-shadow(0 6px 18px rgba(0,0,0,.75))}
+.mark{display:block;width:58px;height:58px;margin:14px 0 -26px 20px;position:relative;z-index:2;border-radius:50%;
+  filter:drop-shadow(0 8px 20px rgba(0,0,0,.85))}
+[dir=rtl] .mark{margin-left:0;margin-right:20px}
 /* --- their shopfront: striped awning, the badge under it --- */
 .awning{position:relative;width:100%;height:44px;flex:none;margin-bottom:15px;overflow:visible;
   background:repeating-linear-gradient(90deg,#6E3A35 0 30px,#8C332F 30px 60px);box-shadow:0 12px 30px rgba(0,0,0,.7)}
-.awning::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55),transparent 55%,rgba(255,120,96,.38))}
+.awning::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,150,120,.28),rgba(0,0,0,.26) 46%,rgba(0,0,0,.6))}
 .awning::after{content:"";position:absolute;left:0;right:0;top:100%;height:15px;background:radial-gradient(circle at 15px 0,#7A4039 14.5px,transparent 15px) 0 0/60px 15px repeat-x,radial-gradient(circle at 45px 0,#98392F 14.5px,transparent 15px) 0 0/60px 15px repeat-x;filter:drop-shadow(0 6px 8px rgba(0,0,0,.6))}
 /* --- their poster: heavy red capitals on warm white, cropped by the edge (their post of 2026-07) --- */
-.hero{position:relative;width:100%;margin:-6px 0 0}
-.hero img{display:block;width:100%;height:auto}
+.hero{position:relative;width:100%;margin:-6px 0 0;aspect-ratio:8/7;overflow:hidden}
+.hero img{display:block;width:100%;height:112%;object-fit:cover;object-position:50% 38%}
+.hero::after{content:'';position:absolute;left:0;right:0;bottom:0;height:26%;pointer-events:none;
+  background:linear-gradient(180deg,rgba(12,7,8,0),var(--night) 92%)}
 /* the night sky at the top of their photograph is the same black as the page, so the frame has no edge */
-.hero figcaption{margin:9px 16px 0;font-size:.84rem;font-weight:600;color:var(--dim)}
-.prints{display:grid;gap:0;width:100%;max-width:none;margin:22px 0 0;padding:0;
-  grid-template-columns:1fr 1fr;grid-template-areas:'big big' 'neon art'}
+.prints{display:grid;gap:2px;width:100%;margin:20px 0 0;padding:0;background:var(--night)}
+.prints.pair{grid-template-columns:1fr 1fr;margin:24px 0 0;order:3}
 .prints figure{position:relative;margin:0;overflow:hidden;border-radius:0;background:#150C0D}
-.prints .a1{grid-area:big;aspect-ratio:16/10}
-.prints .a2{grid-area:neon;aspect-ratio:1/1}
-.prints .a4{grid-area:art;aspect-ratio:1/1}
-.prints .f{display:block;overflow:hidden;height:100%;background:#1A0F10}
-.prints img{display:block;width:100%;height:100%;object-fit:cover;filter:saturate(1.05) contrast(1.03)}
-.prints .a2 img{animation:drift 34s ease-in-out infinite alternate;transform-origin:34% 48%;will-change:transform}
-@keyframes drift{from{transform:scale(1.02)}to{transform:scale(1.09)}}
-.wrap{width:100%;max-width:600px;margin:0 auto;padding:0 16px 8px;animation:fadeup .6s ease-out .1s both}
+.prints .a1{aspect-ratio:720/455}
+.prints .a2,.prints .a4{aspect-ratio:1/1}
+.prints .f{display:block;overflow:hidden;height:100%;background:#150C0D}
+.prints img{display:block;width:100%;height:112%;object-fit:cover}
+.hero img,.prints img{filter:saturate(1.05) contrast(1.03)}
+.wrap{width:100%;max-width:600px;margin:0 auto;padding:0 16px 8px;}
 h1{margin:26px 0 4px;color:var(--cream);font:900 clamp(1.7rem,7.4vw,2.3rem)/1 "Archivo","Arial Black",system-ui,sans-serif;
   font-stretch:112%;letter-spacing:-.035em;text-transform:uppercase;text-align:start}
 [dir=rtl] h1{font:800 clamp(1.5rem,6.4vw,2rem)/1.15 "Baloo Bhaijaan 2",system-ui,sans-serif;letter-spacing:0;text-transform:none}
@@ -70,9 +71,10 @@ li:last-child{border-bottom:0}
   font-size:.84rem;font-weight:600;color:var(--dim)}
 .note::before{content:"— "}
 /* --- their tray paper under the sides --- */
-.tray{margin:34px -16px 0;padding:14px 0;border-radius:0;box-shadow:none;background-color:#E9D6CB;
+.tray{margin:34px -16px 0;padding:14px 0;border-radius:0;box-shadow:0 -18px 44px rgba(0,0,0,.6);background-color:#DFC9BC;
   background-image:linear-gradient(90deg,rgba(216,40,39,.55) 50%,transparent 50%),linear-gradient(rgba(216,40,39,.55) 50%,transparent 50%);background-size:26px 26px;--x:0 rgba(0,0,0,.2)}
-.fries{background:#FFF6EE;color:#8E1F1D;border-radius:0;padding:2px 16px 14px;box-shadow:none}
+.fries{background:linear-gradient(180deg,#F2E2D4,#E4CEBE);color:#8E1F1D;border-radius:0;padding:2px 16px 16px;
+  box-shadow:inset 0 22px 34px -22px rgba(255,200,150,.55),inset 0 -20px 40px -18px rgba(90,30,20,.35)}
 .fries h2{color:#8E1F1D;margin-top:16px}
 .fries h2::after{background:rgba(142,31,29,.3);margin-inline-end:0}
 .fries .price{color:#8E1F1D}
@@ -86,11 +88,11 @@ li:last-child{border-bottom:0}
 .act-k{font:700 .72rem/1 "Baloo Bhaijaan 2",system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;opacity:.72}
 [dir=rtl] .act-k{letter-spacing:0;text-transform:none;font-size:.82rem}
 /* 1 — the way there: a full-bleed slab, the one blue thing on the page */
-.act-dir{flex-direction:column;align-items:flex-start;gap:5px;padding:18px 16px 20px;background:#14267C;color:#EAF0FF;
+.act-dir{flex-direction:column;align-items:flex-start;gap:5px;padding:18px 16px 20px;background:var(--navy);color:#EAF0FF;
   border-top:1px solid rgba(140,170,255,.4);border-bottom:1px solid rgba(140,170,255,.4)}
 .act-dir .act-v{font:900 clamp(1.25rem,5.4vw,1.7rem)/1.05 "Archivo","Arial Black",system-ui,sans-serif;font-stretch:112%;letter-spacing:-.03em}
 [dir=rtl] .act-dir .act-v{font:800 1.15rem/1.35 "Baloo Bhaijaan 2",system-ui,sans-serif;letter-spacing:0}
-.act-dir:active{background:#0E1B5C}
+.act-dir:active{background:#1A2B63}
 /* 2 — the number itself, read out loud, no container */
 .act-tel{justify-content:space-between;gap:14px;padding:16px;border-bottom:1px solid rgba(255,150,132,.18)}
 .act-tel .act-v{font:900 clamp(1.3rem,5.6vw,1.75rem)/1 "Archivo","Arial Black",system-ui,sans-serif;font-stretch:112%;
@@ -112,13 +114,20 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
   width:auto;height:auto;background:none;border:0;border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;direction:ltr;z-index:2}
 .dock .thumb{display:none}
 .dock button{position:relative;appearance:none;border:0;background:none;cursor:pointer;padding:6px 2px;
-  font:700 .95rem/1 "Baloo Bhaijaan 2",system-ui,sans-serif;color:rgba(255,233,220,.38);transition:color .18s ease}
+  font:700 .95rem/1 "Baloo Bhaijaan 2",system-ui,sans-serif;color:#BCA69D;transition:color .18s ease}
 .dock button[aria-pressed="true"]{color:var(--yellow)}
 .dock button:focus-visible,a:focus-visible{outline:2px solid var(--cream);outline-offset:2px}
 [hidden]{display:none!important}
 @keyframes fadeup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){.wrap,.dock,.prints img{animation:none}.thumb{transition:none}.prints figure{transform:none}}
+/* The photographs pan inside fixed frames as they cross the screen — the page reads as a camera
+   walking past the shop. Nothing animates on load, and it reverses when you scroll back up, which is
+   what keeps it from reading as a screensaver. Frames never move, so nothing below ever reflows. */
+@media (prefers-reduced-motion:no-preference){@supports (animation-timeline:view()){
+  .hero img,.prints img{animation:pan linear both;animation-timeline:view();animation-range:cover 0% cover 100%;will-change:transform}
+  @keyframes pan{from{transform:translateY(0)}to{transform:translateY(-10.7%)}}
+}}
+@media (prefers-reduced-motion:reduce){.wrap,.dock,.hero img,.prints img,.prints .a1 img,.prints .a2 img,.prints .a4 img{animation:none!important}.thumb{transition:none}.prints figure{transform:none}}
 </style>
 </head>
 <body>
@@ -129,15 +138,12 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
     <button id="btn-en" lang="en" aria-pressed="false">English</button>
     <button id="btn-ar" lang="ar" aria-pressed="true">عربي</button>
   </nav>
-  <img class="mark" src="../stamp.png" width="96" height="96" alt="One For All">
+  <img class="mark" src="../stamp.png" width="128" height="128" alt="One For All">
   <figure class="hero">
     <img src="n-street.jpg" alt="One For All at night on Al-Hosn Road, the sign lit over the shopfront, people outside" width="1200" height="917" fetchpriority="high" decoding="async">
-    <figcaption data-en="Al-Hosn Road, after dark" data-ar="طريق الحصن، بعد المغرب">Al-Hosn Road, after dark</figcaption>
   </figure>
   <div class="prints">
-    <figure class="a1"><span class="f"><img src="door-1-place.jpg" alt="The One For All shopfront on Al-Hosn Road" width="640" height="640" loading="lazy" decoding="async"></span></figure>
-    <figure class="a2"><span class="f"><img src="n-neon.jpg" alt="The blue neon One For All sign inside the shop" width="600" height="952" loading="lazy" decoding="async"></span></figure>
-    <figure class="a4"><span class="f"><img src="n-art.jpg" alt="A painting night at One For All" width="680" height="680" loading="lazy" decoding="async"></span></figure>
+    <figure class="a1"><span class="f"><img src="n-wall.jpg" alt="Hand lettering on the wall inside One For All reading: we stopped selling burgers" width="720" height="455" loading="lazy" decoding="async"></span></figure>
   </div>
 <div class="wrap">
 
@@ -145,10 +151,10 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
     <h1>ون فور اول — القائمة</h1>
     <p class="tag">واحد للكل · The NST، طريق الحصن، إربد</p>
     <div class="actions">
-      <a class="act-dir" id="dir-ar" href="https://www.google.com/maps/search/?api=1&query=32.507500,35.874622"><span class="act-k">الاتجاهات</span><span class="act-v">Al-Hosn Road, ~200 m from Al-Hosn intersection</span></a>
+      <a class="act-dir" id="dir-ar" href="https://www.google.com/maps/search/?api=1&query=32.507500,35.874622"><span class="act-k">الاتجاهات</span><span class="act-v">طريق الحصن، على بعد 200 م تقريباً من إشارة الحصن</span></a>
       <a class="act-tel" href="tel:+962799098080"><span class="act-k">اتصل</span><span class="act-v">079 909 8080</span></a>
-      <a class="act-ig" href="https://instagram.com/oneforall.jo"><span class="act-k">إنستغرام</span><span class="act-v"><img class="badge-mk" src="../stamp.png" alt="" width="30" height="30" loading="lazy">@oneforall.jo</span></a>
-      <a class="act-card" href="../?lang=ar"><img class="card-mk" src="menu-ar-thumb.jpg" alt="" width="118" height="85" loading="lazy"><span class="act-v">المنيو المصوّر</span></a>
+      <a class="act-ig" href="https://instagram.com/oneforall.jo"><span class="act-k">إنستغرام</span><span class="act-v"><img class="badge-mk" src="../stamp.png" alt="" width="128" height="128" loading="lazy">@oneforall.jo</span></a>
+      <a class="act-card" href="../?lang=ar"><img class="card-mk" src="menu-ar-thumb.jpg" alt="" width="245" height="178" loading="lazy"><span class="act-v">المنيو المصوّر</span></a>
       <a class="card-link" href="#" hidden>بطاقتي</a>
     </div>
 
@@ -184,7 +190,7 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
       <li><span class="item">مشروبات غازية</span><span class="price">0.40</span></li>
       <li><span class="item">ماء</span><span class="price">0.25</span></li>
     </ul>
-    <footer>كلشي عنا بدينار وشوي · الأسعار بالدينار الأردني · ون فور اول في The NST — مكان واحد، بمداخل مختلفة</footer>
+    <footer>الأسعار بالدينار الأردني · ون فور اول في The NST — مكان واحد، بمداخل مختلفة</footer>
   </section>
 
   <section id="txt-en" lang="en" dir="ltr" hidden>
@@ -193,8 +199,8 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
     <div class="actions">
       <a class="act-dir" id="dir-en" href="https://www.google.com/maps/search/?api=1&query=32.507500,35.874622"><span class="act-k">Directions</span><span class="act-v">Al-Hosn Road, ~200 m from Al-Hosn intersection</span></a>
       <a class="act-tel" href="tel:+962799098080"><span class="act-k">Call</span><span class="act-v">079 909 8080</span></a>
-      <a class="act-ig" href="https://instagram.com/oneforall.jo"><span class="act-k">Instagram</span><span class="act-v"><img class="badge-mk" src="../stamp.png" alt="" width="30" height="30" loading="lazy">@oneforall.jo</span></a>
-      <a class="act-card" href="../?lang=en"><img class="card-mk" src="menu-en-thumb.jpg" alt="" width="118" height="85" loading="lazy"><span class="act-v">The menu card</span></a>
+      <a class="act-ig" href="https://instagram.com/oneforall.jo"><span class="act-k">Instagram</span><span class="act-v"><img class="badge-mk" src="../stamp.png" alt="" width="128" height="128" loading="lazy">@oneforall.jo</span></a>
+      <a class="act-card" href="../?lang=en"><img class="card-mk" src="menu-en-thumb.jpg" alt="" width="245" height="178" loading="lazy"><span class="act-v">The menu card</span></a>
       <a class="card-link" href="#" hidden>My card</a>
     </div>
 
@@ -230,11 +236,15 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
       <li><span class="item">Fizzy drinks</span><span class="price">0.40</span></li>
       <li><span class="item">Water</span><span class="price">0.25</span></li>
     </ul>
-    <footer>Everything here is a dinar and change · Prices in Jordanian dinar · One For All at the NST — one place, different ways in</footer>
+    <footer>Prices in Jordanian dinar · One For All at the NST — one place, different ways in</footer>
   </section>
 
 </div>
 
+  <div class="prints pair">
+    <figure class="a2"><span class="f"><img src="n-neon.jpg" alt="The blue neon One For All sign inside the shop" width="400" height="400" loading="lazy" decoding="async"></span></figure>
+    <figure class="a4"><span class="f"><img src="n-art.jpg" alt="A painting night at One For All" width="400" height="400" loading="lazy" decoding="async"></span></figure>
+  </div>
   <div class="floor"><img src="../lockup.svg" alt="The X Floor"></div>
 </main>
 
@@ -459,6 +469,5 @@ show(param || saved || (navigator.language.indexOf('ar') === 0 ? 'ar' : 'en'), f
 }
 </script>
 
-<script>(function(){var f=document.querySelector(".hero figcaption"),a=document.getElementById("txt-ar");if(!f||!a)return;var set=function(){var isAr=!a.hidden;f.textContent=isAr?f.dataset.ar:f.dataset.en;f.setAttribute("lang",isAr?"ar":"en")};set();new MutationObserver(set).observe(a,{attributes:true,attributeFilter:["hidden"]});})();</script>
 </body>
 </html>
