@@ -205,6 +205,11 @@ li:last-child{border-bottom:0}
    word and the dot are the upgrade. */
 .hours{display:flex;align-items:center;gap:9px;margin:0 0 20px;color:var(--dim);
   font-size:.92rem;font-weight:600;font-variant-numeric:tabular-nums;text-align:start}
+/* Irbid is a counter: no room to sit in. Someone reading this before they walk over needs to
+   know that, so it sits on the hours line rather than in a paragraph nobody reads. Revisit when
+   the outdoor seating they are building opens. */
+.tag-x{margin-inline-start:4px;padding:2px 7px 3px;border-radius:999px;font-size:.78rem;
+  color:var(--warm);background:rgba(255,246,238,.09);box-shadow:inset 0 0 0 1px rgba(255,150,132,.24)}
 .hours .dot{flex:none;width:9px;height:9px;border-radius:50%;background:var(--dim);
   box-shadow:0 0 0 3px rgba(255,246,238,.06)}
 .hours[data-open="1"]{color:var(--warm)}
@@ -299,8 +304,8 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
   <section id="txt-ar" lang="ar" dir="rtl" hidden>
     <h1>ون فور اول — القائمة</h1>
     <p class="tag">واحد للكل · The NST، طريق الحصن، إربد</p>
-    <p class="hours" data-on=" · مفتوح الآن" data-off=" · مغلق · يفتح 14:00"><span class="dot" aria-hidden="true"></span><span>يومياً 14:00 – 01:30</span><span class="st"></span></p>
-    <a class="walk" href="world/"><span>ادخل المحل</span></a>
+    <p class="hours" data-on=" · مفتوح الآن" data-off=" · مغلق · يفتح 14:00"><span class="dot" aria-hidden="true"></span><span>يومياً 14:00 – 01:30</span><span class="st"></span><span class="tag-x">سفري</span></p>
+    <a class="walk" href="world/"><span>كيف توصل</span></a>
 
 
     <h2>سماشد برجر</h2>
@@ -347,8 +352,8 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
   <section id="txt-en" lang="en" dir="ltr">
     <h1>One For All — Menu</h1>
     <p class="tag">One for all · The NST, Al-Hosn Road, Irbid</p>
-    <p class="hours" data-on=" · Open now" data-off=" · Closed · opens 14:00"><span class="dot" aria-hidden="true"></span><span>Daily 14:00 – 01:30</span><span class="st"></span></p>
-    <a class="walk" href="world/"><span>Walk in</span></a>
+    <p class="hours" data-on=" · Open now" data-off=" · Closed · opens 14:00"><span class="dot" aria-hidden="true"></span><span>Daily 14:00 – 01:30</span><span class="st"></span><span class="tag-x">Takeaway</span></p>
+    <a class="walk" href="world/"><span>Find us</span></a>
 
 
     <h2>Smashed Burgers</h2>

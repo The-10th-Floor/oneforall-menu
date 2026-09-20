@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>One For All — the walk in | Irbid</title>
-<meta name="description" content="Scroll to walk in: Al-Hosn Road to the counter to the burger. One For All at The NST, Irbid.">
+<title>One For All — find the sign | Irbid</title>
+<meta name="description" content="Scroll to find it: the lit sign on Al-Hosn Road, and the burger under it. One For All at The NST, Irbid.">
 <link rel="canonical" href="https://the-10th-floor.github.io/oneforall-menu/irbid/world/">
 <link rel="icon" href="../../stamp.png">
 <meta name="theme-color" content="#0C0708">
 <meta property="og:type" content="website">
-<meta property="og:title" content="One For All — the walk in">
-<meta property="og:description" content="Al-Hosn Road to the counter to the burger, in one continuous move.">
+<meta property="og:title" content="One For All — find the sign">
+<meta property="og:description" content="The lit sign on Al-Hosn Road, and the burger under it.">
 <meta property="og:url" content="https://the-10th-floor.github.io/oneforall-menu/irbid/world/">
 <meta property="og:image" content="https://the-10th-floor.github.io/oneforall-menu/irbid/n-street.jpg">
 <meta property="og:image:width" content="1000">
@@ -37,12 +37,13 @@
 
 <script src="sw.js"></script>
 <script>
-/* Four scenes, each one their own room re-rendered from their own photograph, emptied of people.
-   The camera only ever moves forward: street, inside, across the room, onto the food. */
+/* Two scenes, both true of THIS branch: the shopfront, and the burger. Irbid is a counter - no
+   room to sit in - so the interior scenes that were here are in the vault, for the branches that
+   have one. Both stills are re-rendered from their own photographs and hold no people. */
 mountScrollWorld(document.getElementById('world'), {
   brand: { name: 'One For All', href: '../' },
   cta: { label: 'See the menu', href: '../' },
-  hint: 'scroll to walk in',
+  hint: 'scroll',
   diveScroll: 1.3,
   connScroll: 0.9,
   sections: [
@@ -53,25 +54,7 @@ mountScrollWorld(document.getElementById('world'), {
       eyebrow: 'The NST, Al-Hosn Road, Irbid',
       title: 'Look for the lit sign.',
       body: 'Ground floor, on the corner, about 200 m from the Al-Hosn intersection.',
-      tags: ['Daily 14:00 – 01:30'],
-    },
-    {
-      id: 'room', label: 'Inside',
-      still: 'p/room.webp', clip: 'v/room.mp4', clipMobile: 'v/room-m.mp4',
-      accent: '#3E6BFF', scroll: 1.5, linger: 0.35,
-      eyebrow: 'Inside',
-      title: 'Red tile, blue neon.',
-      body: 'One room, one counter, and a ceiling full of lights.',
-      tags: [],
-    },
-    {
-      id: 'table', label: 'A table',
-      still: 'p/table.webp', clip: 'v/table.mp4', clipMobile: 'v/table-m.mp4',
-      accent: '#FFCC49',
-      eyebrow: 'Or sit down',
-      title: 'Checkered tables, under the awning.',
-      body: 'By the windows, looking out at the street you came in from.',
-      tags: [],
+      tags: ['Daily 14:00 – 01:30', 'Takeaway'],
     },
     {
       id: 'burger', label: 'The OFA',
@@ -85,10 +68,10 @@ mountScrollWorld(document.getElementById('world'), {
              secondary: { label: 'Directions', href: 'https://www.google.com/maps/dir/?api=1&destination=32.507500,35.874622' } },
     },
   ],
-  connectors:       ['v/c0.mp4', 'v/c1.mp4', 'v/c2.mp4'],
-  /* 720-wide, GOP 4: on a phone the seek cost is frames-from-keyframe, so the tighter
-     GOP is what stops a fast flick freezing the clip */
-  connectorsMobile: ['v/c0-m.mp4', 'v/c1-m.mp4', 'v/c2-m.mp4'],
+  /* null, not a clip: the two scenes are a shopfront and a studio still life, so the engine
+     crossfades the seam. A camera flying from a street into a red void would be worse, and
+     this costs nothing. */
+  connectors: [null],
 });
 </script>
 </body>
