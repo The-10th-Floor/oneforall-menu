@@ -28,7 +28,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- the wall's six characters, 2.4 KB: preloaded because the inline @font-face is only found
      after the CSS is parsed, and the swap was the page's whole layout shift -->
-<link rel="preload" as="image" type="image/webp" href="n-street.webp" fetchpriority="high">
 <link rel="preload" as="font" type="font/woff2" href="lemonada-slogan.woff2">
 <style>
 /* The font faces are here rather than behind a stylesheet request because that request was
@@ -46,7 +45,8 @@
    which is the failure the no-network test was run to rule out. Brief blank beats permanently wrong
    for the one purely-brand element on the page. */
 @font-face{font-family:'Archivo';font-style:normal;font-weight:900;font-stretch:112%;font-display:swap;src:url(https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XA35FckqWY8Q-ftrySOxK-vA.woff2) format('woff2');unicode-range:U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB}@font-face{font-family:'Archivo';font-style:normal;font-weight:900;font-stretch:112%;font-display:swap;src:url(https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XA35FckqWY8Q-ftryTOxK-vA.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}@font-face{font-family:'Archivo';font-style:normal;font-weight:900;font-stretch:112%;font-display:swap;src:url(https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XA35FckqWY8Q-ftrydOxI.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Baloo Bhaijaan 2';font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/baloobhaijaan2/v21/zYX9KUwuEqdVGqM8tPDdAA_Y-_bMAIRsdO_q.woff2) format('woff2');unicode-range:U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC4, U+10EFC-10EFF, U+1EE00-1EE03, U+1EE05-1EE1F, U+1EE21-1EE22, U+1EE24, U+1EE27, U+1EE29-1EE32, U+1EE34-1EE37, U+1EE39, U+1EE3B, U+1EE42, U+1EE47, U+1EE49, U+1EE4B, U+1EE4D-1EE4F, U+1EE51-1EE52, U+1EE54, U+1EE57, U+1EE59, U+1EE5B, U+1EE5D, U+1EE5F, U+1EE61-1EE62, U+1EE64, U+1EE67-1EE6A, U+1EE6C-1EE72, U+1EE74-1EE77, U+1EE79-1EE7C, U+1EE7E, U+1EE80-1EE89, U+1EE8B-1EE9B, U+1EEA1-1EEA3, U+1EEA5-1EEA9, U+1EEAB-1EEBB, U+1EEF0-1EEF1}@font-face{font-family:'Baloo Bhaijaan 2';font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/baloobhaijaan2/v21/zYX9KUwuEqdVGqM8tPDdAA_Y-_bMAI5sdO_q.woff2) format('woff2');unicode-range:U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB}@font-face{font-family:'Baloo Bhaijaan 2';font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/baloobhaijaan2/v21/zYX9KUwuEqdVGqM8tPDdAA_Y-_bMAI9sdO_q.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}@font-face{font-family:'Baloo Bhaijaan 2';font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/baloobhaijaan2/v21/zYX9KUwuEqdVGqM8tPDdAA_Y-_bMAIFsdA.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Baloo Bhaijaan 2';font-style:normal;font-weight:600;font-display:swap;src:url(https://fonts.gstatic.com/s/baloobhaijaan2/v21/zYX9KUwuEqdVGqM8tPDdAA_Y-_bMAIRsdO_q.woff2) format('woff2');unicode-range:U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC4, U+10EFC-10EFF, U+1EE00-1EE03, U+1EE05-1EE1F, U+1EE21-1EE22, U+1EE24, U+1EE27, U+1EE29-1EE32, U+1EE34-1EE37, U+1EE39, U+1EE3B, U+1EE42, U+1EE47, U+1EE49, U+1EE4B, U+1EE4D-1EE4F, U+1EE51-1EE52, U+1EE54, U+1EE57, U+1EE59, U+1EE5B, U+1EE5D, U+1EE5F, U+1EE61-1EE62, U+1EE64, U+1EE67-1EE6A, U+1EE6C-1EE72, U+1EE74-1EE77, U+1EE79-1EE7C, U+1EE7E, U+1EE80-1EE89, U+1EE8B-1EE9B, U+1EEA1-1EEA3, U+1EEA5-1EEA9, U+1EEAB-1EEBB, U+1EEF0-1EEF1}@font-face{font-family:'Baloo Bhaijaan 2';font-style:normal;font-weight:600;font-display:swap;src:url(https://fonts.gstatic.com/s/baloobhaijaan2/v21/zYX9KUwuEqdVGqM8tPDdAA_Y-_bMAI5sdO_q.woff2) format('woff2');unicode-range:U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB}@font-face{font-family:'Baloo Bhaijaan 2';font-style:normal;font-weight:600;font-display:swap;src:url(https://fonts.gstatic.com/s/baloobhaijaan2/v21/zYX9KUwuEqdVGqM8tPDdAA_Y-_bMAI9sdO_q.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}@font-face{font-family:'Baloo Bhaijaan 2';font-style:normal;font-weight:600;font-display:swap;src:url(https://fonts.gstatic.com/s/baloobhaijaan2/v21/zYX9KUwuEqdVGqM8tPDdAA_Y-_bMAIFsdA.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Baloo Bhaijaan 2';font-style:normal;font-weight:700;font-display:swap;src:url(https://fonts.gstatic.com/s/baloobhaijaan2/v21/zYX9KUwuEqdVGqM8tPDdAA_Y-_bMAIRsdO_q.woff2) format('woff2');unicode-range:U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC4, U+10EFC-10EFF, U+1EE00-1EE03, U+1EE05-1EE1F, U+1EE21-1EE22, U+1EE24, U+1EE27, U+1EE29-1EE32, U+1EE34-1EE37, U+1EE39, U+1EE3B, U+1EE42, U+1EE47, U+1EE49, U+1EE4B, U+1EE4D-1EE4F, U+1EE51-1EE52, U+1EE54, U+1EE57, U+1EE59, U+1EE5B, U+1EE5D, U+1EE5F, U+1EE61-1EE62, U+1EE64, U+1EE67-1EE6A, U+1EE6C-1EE72, U+1EE74-1EE77, U+1EE79-1EE7C, U+1EE7E, U+1EE80-1EE89, U+1EE8B-1EE9B, U+1EEA1-1EEA3, U+1EEA5-1EEA9, U+1EEAB-1EEBB, U+1EEF0-1EEF1}@font-face{font-family:'Baloo Bhaijaan 2';font-style:normal;font-weight:700;font-display:swap;src:url(https://fonts.gstatic.com/s/baloobhaijaan2/v21/zYX9KUwuEqdVGqM8tPDdAA_Y-_bMAI5sdO_q.woff2) format('woff2');unicode-range:U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB}@font-face{font-family:'Baloo Bhaijaan 2';font-style:normal;font-weight:700;font-display:swap;src:url(https://fonts.gstatic.com/s/baloobhaijaan2/v21/zYX9KUwuEqdVGqM8tPDdAA_Y-_bMAI9sdO_q.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}@font-face{font-family:'Baloo Bhaijaan 2';font-style:normal;font-weight:700;font-display:swap;src:url(https://fonts.gstatic.com/s/baloobhaijaan2/v21/zYX9KUwuEqdVGqM8tPDdAA_Y-_bMAIFsdA.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Baloo Bhaijaan 2';font-style:normal;font-weight:800;font-display:swap;src:url(https://fonts.gstatic.com/s/baloobhaijaan2/v21/zYX9KUwuEqdVGqM8tPDdAA_Y-_bMAIRsdO_q.woff2) format('woff2');unicode-range:U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC4, U+10EFC-10EFF, U+1EE00-1EE03, U+1EE05-1EE1F, U+1EE21-1EE22, U+1EE24, U+1EE27, U+1EE29-1EE32, U+1EE34-1EE37, U+1EE39, U+1EE3B, U+1EE42, U+1EE47, U+1EE49, U+1EE4B, U+1EE4D-1EE4F, U+1EE51-1EE52, U+1EE54, U+1EE57, U+1EE59, U+1EE5B, U+1EE5D, U+1EE5F, U+1EE61-1EE62, U+1EE64, U+1EE67-1EE6A, U+1EE6C-1EE72, U+1EE74-1EE77, U+1EE79-1EE7C, U+1EE7E, U+1EE80-1EE89, U+1EE8B-1EE9B, U+1EEA1-1EEA3, U+1EEA5-1EEA9, U+1EEAB-1EEBB, U+1EEF0-1EEF1}@font-face{font-family:'Baloo Bhaijaan 2';font-style:normal;font-weight:800;font-display:swap;src:url(https://fonts.gstatic.com/s/baloobhaijaan2/v21/zYX9KUwuEqdVGqM8tPDdAA_Y-_bMAI5sdO_q.woff2) format('woff2');unicode-range:U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB}@font-face{font-family:'Baloo Bhaijaan 2';font-style:normal;font-weight:800;font-display:swap;src:url(https://fonts.gstatic.com/s/baloobhaijaan2/v21/zYX9KUwuEqdVGqM8tPDdAA_Y-_bMAI9sdO_q.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}@font-face{font-family:'Baloo Bhaijaan 2';font-style:normal;font-weight:800;font-display:swap;src:url(https://fonts.gstatic.com/s/baloobhaijaan2/v21/zYX9KUwuEqdVGqM8tPDdAA_Y-_bMAIFsdA.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Lemonada';font-style:normal;font-weight:700;font-display:block;src:url(lemonada-slogan.woff2) format('woff2');unicode-range:U+20, U+627, U+62d, U+62f, U+643-644, U+648}
-:root{--yellow:#FFCC49;--cream:#FFF6EE;--navy:#253D8D;--awn-red:#F70E00;--awn-bone:#F4E8E2;
+:root{--tile:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='196' height='92'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23EE6A42'/%3E%3Cstop offset='.13' stop-color='%23D6381A'/%3E%3Cstop offset='.58' stop-color='%23BE250E'/%3E%3Cstop offset='1' stop-color='%23971507'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='196' height='92' fill='%23EBD3B6'/%3E%3Cg fill='url(%23g)'%3E%3Crect x='0' y='0' width='96' height='44' rx='2'/%3E%3Crect x='98' y='0' width='96' height='44' rx='2'/%3E%3Crect x='-49' y='46' width='96' height='44' rx='2'/%3E%3Crect x='49' y='46' width='96' height='44' rx='2'/%3E%3Crect x='147' y='46' width='96' height='44' rx='2'/%3E%3C/g%3E%3C/svg%3E");
+  --yellow:#FFCC49;--cream:#FFF6EE;--navy:#253D8D;--awn-red:#F70E00;--awn-bone:#F4E8E2;
   --night:#0C0708;--night2:#150C0D;--lit:#FF5A4E;--blue:#3E6BFF;--warm:#FFE9DC;--dim:#C79A8C}
 *{box-sizing:border-box}
 html,body{margin:0;overflow-x:clip;background:var(--night);color:var(--warm)}
@@ -68,19 +68,22 @@ main{flex:1;width:100%;display:flex;flex-direction:column}
   background:repeating-linear-gradient(90deg,var(--awn-bone) 0 30px,var(--awn-red) 30px 60px);filter:saturate(1.08);box-shadow:0 12px 30px rgba(0,0,0,.7)}
 .awning::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,186,132,.10),rgba(40,11,6,.13) 52%,rgba(14,7,8,.46))}
 .awning::after{content:"";position:absolute;left:0;right:0;top:100%;height:15px;background:radial-gradient(circle at 15px 0,var(--awn-bone) 14.5px,transparent 15px) 0 0/60px 15px repeat-x,radial-gradient(circle at 45px 0,var(--awn-red) 14.5px,transparent 15px) 0 0/60px 15px repeat-x;filter:drop-shadow(0 6px 8px rgba(0,0,0,.6)) brightness(.86) saturate(1.08)}
-/* --- their poster: heavy red capitals on warm white, cropped by the edge (their post of 2026-07) --- */
-/* Their mark is one element, fixed, and it travels. It rests in the bar's slot - top-left, 34px
-   - and the scroll animation below starts it big over the shopfront and brings it home. Without
-   scroll-driven animation it simply sits in the bar, which is the right still frame anyway. */
+/* Their mark, on their wall. It is a fixed element on purpose: it starts big on the tile and the
+   scroll animation below walks it into the bar, so the logo you land on is the logo that ends up
+   in the corner. Without scroll-driven animation it simply sits in the bar. */
 .mark{position:fixed;left:16px;top:calc(9px + env(safe-area-inset-top));z-index:7;
   height:34px;width:auto;
   filter:drop-shadow(0 0 26px rgba(255,150,110,.42)) drop-shadow(0 12px 24px rgba(0,0,0,.72))}
-.hero{position:sticky;top:0;z-index:0;width:100%;margin:-6px 0 0;aspect-ratio:5/4;max-height:74vh;overflow:hidden}
-.hero picture{display:contents}
-.hero img{display:block;width:100%;height:108%;object-fit:cover;object-position:50% 56%;filter:saturate(1.06)}
-.hero::after{content:'';position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(180deg,transparent 74%,rgba(12,7,8,.5) 92%,rgba(12,7,8,.9)),radial-gradient(66% 50% at 50% 48%,rgba(12,7,8,.30),rgba(12,7,8,.16) 62%,rgba(12,7,8,.7))}
-/* the night sky at the top of their photograph is the same black as the page, so the frame has no edge */
+/* The hero and the band below it are ONE wall: the same tile, the same size, no seam. Their mark
+   hangs on the upper part, their line is painted on the lower, which is what the shop actually
+   looks like. It is the page's own material rather than a photograph, so nothing to load and
+   nothing that can drift or age. */
+.hero{position:sticky;top:0;z-index:0;width:100%;aspect-ratio:1/1;max-height:46vh;overflow:hidden;
+  background-color:#A81B0B;
+  background-image:radial-gradient(46% 32% at 50% 44%,rgba(255,190,138,.52),rgba(255,116,66,.15) 48%,transparent 76%),
+    var(--tile);
+  background-size:100% 100%,156px 66px;
+  box-shadow:inset 0 26px 30px -16px rgba(12,7,8,.95)}
 /* Their line, on their wall. The tile is drawn as one SVG unit in a running bond and repeated,
    so it is sharp at any width and costs 600 bytes; the colours are sampled off their own wall
    (face #BE250E, grout #EBD3B6) and the words are live text in their yellow, rgb(241,203,11). */
@@ -90,9 +93,9 @@ main{flex:1;width:100%;display:flex;flex-direction:column}
   min-height:calc(1.95 * clamp(2.2rem,10.5vw,3.9rem) + 72px);
   background-color:#A81B0B;
   background-image:radial-gradient(118% 96% at 50% 0%,rgba(255,176,120,.52),rgba(255,116,66,.14) 40%,transparent 66%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='196' height='92'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23EE6A42'/%3E%3Cstop offset='.13' stop-color='%23D6381A'/%3E%3Cstop offset='.58' stop-color='%23BE250E'/%3E%3Cstop offset='1' stop-color='%23971507'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='196' height='92' fill='%23EBD3B6'/%3E%3Cg fill='url(%23g)'%3E%3Crect x='0' y='0' width='96' height='44' rx='2'/%3E%3Crect x='98' y='0' width='96' height='44' rx='2'/%3E%3Crect x='-49' y='46' width='96' height='44' rx='2'/%3E%3Crect x='49' y='46' width='96' height='44' rx='2'/%3E%3Crect x='147' y='46' width='96' height='44' rx='2'/%3E%3C/g%3E%3C/svg%3E");
+    var(--tile);
   background-size:100% 100%,156px 66px;
-  box-shadow:inset 0 26px 30px -16px rgba(12,7,8,.95),inset 0 -26px 30px -16px rgba(12,7,8,.95)}
+  box-shadow:inset 0 -26px 30px -16px rgba(12,7,8,.95)}
 /* stacked and tilted, the way it is painted on the wall */
 .slogan p{position:relative;z-index:1;margin:0;width:100%;direction:rtl;text-align:center;color:rgb(241,203,11);
   font:700 clamp(2.2rem,10.5vw,3.9rem)/.92 "Lemonada","Baloo Bhaijaan 2",system-ui,sans-serif;
@@ -203,7 +206,7 @@ li:last-child{border-bottom:0}
 .act-card .act-v{font-weight:700}
 /* Open or shut, in the shop's own clock. The printed hours stand alone without JavaScript; the
    word and the dot are the upgrade. */
-.hours{display:flex;align-items:center;gap:9px;margin:0 0 20px;color:var(--dim);
+.hours{display:flex;align-items:center;flex-wrap:wrap;gap:6px 9px;margin:0 0 20px;color:var(--dim);
   font-size:.92rem;font-weight:600;font-variant-numeric:tabular-nums;text-align:start}
 /* Irbid is a counter: no room to sit in. Someone reading this before they walk over needs to
    know that, so it sits on the hours line rather than in a paragraph nobody reads. Revisit when
@@ -274,13 +277,11 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
   @keyframes barin{from{opacity:0;transform:translateY(-101%)}55%{opacity:0;transform:translateY(-101%)}to{opacity:1;transform:none}}
 }}
 @media (prefers-reduced-motion:no-preference){@supports (animation-timeline:view()){
-  .hero img{animation:pan linear both;animation-timeline:view();animation-range:cover 0% cover 100%;will-change:transform}
   /* the two things rise onto the glass as it comes into the screen */
   .stage .obj{animation:stand linear both;animation-timeline:view();animation-range:cover 6% cover 62%}
   @keyframes stand{from{transform:translateY(26px);opacity:.25}to{transform:translateY(0);opacity:1}}
-  @keyframes pan{from{transform:translateY(0)}to{transform:translateY(-7.4%)}}
 }}
-@media (prefers-reduced-motion:reduce){.wrap,.mark,.topbar,.hero img,.stage .obj{animation:none!important}}
+@media (prefers-reduced-motion:reduce){.wrap,.mark,.topbar,.stage .obj{animation:none!important}}
 </style>
 </head>
 <body>
@@ -290,12 +291,7 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
   <button class="lang" id="btn-lang" type="button" lang="ar">عربي</button>
 </header>
 <main>
-  <figure class="hero">
-    <picture>
-      <source srcset="n-street.webp" type="image/webp">
-      <img src="n-street.jpg" alt="One For All's lit sign on their red wall under the NST, Al-Hosn Road, at dusk" width="1000" height="747" fetchpriority="high" decoding="async">
-    </picture>
-  </figure>
+  <div class="hero" aria-hidden="true"></div>
   <section class="slogan" lang="ar" dir="rtl" aria-label="واحد للكل">
     <p><span>واحد</span><span>للكل</span></p>
   </section>
