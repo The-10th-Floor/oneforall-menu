@@ -15,8 +15,8 @@
      oneforall-menu/irbid/. They have broken twice by naming a photo a later change had deleted, and a
      broken og:image is invisible - the share preview just goes blank. Re-check both after any photo swap. -->
 <meta property="og:image" content="https://the-10th-floor.github.io/oneforall-menu/irbid/n-street.jpg">
-<meta property="og:image:width" content="1488">
-<meta property="og:image:height" content="1181">
+<meta property="og:image:width" content="1000">
+<meta property="og:image:height" content="794">
 <meta property="og:image:alt" content="One For All at the NST, Al-Hosn Road, Irbid, at dusk">
 <meta property="og:locale" content="ar_JO">
 <meta property="og:locale:alternate" content="en_US">
@@ -25,6 +25,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- the wall's six characters, 2.4 KB: preloaded because the inline @font-face is only found
      after the CSS is parsed, and the swap was the page's whole layout shift -->
+<link rel="preload" as="image" type="image/webp" href="n-street.webp" fetchpriority="high">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/l/font?kit=0QI-MXFD9oygTWy_R-FFlwV-bgfR7QJGnex2nO2V9UQWl6LMA6zXpD3CNw&skey=fb52792da5c33628&v=v31">
 <style>
 /* The font faces are here rather than behind a stylesheet request because that request was
@@ -61,6 +62,7 @@ main{flex:1;width:100%;display:flex;flex-direction:column}
   transform:translate(-50%,-54%);
   filter:drop-shadow(0 0 26px rgba(255,150,110,.42)) drop-shadow(0 12px 24px rgba(0,0,0,.72))}
 .hero{position:sticky;top:0;z-index:0;width:100%;margin:-6px 0 0;aspect-ratio:5/4;max-height:74vh;overflow:hidden}
+.hero picture{display:contents}
 .hero img:not(.mark){display:block;width:100%;height:108%;object-fit:cover;object-position:50% 56%;filter:saturate(1.06)}
 .hero::after{content:'';position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(180deg,transparent 74%,rgba(12,7,8,.5) 92%,rgba(12,7,8,.9)),radial-gradient(66% 50% at 50% 48%,rgba(12,7,8,.30),rgba(12,7,8,.16) 62%,rgba(12,7,8,.7))}
@@ -252,7 +254,10 @@ h2,.dock button[aria-pressed="true"]{color:var(--cream);background-color:#C7201E
 </header>
 <main>
   <figure class="hero">
-    <img src="n-street.jpg" alt="Their shopfront at dusk under the NST on Al-Hosn Road, the sign lit" width="1488" height="1181" fetchpriority="high" decoding="async">
+    <picture>
+      <source srcset="n-street.webp" type="image/webp">
+      <img src="n-street.jpg" alt="Their shopfront at dusk under the NST on Al-Hosn Road, the sign lit" width="1000" height="794" fetchpriority="high" decoding="async">
+    </picture>
     <img class="mark" src="../ofa-badge.webp" width="480" height="568" alt="One For All" fetchpriority="high">
   </figure>
   <section class="slogan" lang="ar" dir="rtl" aria-label="واحد للكل">
