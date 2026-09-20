@@ -67,7 +67,7 @@ h2{display:table;margin:38px 0 10px;padding:6px 16px 7px;color:var(--cream);
 ul{list-style:none;margin:0;padding:0;
   background-image:linear-gradient(90deg,rgba(216,40,39,.042) 50%,transparent 50%),linear-gradient(rgba(216,40,39,.042) 50%,transparent 50%);background-size:26px 26px}
 .fries ul{background-image:none}
-li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:11px 0;border-bottom:1px solid rgba(255,246,238,.11)}
+li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:11px 0;border-bottom:1.5px dotted rgba(255,246,238,.26)}
 li:last-child{border-bottom:0}
 .item{font-weight:600;font-size:1rem;line-height:1.25}
 .desc{display:block;font-weight:400;font-size:.79rem;color:var(--dim);opacity:.85;margin-top:3px}
@@ -79,11 +79,11 @@ li:last-child{border-bottom:0}
 /* --- their tray paper under the sides --- */
 .tray{margin:34px -16px 0;padding:14px 0;border-radius:0;box-shadow:0 -18px 44px rgba(0,0,0,.6);background-color:#DFC9BC;
   background-image:linear-gradient(90deg,rgba(216,40,39,.55) 50%,transparent 50%),linear-gradient(rgba(216,40,39,.55) 50%,transparent 50%);background-size:26px 26px;--x:0 rgba(0,0,0,.2)}
-.fries{background:linear-gradient(180deg,#F2E2D4,#E4CEBE);color:#8E1F1D;border-radius:0;padding:2px 16px 16px;
+.fries{background:linear-gradient(180deg,#F2E2D4,#E4CEBE);color:#8E1F1D;border-radius:0;padding:10px 16px 16px;outline:2px dashed rgba(199,32,30,.4);outline-offset:-10px;
   box-shadow:inset 0 22px 34px -22px rgba(255,200,150,.55),inset 0 -20px 40px -18px rgba(90,30,20,.35)}
 .fries h2{color:var(--cream);margin-top:18px}
 .fries .price{color:#8E1F1D}
-.fries li{border-bottom-color:rgba(216,40,39,.18)}
+.fries li{border-bottom:1.5px dotted rgba(199,32,30,.45)}
 .fries .desc{color:#8E1F1D;opacity:1}
 /* Four different jobs, so four different objects: a slab you walk to, a number you read out,
    their own account badge, and the printed card itself. None of them is a pill. */
@@ -99,11 +99,13 @@ li:last-child{border-bottom:0}
 [dir=rtl] .act-dir .act-v{font:800 1.15rem/1.35 "Baloo Bhaijaan 2",system-ui,sans-serif;letter-spacing:0}
 .act-dir:active{background:#1A2B63}
 /* 2 — the number itself, read out loud, no container */
-.act-tel{justify-content:space-between;gap:14px;padding:16px;border-bottom:1px solid rgba(255,150,132,.18)}
+.act-tel{justify-content:space-between;gap:14px;padding:16px;
+  border-bottom:3px solid transparent;border-image:repeating-linear-gradient(90deg,rgba(247,14,0,.5) 0 8px,rgba(244,232,226,.34) 8px 16px) 3}
 .act-tel .act-v{font:900 clamp(1.3rem,5.6vw,1.75rem)/1 "Archivo","Arial Black",system-ui,sans-serif;font-stretch:112%;
   letter-spacing:-.02em;color:var(--cream);direction:ltr}
 /* 3 — their own account, wearing their own badge */
-.act-ig{justify-content:space-between;gap:14px;padding:14px 16px;border-bottom:1px solid rgba(255,150,132,.18)}
+.act-ig{justify-content:space-between;gap:14px;padding:14px 16px;
+  border-bottom:3px solid transparent;border-image:repeating-linear-gradient(90deg,rgba(247,14,0,.5) 0 8px,rgba(244,232,226,.34) 8px 16px) 3}
 .act-ig .act-v{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--yellow);direction:ltr}
 .badge-mk{width:auto;height:30px;flex:none;display:block}
 /* 4 — the printed card is the button */
@@ -250,8 +252,8 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
 </div>
 
   <div class="prints pair">
-    <figure class="a2"><span class="f"><img src="n-mudir.jpg" alt="«المدير», the One For All character, on their tiled wall" width="520" height="520" loading="lazy" decoding="async"></span></figure>
-    <figure class="a4"><span class="f"><img src="n-shake.jpg" alt="A One For All milkshake under the striped awning" width="520" height="520" loading="lazy" decoding="async"></span></figure>
+    <figure class="a2"><span class="f"><img src="n-burger.jpg" alt="A stacked One For All smashed burger" width="640" height="640" loading="lazy" decoding="async"></span></figure>
+    <figure class="a4"><span class="f"><img src="n-shake.jpg" alt="A One For All milkshake under the striped awning" width="640" height="640" loading="lazy" decoding="async"></span></figure>
   </div>
   <div class="floor"><img src="../lockup.svg" alt="The X Floor"></div>
 </main>
