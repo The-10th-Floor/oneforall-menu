@@ -43,6 +43,9 @@
      the engine uses on its small capitals, pulls joined Arabic letters apart, so it goes. */
   html[dir=rtl], html[dir=rtl] .sw-root { --sw-font-display: "Baloo Bhaijaan 2", system-ui, sans-serif; }
   html[dir=rtl] #world * { letter-spacing: 0 !important; }
+  /* "01 / 02" is numbers and a slash, which a right-to-left line reorders into "02 / 01" - scene 2
+     of 1. A count reads left to right in every language. */
+  #world .sw-copy__num { direction: ltr; unicode-bidi: isolate; display: inline-block; }
   /* with no script there is no film: their street, the two things you came for, and the way back */
   .nojs { box-sizing: border-box; min-height: 100dvh; display: grid; align-content: end; gap: 14px; padding: 24px 18px 34px;
     color: #FFF6EE; font: 500 16px/1.55 "Baloo Bhaijaan 2", system-ui, sans-serif;
