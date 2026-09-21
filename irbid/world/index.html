@@ -27,6 +27,18 @@
     --sw-font-body: "Baloo Bhaijaan 2", system-ui, sans-serif;
   }
   html, body { margin: 0; background: #0C0708; }
+  /* Their mark, not the engine's placeholder square: the same badge file the menu page flies into
+     its bar, so a visitor arriving from the menu already has it cached. #world is here because the
+     engine injects its own sheet after this one and would win on equal specificity. */
+  #world .sw-brand__mark {
+    width: 30px; height: 36px; border-radius: 0; box-shadow: none;
+    background: url(../../ofa-badge.webp) center / contain no-repeat;
+    filter: drop-shadow(0 0 14px rgba(255,150,110,.4)) drop-shadow(0 6px 12px rgba(0,0,0,.7));
+  }
+  /* on a phone the scroll hint sat against the last row of the caption's pills */
+  @media (max-width: 860px) {
+    #world .sw-copy { bottom: calc(clamp(104px, 16dvh, 140px) + env(safe-area-inset-bottom)); }
+  }
 </style>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;600;700;800&family=Archivo:wdth,wght@112,900&display=swap" rel="stylesheet">
