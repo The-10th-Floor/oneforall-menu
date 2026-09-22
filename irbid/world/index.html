@@ -92,20 +92,44 @@ const BACK = '../?lang=' + lang;
 const T = {
   en: {
     title: 'One For All — find the sign | Irbid',
-    cta: 'See the menu', hint: 'scroll',
+    cta: 'See the menu', hint: 'scroll', soon: 'Coming',
     street: { label: 'Al-Hosn Road', eyebrow: 'The NST, Al-Hosn Road, Irbid', title: 'Look for the lit sign.',
               body: 'Ground floor, on the corner, about 200 m from the Al-Hosn intersection.',
               tags: ['Daily 14:00 – 01:30', 'Takeaway'] },
+    lane:   { label: 'The lane', eyebrow: 'From the lane', title: 'You will see us from the lane too.',
+              body: 'The screen and the posters on BLK\'s drive-through, before you reach our corner.', tags: [] },
+    terrace:{ label: 'Outside', eyebrow: 'Coming', title: 'Sit outside.',
+              body: 'Tables and umbrellas in front of the window, under our sign.', tags: ['Coming'] },
+    window: { label: 'The window', eyebrow: 'Order', title: 'Order at the window.',
+              body: 'The menu is one tap away: hold your phone to the piece beside the window.', tags: ['NFC menu', 'Takeaway'] },
+    arrival:{ label: 'Drive-through', eyebrow: 'Coming', title: 'Right, drive-through. Left, park.',
+              body: 'You come in and face the circle. A small sign points: left you park and walk up, right you order from the car.', tags: ['Coming'] },
+    booth:  { label: 'The booth', eyebrow: 'Order from the car', title: 'The booth on your left, face to face.',
+              body: 'Our own window, small, on the circle.', tags: ['Coming'] },
+    pickup: { label: 'Pick-up', eyebrow: 'Pick up here', title: 'Carry on right, pick up at the window.',
+              body: 'The sign faces you as you come up; the window is on your left.', tags: ['Coming'] },
     burger: { label: 'The OFA', eyebrow: 'The OFA', title: 'Smashed, stacked, 1.98.',
               body: 'Patty, cheese, One For All sauce. Prices in Jordanian dinar.',
               primary: 'See the whole menu', secondary: 'Directions' },
   },
   ar: {
     title: 'ون فور اول — دوّر عاللوحة | إربد',
-    cta: 'شوف المنيو', hint: 'مرّر',
+    cta: 'شوف المنيو', hint: 'مرّر', soon: 'قريباً',
     street: { label: 'طريق الحصن', eyebrow: 'The NST، طريق الحصن، إربد', title: 'دوّر عاللوحة المضوية.',
               body: 'الطابق الأرضي، عالزاوية. طريق الحصن، على بعد 200 م تقريباً من إشارة الحصن.',
               tags: ['يومياً 14:00 – 01:30', 'سفري'] },
+    lane:   { label: 'الممر', eyebrow: 'من الممر', title: 'بتشوفنا من الممر كمان.',
+              body: 'الشاشة والبوسترات عدرايف ثرو BLK، قبل ما توصل زاويتنا.', tags: [] },
+    terrace:{ label: 'برّا', eyebrow: 'قريباً', title: 'اقعد برّا.',
+              body: 'طاولات ومظلّات قدّام الشباك، تحت لوحتنا.', tags: ['قريباً'] },
+    window: { label: 'الشباك', eyebrow: 'اطلب', title: 'اطلب من الشباك.',
+              body: 'المنيو بلمسة: قرّب تلفونك من القطعة اللي جنب الشباك.', tags: ['منيو NFC', 'سفري'] },
+    arrival:{ label: 'الدرايف ثرو', eyebrow: 'قريباً', title: 'يمين درايف ثرو، يسار موقف.',
+              body: 'بتدخل وبتلاقي الدوّار واللوحة الصغيرة: يسار بتركن وبتمشي، يمين بتطلب من السيارة.', tags: ['قريباً'] },
+    booth:  { label: 'الكشك', eyebrow: 'اطلب من السيارة', title: 'الكشك عيسارك، والطلب وجهاً لوجه.',
+              body: 'نفس شباكنا، بس صغير وعالدوّار.', tags: ['قريباً'] },
+    pickup: { label: 'الاستلام', eyebrow: 'استلم هنا', title: 'كمّل عاليمين، واستلم من الشباك.',
+              body: 'اللوحة بتواجهك وأنت جاي، والشباك عيسارك.', tags: ['قريباً'] },
     burger: { label: 'الـOFA', eyebrow: 'الـOFA', title: 'سماشد برجر بـ 1.98',
               body: 'برجر، صوص ون فور اول، جبنة. الأسعار بالدينار الأردني.',
               primary: 'المنيو كامل', secondary: 'الاتجاهات' },
@@ -126,6 +150,47 @@ mountScrollWorld(document.getElementById('world'), {
       accent: '#FF5A4E',
       eyebrow: T.street.eyebrow, title: T.street.title, body: T.street.body, tags: T.street.tags,
     },
+    /* v2, 2026-09-22 - the visit in order, on the founder's own frames. The lane is his real footage
+       (IMG_5513, nobody in it). The rest are the renders of the arrival (v6) and the clean plates of the
+       frontage, each moved by a slow ffmpeg push on the full-resolution still: the lettering stays as
+       placed and nothing is paid for. Scenes marked Coming are not built yet - the terrace, the circle,
+       the booth, the pick-up. */
+    {
+      id: 'lane', label: T.lane.label,
+      still: 'p/lane.webp', clip: 'v/lane.mp4', clipMobile: 'v/lane-m.mp4',
+      accent: '#FF7A3C',
+      eyebrow: T.lane.eyebrow, title: T.lane.title, body: T.lane.body, tags: T.lane.tags,
+    },
+    {
+      id: 'terrace', label: T.terrace.label,
+      still: 'p/terrace.webp', clip: 'v/terrace.mp4', clipMobile: 'v/terrace-m.mp4',
+      accent: '#FFCC49',
+      eyebrow: T.terrace.eyebrow, title: T.terrace.title, body: T.terrace.body, tags: T.terrace.tags,
+    },
+    {
+      id: 'window', label: T.window.label,
+      still: 'p/window.webp', clip: 'v/window.mp4', clipMobile: 'v/window-m.mp4',
+      accent: '#3E6BFF', linger: 0.4,
+      eyebrow: T.window.eyebrow, title: T.window.title, body: T.window.body, tags: T.window.tags,
+    },
+    {
+      id: 'arrival', label: T.arrival.label,
+      still: 'p/arrival.webp', clip: 'v/arrival.mp4', clipMobile: 'v/arrival-m.mp4',
+      accent: '#FFCC49', scroll: 1.6,
+      eyebrow: T.arrival.eyebrow, title: T.arrival.title, body: T.arrival.body, tags: T.arrival.tags,
+    },
+    {
+      id: 'booth', label: T.booth.label,
+      still: 'p/booth.webp', clip: 'v/booth.mp4', clipMobile: 'v/booth-m.mp4',
+      accent: '#FF5A4E',
+      eyebrow: T.booth.eyebrow, title: T.booth.title, body: T.booth.body, tags: T.booth.tags,
+    },
+    {
+      id: 'pickup', label: T.pickup.label,
+      still: 'p/pickup.webp', clip: 'v/pickup.mp4', clipMobile: 'v/pickup-m.mp4',
+      accent: '#3E6BFF',
+      eyebrow: T.pickup.eyebrow, title: T.pickup.title, body: T.pickup.body, tags: T.pickup.tags,
+    },
     {
       id: 'burger', label: T.burger.label,
       still: 'p/burger.webp', clip: 'v/burger.mp4', clipMobile: 'v/burger-m.mp4',
@@ -136,10 +201,10 @@ mountScrollWorld(document.getElementById('world'), {
              secondary: { label: T.burger.secondary, href: MAPS } },
     },
   ],
-  /* null, not a clip: the two scenes are a shopfront and a studio still life, so the engine
-     crossfades the seam. A camera flying from a street into a red void would be worse, and
-     this costs nothing. */
-  connectors: [null],
+  /* null, not clips: every seam is a cut between two different places (a street, a lane, a
+     shopfront, a render, a studio still life), so the engine crossfades them. A camera flying
+     from one into the other would be invented, and this costs nothing. */
+  connectors: [null, null, null, null, null, null, null],
 });
 </script>
 </body>
