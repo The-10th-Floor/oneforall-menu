@@ -13,19 +13,20 @@ the one customers stand at. Everything below is read from those photos; measure 
 - The blue window frame is steel/aluminium → NFC tag must NOT sit on or within ~40 mm of it.
 
 ## Where the holder goes  `[measured off the 2026-09-21 footage; tape it before drilling]`
-**Inside the recessed panel immediately LEFT of the ordering window, hard against the blue frame.**
+**On the wall to the RIGHT of the ordering window, between that window and the blue door.**
 
-The founder settled both of the open questions on 2026-09-22: *"the nfc is bigger than that and it goes
-next right to the window"*.
+The founder settled the size and the side on 2026-09-22: *"the nfc is bigger than that and it goes next
+right to the window"*, then *"the nfc tag is 35 cm by 35 i think or sth like that which gives the shape,
+so basicly its to the right and bigger"*.
 
 | Item | Value | Why |
 |---|---|---|
-| **The piece's real size** | **154 x 121 mm** (the red backplate, `holder/laser/L0_backplate_RED_3mm.svg`) | 130 mm is the artwork width, not the part that goes on the wall. Every drawing before 2026-09-22 showed it too small |
-| Horizontal | **40 mm** between the holder's right edge and the blue frame - its centre **117 mm** left of the frame | The tag must clear the metal by ~40 mm and no more; anything further out stops reading as part of the window |
-| The recess | The window sits in a recessed panel whose edge is **227 mm** left of the frame | At 154 mm wide the piece spans 40-194 mm from the frame, so it is **entirely inside the recess**, flat on one plane, crossing no step. Earlier drafts put it on the raised band 342 mm out - that is now wrong |
-| Vertical | Holder centre **1100 mm** above finished floor (range 1000-1200) | Research (NFC UX + ADA reach band 380-1220 mm); the iPhone antenna is at the top-back edge, so slightly lower is easier than higher |
+| **Size** | **~350 mm across** (the laser files are drawn at 154 x 121 mm — that is a plaque, this is a sign) | His call. At 350 mm it is found from the queue, not discovered by accident. The artwork is 1.27 : 1, so 350 across gives **~275 tall** and the burger keeps its shape; a true 350 x 350 means squaring up the backplate in `build_holder.py` |
+| **Side** | **RIGHT of the ordering window**, centred in the wall panel between the window and the door | His call. Measured on the 2026-09-21 frame: the window frame ends and the door frame starts **610 mm** apart, so a 350 mm piece centres with **130 mm** clear each side — far past the 40 mm an NFC tag needs from metal |
+| Vertical | Centre **1100 mm** above finished floor (range 1000–1200) | Research (NFC UX + ADA reach band 380–1220 mm); the iPhone antenna is at the top-back edge, so slightly lower is easier than higher |
 | Orientation | Face vertical, parallel to the wall | Phones tap flat against it |
 | Sight line | Visible from the queue position ~1.5 m back | People discover it while waiting, not after ordering |
+| **The tag itself does not change** | 30–38 mm NTAG213, antenna ≥25 mm | A bigger holder does not read further. It only makes the piece easier to find |
 
 Do **not** put it on the glass: the glass is fine for NFC, but the frame around it is metal and the pane
 gets cleaned with solvents; the plaster wall is the durable position.
