@@ -286,6 +286,33 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
   .stage .obj{animation:stand linear both;animation-timeline:view();animation-range:cover 6% cover 62%}
   @keyframes stand{from{transform:translateY(26px);opacity:.25}to{transform:translateY(0);opacity:1}}
 }}
+/* Find us - the page's one scroll-driven moment. Real footage of the lane (IMG_5513, 2026-09-21),
+   nobody in it, tone-mapped from the iPhone's HLG so the screen reads One For All red rather than
+   orange. Scroll moves the camera. With reduced motion or no script the still is the whole scene
+   and the section is one screen tall. The frame is anchored to its physical left in both languages:
+   the screen is on the left of the photograph, and a photograph does not mirror. */
+.find{order:3;position:relative;background:var(--night)}
+.find-stage{position:relative;height:100vh;height:100svh;overflow:hidden;
+  background:var(--night) url(find/lane.webp) 0% 50%/cover no-repeat}
+.find.is-scrub{height:230vh}
+.find.is-scrub .find-stage{position:sticky;top:0}
+.find-v{display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:0% 50%;
+  opacity:0;transition:opacity .45s ease}
+.find.is-scrub .find-v{display:block}
+.find-v.on{opacity:1}
+.find-stage::after{content:"";position:absolute;inset:auto 0 0;height:56%;pointer-events:none;
+  background:linear-gradient(to top,var(--night) 10%,rgba(12,7,8,.78) 46%,rgba(12,7,8,0))}
+.find-copy{position:absolute;inset:auto 0 0;z-index:1;margin-inline:auto;max-width:600px;padding:0 16px 44px}
+.find-k{margin:0 0 6px;color:var(--yellow);font-weight:700}
+.find h2{display:block;margin:0 0 10px;text-wrap:balance}
+.find [lang=en] h2{text-transform:none;line-height:1.08}
+.find h2::after{display:none}
+.find p.find-b{margin:0 0 18px;color:var(--cream);font-size:1.05rem;line-height:1.55;max-width:34ch}
+.find-dir{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 26px;
+  border-radius:999px;background:#152C86;color:#EAF0FF;font-weight:800;text-decoration:none}
+.find-dir:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
+@media (max-width:860px){.find-stage{background-image:url(find/lane-m.webp)}
+  .find-copy{padding-bottom:calc(44px + env(safe-area-inset-bottom))}}
 @media (prefers-reduced-motion:reduce){.wrap,.mark,.topbar,.stage .obj{animation:none!important}}
 </style>
 </head>
@@ -313,7 +340,7 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
     <h1>ون فور اول — القائمة</h1>
     <p class="tag">واحد للكل · The NST، طريق الحصن، إربد</p>
     <p class="hours" data-on=" · مفتوح الآن" data-off=" · مغلق · يفتح 14:00"><span class="dot" aria-hidden="true"></span><span>يومياً 14:00 – 01:30</span><span class="st"></span><span class="tag-x">سفري</span></p>
-    <a class="walk" href="world/?lang=ar"><span>كيف توصل</span></a>
+    <a class="walk" href="#find"><span>كيف توصل</span></a>
 
 
     <h2>سماشد برجر</h2>
@@ -361,7 +388,7 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
     <h1>One For All — Menu</h1>
     <p class="tag">One for all · The NST, Al-Hosn Road, Irbid</p>
     <p class="hours" data-on=" · Open now" data-off=" · Closed · opens 14:00"><span class="dot" aria-hidden="true"></span><span>Daily 14:00 – 01:30</span><span class="st"></span><span class="tag-x">Takeaway</span></p>
-    <a class="walk" href="world/?lang=en"><span>Find us</span></a>
+    <a class="walk" href="#find"><span>Find us</span></a>
 
 
     <h2>Smashed Burgers</h2>
@@ -407,6 +434,26 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
 
 </div>
 
+  <section class="find" id="find">
+    <div class="find-stage">
+      <video class="find-v" muted playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
+      <div class="find-copy">
+        <div id="find-en" lang="en" dir="ltr">
+          <p class="find-k">The NST, Al-Hosn Road, Irbid</p>
+          <h2>You will see us from the lane too.</h2>
+          <p class="find-b">The screen and the posters on BLK's drive-through, before you reach our corner.</p>
+          <a class="find-dir" href="https://www.google.com/maps/dir/?api=1&destination=32.507500,35.874622">Directions</a>
+        </div>
+        <div id="find-ar" lang="ar" dir="rtl" hidden>
+          <p class="find-k"><bdi>The NST</bdi>، طريق الحصن، إربد</p>
+          <h2>بتشوفنا من الممر كمان.</h2>
+          <p class="find-b">الشاشة والبوسترات عدرايف ثرو <bdi>BLK</bdi>، قبل ما توصل زاويتنا.</p>
+          <a class="find-dir" href="https://www.google.com/maps/dir/?api=1&destination=32.507500,35.874622">الاتجاهات</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="glass" aria-label="The OFA and the milkshake">
     <div class="sheet" aria-hidden="true"></div>
     <div class="stage">
@@ -447,6 +494,7 @@ const show = (l, remember) => {
   langBtn.setAttribute('aria-label', l === 'en' ? 'اقرأ بالعربية' : 'Read in English');
   document.getElementById('cta-' + (l === 'ar' ? 'ar' : 'en')).hidden = false;
   document.getElementById('cta-' + (l === 'ar' ? 'en' : 'ar')).hidden = true;
+  for (const k of ['ar', 'en']) { const el = document.getElementById('find-' + k); if (el) el.hidden = k !== l; }
   for (const a of document.querySelectorAll('.card-link')) if (LOYALTY_URL) { a.href = LOYALTY_URL + '?lang=' + l; a.hidden = false; }
   document.documentElement.lang = l;
   document.documentElement.dir = (l === 'ar') ? 'rtl' : 'ltr';
@@ -472,8 +520,51 @@ if (cta && 'IntersectionObserver' in window) {
     for (const e of es) e.isIntersecting ? seen.add(e.target) : seen.delete(e.target);
     cta.dataset.tuck = seen.size ? '1' : '0';
   }, { threshold: 0 });
-  for (const a of document.querySelectorAll('.actions')) io.observe(a);
+  for (const a of document.querySelectorAll('.actions, .find-dir')) io.observe(a);
 }
+/* Find us: scroll moves the camera down the lane. The clip is fetched as a Blob (always seekable)
+   only once the section is within 600px, so nobody who stops at the menu downloads it. Seeks are
+   coalesced - a new time is set only after the last one lands. Phones paint a seeked frame only
+   after the video has played once, so the first touch plays and pauses it, as the film engine does. */
+(() => {
+  const sec = document.getElementById('find'), v = sec && sec.querySelector('.find-v');
+  if (!v || !('IntersectionObserver' in window) || !window.fetch) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const phone = matchMedia('(max-width: 860px)').matches;
+  sec.classList.add('is-scrub');   /* only now does the section grow tall enough to scroll through */
+  let dur = 0, want = 0, busy = false, primed = false;
+  const prime = () => {
+    if (primed || !v.src) return; primed = true;
+    try { const p = v.play(); if (p && p.then) p.then(() => v.pause()).catch(() => {}); } catch (e) {}
+  };
+  const seek = () => {
+    if (!dur || busy || Math.abs(v.currentTime - want) < 0.034) return;
+    busy = true; v.currentTime = want;
+  };
+  v.addEventListener('seeked', () => { busy = false; v.classList.add('on'); seek(); });
+  const read = () => {
+    const r = sec.getBoundingClientRect(), span = r.height - innerHeight;
+    if (span <= 0) return;
+    want = Math.min(1, Math.max(0, -r.top / span)) * dur;
+    seek();
+  };
+  const load = () => fetch(phone ? 'find/lane-m.mp4' : 'find/lane.mp4')
+    .then(r => r.ok ? r.blob() : Promise.reject(r.status))
+    .then(b => {
+      v.addEventListener('loadedmetadata', () => { dur = Math.max(0, v.duration - 0.05); read(); }, { once: true });
+      v.src = URL.createObjectURL(b);
+    })
+    .catch(() => {});   /* the still stays: only the motion is lost */
+  new IntersectionObserver((es, o) => { if (es.some(e => e.isIntersecting)) { o.disconnect(); load(); } },
+    { rootMargin: '600px 0px' }).observe(sec);
+  let tick = false;
+  addEventListener('scroll', () => {
+    if (tick) return; tick = true;
+    requestAnimationFrame(() => { tick = false; read(); });
+  }, { passive: true });
+  addEventListener('touchstart', prime, { passive: true });
+  addEventListener('pointerdown', prime, { passive: true });
+})();
 const param = new URLSearchParams(location.search).get('lang');
 let saved = null; try { saved = localStorage.getItem(KEY); } catch (e) {}
 /* English is the default, on the founder's call, and the served document now says so: html
