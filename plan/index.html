@@ -115,23 +115,6 @@
   .bar div.lit{background:var(--acc)} .bar div.done{background:var(--good)}
   .st{font-size:18px;font-weight:700;margin:2px 0}
   .clk{font-family:"JetBrains Mono",monospace;font-size:14px;color:var(--t3);margin:0 0 4px}
-  /* the car, not a bay number */
-  .cols{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 9px}
-  .colb{font:inherit;cursor:pointer;background:var(--bone);border:1.5px solid var(--bone-line);border-radius:99px;
-        padding:5px 11px 5px 7px;font-size:12.5px;color:var(--t1);display:inline-flex;align-items:center;gap:6px}
-  .colb i{width:13px;height:13px;border-radius:99px;display:block;border:1px solid rgba(0,0,0,.18)}
-  .colb.on{border-color:var(--acc);background:var(--acc-soft);font-weight:600}
-  .carin{width:100%;font:inherit;font-size:14px;background:var(--bone);border:1.5px solid var(--bone-line);
-         border-radius:9px;padding:9px 11px;color:var(--t1)}
-  .carin:focus{border-color:var(--acc);outline:none}
-  .carknown{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--bone);
-            border:1.5px solid var(--bone-line);border-radius:9px;padding:9px 11px;font-size:14px}
-  .carknown b{display:inline-flex;align-items:center;gap:7px;font-weight:600}
-  .carknown i{width:13px;height:13px;border-radius:99px;display:block;border:1px solid rgba(0,0,0,.18)}
-  .lnk{background:none;border:0;font:inherit;font-size:12.5px;color:var(--acc-deep);cursor:pointer;
-       text-decoration:underline;text-underline-offset:2px;padding:0}
-  .cartag{font-family:"JetBrains Mono",monospace;font-size:9.5px;background:var(--ink-3);color:var(--bone);
-          border-radius:4px;padding:1px 6px;margin-left:6px;white-space:nowrap}
 
   /* kitchen board */
   .kds{background:var(--ink);border-radius:14px;padding:15px}
@@ -149,8 +132,6 @@
           margin-top:5px;display:inline-block;padding:2px 7px;border-radius:4px;background:var(--ink-3);color:var(--muted)}
   .lane.cook .lane-b{background:#3A2F14;color:#E3A93B}
   .lane.ready .lane-b{background:#16351F;color:#5BC47C}
-  .baytag{font-family:"JetBrains Mono",monospace;font-size:9.5px;background:var(--ink-3);color:var(--bone);
-          border-radius:4px;padding:1px 6px;margin-left:6px}
 
   /* plan */
   .planwrap{background:var(--paper);border:1px solid var(--bone-line);border-radius:14px;padding:14px;overflow-x:auto}
@@ -260,7 +241,13 @@
     <div>
       <p><b>Try it.</b> Add two burgers and the times appear with what is left on the grill in each one. Two slots are already full and will not take the order.</p>
       <p>Book, then press <b>On my way</b>. The ticket moves onto the kitchen board beside it, and not before.</p>
-      <p>The customer tells us the car once, a colour and a make. After that it is remembered, so arriving is nothing but pulling in. The runner looks for a white Corolla, which is how a person finds a car anyway.</p>
+      <p><b>Nothing else is asked for.</b> Not a name, not a phone number, not the car. The food is handed through a window to the one car standing at it, so five characters on the screen are the whole hand-over. Anything more is a field to fill in that nobody reads back.</p>
+      <div class="chips">
+        <span class="chip"><b>Not asked</b> a name</span>
+        <span class="chip"><b>Not asked</b> a phone number</span>
+        <span class="chip"><b>Not asked</b> the car</span>
+        <span class="chip"><b>Not built</b> numbered bays</span>
+      </div>
       <p class="fine">Grill capacity is set here at eight per five minutes as a placeholder. That number comes from the real line, and it is the single most important setting in the whole system.</p>
     </div>
   </div>
@@ -277,7 +264,8 @@
       <div id="lanes"></div>
     </div>
     <div>
-      <p>Three states, and the board only ever shows these: <b>waiting</b> for the customer's signal, <b>cooking</b>, and <b>ready</b> with the car to run it out to.</p>
+      <p>Three states, and the board only ever shows these: <b>waiting</b> for the customer's signal, <b>cooking</b>, and <b>ready</b> to hand over.</p>
+      <p><b>If the signal never comes, the slot sends it.</b> The grill place was booked and held either way, so an order starts at its collection time whether or not the customer presses anything. The button only ever makes it earlier. Nobody drives in to find nothing.</p>
       <p>The same board tells the kitchen what is coming in the next slots, so the line can be staffed against a number instead of a guess.</p>
       <p class="fine">A web page cannot track a customer in the background on a phone, so the signal has to be a button. That is the ceiling, not a shortcut, and it is the same signal the large chains pay location tracking to get.</p>
     </div>
@@ -487,22 +475,12 @@
     {id:"shake", n:"Milk shake",           d:"",                                        p:2.50, g:0}
   ];
   var BY={}; MENU.forEach(function(i){BY[i.id]=i});
-  var COLOURS=[{k:"White",h:"#F2F0EA"},{k:"Black",h:"#22232A"},{k:"Silver",h:"#C6C8CC"},
-               {k:"Grey",h:"#84878E"},{k:"Red",h:"#C23A2B"},{k:"Blue",h:"#2B4E90"}];
   var SLOT_MIN=5, CAP=8, COOK=600000, SPEED=15;
   var cart={}, chosen=null, order=null, tick=null, slots=[], kitchen=[];
-  var car=null, editCar=false, pickCol=null;
-
-  /* the car lives on the loyalty card in production; the demo keeps it in this browser */
-  function loadCar(){ try{ var r=localStorage.getItem("ofa_car"); return r?JSON.parse(r):null; }catch(e){ return null; } }
-  function saveCar(c){ try{ localStorage.setItem("ofa_car", JSON.stringify(c)); }catch(e){} }
-  car = loadCar();
 
   function two(n){return (n<10?"0":"")+n}
   function hhmm(d){return two(d.getHours())+":"+two(d.getMinutes())}
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
-  function hex(k){for(var i=0;i<COLOURS.length;i++) if(COLOURS[i].k===k) return COLOURS[i].h; return "#C6C8CC"}
-  function carName(c){ return c ? (c.colour + (c.make ? " " + c.make : " car")) : ""; }
   var el=function(i){return document.getElementById(i)};
 
   function build(){
@@ -510,13 +488,12 @@
     b.setMinutes(Math.ceil((b.getMinutes()+10)/SLOT_MIN)*SLOT_MIN);
     slots=[]; kitchen=[];
     var load=[6,8,3,5,8,2,4,1];
-    var demo=[{c:"Black",m:"Sonata"},{c:"White",m:"Corolla"},{c:"Silver",m:"Rio"}];
     for(var i=0;i<8;i++){
       var t=new Date(b.getTime()+i*SLOT_MIN*60000);
       slots.push({t:t,taken:load[i]});
       if(i<3) kitchen.push({code:["7KQ2M","4BX9T","2MV6R"][i], slot:t,
         items: load[i]>=6 ? "3 \u00d7 The OFA \u00b7 2 Fries" : "1 \u00d7 The Classic \u00b7 Shake",
-        state: i===0?"cook":"wait", car:{colour:demo[i].c, make:demo[i].m}});
+        state: i===0?"cook":"wait"});
     }
   }
   function units(){var n=0;for(var k in cart)n+=BY[k].g*cart[k];return n}
@@ -524,24 +501,6 @@
   function count(){var n=0;for(var k in cart)n+=cart[k];return n}
   function line(){var o=[];for(var k in cart)o.push(cart[k]+" \u00d7 "+BY[k].n);return o.join(" \u00b7 ")}
   function code(){var A="23456789BCDFGHJKLMNPQRSTVWXZ",s="";for(var i=0;i<5;i++)s+=A[Math.floor(Math.random()*A.length)];return s}
-
-  /* one row. Known car collapses to a line; otherwise six colours and a make. */
-  function carBlock(){
-    if(car && !editCar){
-      return '<p class="sh">Your car</p><div class="carknown">'+
-             '<b><i style="background:'+hex(car.colour)+'"></i>'+esc(carName(car))+'</b>'+
-             '<button class="lnk" id="carEdit">change</button></div>';
-    }
-    var h='<p class="sh">Your car &mdash; we bring it out to you</p><div class="cols">';
-    COLOURS.forEach(function(c){
-      h+='<button class="colb'+(pickCol===c.k?' on':'')+'" data-col="'+c.k+'">'+
-         '<i style="background:'+c.h+'"></i>'+c.k+'</button>';
-    });
-    h+='</div><input class="carin" id="carMake" placeholder="Make or model, e.g. Kia Rio" value="'+
-       esc(car&&car.make?car.make:'')+'" autocomplete="off">'+
-       '<p class="hint">Asked once. After this it is remembered on your card.</p>';
-    return h;
-  }
 
   function renderOrder(){
     var h='';
@@ -563,13 +522,10 @@
       });
       h+='</div>';
       if(u) h+='<p class="hint">This order takes '+u+' of the '+CAP+' places on the grill in that five minutes.</p>';
-      h+=carBlock();
       h+='<div class="tot"><span>Total</span><span class="mono">'+total().toFixed(2)+' <small style="font-size:12px;color:var(--t3)">JOD</small></span></div>';
       h+='<p class="hint">'+esc(line())+'</p>';
-      var haveCar = (car && !editCar) || pickCol;
-      var ready = chosen!==null && haveCar;
-      h+='<button class="go" id="confirm"'+(ready?'':' disabled')+'>'+
-         (chosen===null ? 'Pick a time' : (haveCar ? 'Book '+hhmm(slots[chosen].t) : 'Pick your car colour'))+'</button>';
+      h+='<button class="go" id="confirm"'+(chosen===null?' disabled':'')+'>'+
+         (chosen===null ? 'Pick a time' : 'Book '+hhmm(slots[chosen].t))+'</button>';
       h+='<button class="go ghost" id="clear">Start again</button>';
     } else {
       h+='<p class="hint">Pick something and the times appear, with what is left on the grill in each one.</p>';
@@ -577,7 +533,7 @@
     el("screen").innerHTML=h;
   }
 
-  var ST={booked:{n:"Booked",s:0},cook:{n:"On the grill",s:1},ready:{n:"Coming out to you",s:2}};
+  var ST={booked:{n:"Booked",s:0},cook:{n:"On the grill",s:1},ready:{n:"Ready",s:2}};
 
   function renderTicket(){
     var st=ST[order.state], h='<div class="tk">';
@@ -589,12 +545,14 @@
     if(order.state==="booked"){
       h+='<p class="clk">Nothing is cooking yet. Press this when you leave.</p>';
       h+='<button class="go alt" id="otw">On my way</button>';
+      h+='<p class="hint">Forget to, and it starts at '+hhmm(order.slot)+' anyway. The place on the grill is already yours.</p>';
     } else if(order.state==="cook"){
       var s=Math.ceil(Math.max(0,order.readyAt-Date.now())/1000*SPEED);
       h+='<p class="clk">Ready in '+Math.floor(s/60)+':'+two(s%60)+'</p>';
-      h+='<p class="hint">Pull in anywhere on the lane. We are looking for the '+esc(carName(order.car))+'.</p>';
+      h+='<p class="hint">Drive to the window. If you arrive first, pull into the bay on your right and stay in the car.</p>';
     } else {
-      h+='<p class="clk">On the way out to the '+esc(carName(order.car))+'. Pay at the car.</p>';
+      h+='<p class="clk">Read out your code at the window and pay there.</p>';
+      h+='<p class="hint">Already pulled into the bay? Stay in the car, it comes to you.</p>';
       h+='<button class="go" id="done">Collected</button>';
     }
     h+='<button class="go ghost" id="clear" style="margin-top:10px">New order</button></div>';
@@ -603,14 +561,13 @@
 
   function renderKds(){
     var rows=kitchen.slice();
-    if(order) rows.unshift({code:order.code,slot:order.slot,items:line(),car:order.car,mine:true,state:order.state});
+    if(order) rows.unshift({code:order.code,slot:order.slot,items:line(),mine:true,state:order.state});
     el("lanes").innerHTML=rows.map(function(r){
       var lab = r.state==="cook" ? "Cooking"
-              : r.state==="ready" ? "Run it out \u2014 "+carName(r.car)
+              : r.state==="ready" ? "Ready \u2014 hand it over"
               : "Waiting for the signal";
       var cls = r.state==="cook" ? "cook" : (r.state==="ready" ? "ready" : "wait");
-      return '<div class="lane '+cls+'"><div class="lane-t"><span class="lane-c">'+esc(r.code)+(r.mine?' \u2190':'')+
-        (r.car?'<span class="cartag">'+esc(carName(r.car)).toUpperCase()+'</span>':'')+'</span>'+
+      return '<div class="lane '+cls+'"><div class="lane-t"><span class="lane-c">'+esc(r.code)+(r.mine?' \u2190':'')+'</span>'+
         '<span class="lane-s">'+hhmm(r.slot)+'</span></div>'+
         '<p class="lane-i">'+esc(r.items||"\u2014")+'</p><span class="lane-b">'+esc(lab)+'</span></div>';
     }).join("");
@@ -631,23 +588,12 @@
     if(t.dataset.add){ cart[t.dataset.add]=(cart[t.dataset.add]||0)+1;
       if(chosen!==null && CAP-slots[chosen].taken<units()) chosen=null; renderOrder(); return; }
     if(t.dataset.slot){ chosen=+t.dataset.slot; renderOrder(); return; }
-    if(t.dataset.col){
-      var mk=el("carMake"); var typed = mk ? mk.value : ((car&&car.make)||"");
-      pickCol=t.dataset.col; editCar=true;          /* stay open so the make field survives */
-      renderOrder();
-      var m=el("carMake"); if(m){ m.value=typed; m.focus(); }
-      return;
-    }
-    if(t.id==="carEdit"){ editCar=true; pickCol=car?car.colour:null; renderOrder(); return; }
     if(t.id==="confirm"){
-      var mk2=el("carMake");
-      if(mk2) { car={colour:pickCol||(car&&car.colour)||"Silver", make:mk2.value.trim()}; saveCar(car); }
-      editCar=false;
-      order={code:code(),slot:slots[chosen].t,state:"booked",readyAt:0,car:car};
+      order={code:code(),slot:slots[chosen].t,state:"booked",readyAt:0};
       slots[chosen].taken+=units(); renderTicket(); renderKds(); return;
     }
     if(t.id==="otw"){ order.state="cook"; order.readyAt=Date.now()+COOK/SPEED; renderTicket(); renderKds(); startTick(); return; }
-    if(t.id==="done"||t.id==="clear"){ order=null; cart={}; chosen=null; editCar=false; pickCol=null;
+    if(t.id==="done"||t.id==="clear"){ order=null; cart={}; chosen=null;
       build(); renderOrder(); renderKds(); return; }
   });
 
