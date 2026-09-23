@@ -240,7 +240,7 @@
     </div>
     <div>
       <p><b>Try it.</b> Add two burgers and the times appear with what is left on the grill in each one. Two slots are already full and will not take the order.</p>
-      <p>Book, then press <b>On my way</b>. The ticket moves onto the kitchen board beside it, and not before.</p>
+      <p><b>There is no second step.</b> The burger takes ten minutes, so the earliest time offered is ten minutes away and the grill starts ten minutes before the time chosen. One number sets both ends, and the cook always fits.</p>
       <p><b>Nothing else is asked for.</b> Not a name, not a phone number, not the car. The food is handed through a window to the one car standing at it, so five characters on the screen are the whole hand-over. Anything more is a field to fill in that nobody reads back.</p>
       <div class="chips">
         <span class="chip"><b>Not asked</b> a name</span>
@@ -256,18 +256,18 @@
 <!-- ===================== 02 THE KITCHEN ===================== -->
 <section><div class="wrap">
   <p class="lab">02 &middot; The kitchen</p>
-  <h2>Nothing cooks until the customer is coming</h2>
-  <p class="sub">A booking holds a place. It does not start a burger. The ticket enters the cook queue on one tap from the customer, which is what keeps a ten-minute item off the lane.</p>
+  <h2>The grill starts ten minutes before the car does</h2>
+  <p class="sub">A booking holds a place on the grill and sets the minute it goes on. Nothing is cooked early and left standing, and nothing is started once the car is already in the lane.</p>
   <div class="two">
     <div class="kds">
       <div class="ph"><b>Kitchen board</b><span>the queue</span></div>
       <div id="lanes"></div>
     </div>
     <div>
-      <p>Three states, and the board only ever shows these: <b>waiting</b> for the customer's signal, <b>cooking</b>, and <b>ready</b> to hand over.</p>
-      <p><b>If the signal never comes, the slot sends it.</b> The grill place was booked and held either way, so an order starts at its collection time whether or not the customer presses anything. The button only ever makes it earlier. Nobody drives in to find nothing.</p>
+      <p>Three states, and the board only ever shows these: <b>queued</b> with the minute it goes on, <b>cooking</b>, and <b>ready</b> to hand over.</p>
+      <p><b>The customer is never asked to confirm.</b> An earlier draft had them press a button when they set off. Anyone ordering a burger is already setting off, so the press arrived in the same moment as the order and told us nothing &mdash; and against a later slot it would have started a cook that then stood waiting for the car.</p>
       <p>The same board tells the kitchen what is coming in the next slots, so the line can be staffed against a number instead of a guess.</p>
-      <p class="fine">A web page cannot track a customer in the background on a phone, so the signal has to be a button. That is the ceiling, not a shortcut, and it is the same signal the large chains pay location tracking to get.</p>
+      <p class="fine">A web page cannot tell when a customer actually leaves, and the large chains buy location tracking to find out. This does not need it. The customer named a time, and a time they chose is a firmer thing to cook against than a guess at their driving.</p>
     </div>
   </div>
 </div></section>
@@ -543,13 +543,14 @@
     for(var i=0;i<3;i++) h+='<div class="'+(i<st.s?'done':(i===st.s?'lit':''))+'"></div>';
     h+='</div><p class="st">'+st.n+'</p>';
     if(order.state==="booked"){
-      h+='<p class="clk">Nothing is cooking yet. Press this when you leave.</p>';
-      h+='<button class="go alt" id="otw">On my way</button>';
-      h+='<p class="hint">Forget to, and it starts at '+hhmm(order.slot)+' anyway. The place on the grill is already yours.</p>';
+      h+='<p class="clk">On the grill at '+hhmm(new Date(order.slot.getTime()-COOK))+'</p>';
+      h+='<p class="hint">Nothing for you to do. Drive over and it is made for the time you picked.</p>';
+      h+='<button class="go ghost" id="skip">Jump the clock &mdash; demo only</button>';
     } else if(order.state==="cook"){
       var s=Math.ceil(Math.max(0,order.readyAt-Date.now())/1000*SPEED);
       h+='<p class="clk">Ready in '+Math.floor(s/60)+':'+two(s%60)+'</p>';
       h+='<p class="hint">Drive to the window. If you arrive first, pull into the bay on your right and stay in the car.</p>';
+      h+='<button class="go ghost" id="skip">Jump the clock &mdash; demo only</button>';
     } else {
       h+='<p class="clk">Read out your code at the window and pay there.</p>';
       h+='<p class="hint">Already pulled into the bay? Stay in the car, it comes to you.</p>';
@@ -565,7 +566,7 @@
     el("lanes").innerHTML=rows.map(function(r){
       var lab = r.state==="cook" ? "Cooking"
               : r.state==="ready" ? "Ready \u2014 hand it over"
-              : "Waiting for the signal";
+              : "Queued \u2014 on at "+hhmm(new Date(r.slot.getTime()-COOK));
       var cls = r.state==="cook" ? "cook" : (r.state==="ready" ? "ready" : "wait");
       return '<div class="lane '+cls+'"><div class="lane-t"><span class="lane-c">'+esc(r.code)+(r.mine?' \u2190':'')+'</span>'+
         '<span class="lane-s">'+hhmm(r.slot)+'</span></div>'+
@@ -577,7 +578,8 @@
     if(tick) clearInterval(tick);
     tick=setInterval(function(){
       if(!order) return;
-      if(order.state==="cook" && Date.now()>=order.readyAt){ order.state="ready"; renderTicket(); renderKds(); }
+      if(order.state==="booked" && Date.now()>=order.onAt){ order.state="cook"; renderTicket(); renderKds(); }
+      else if(order.state==="cook" && Date.now()>=order.readyAt){ order.state="ready"; renderTicket(); renderKds(); }
       else if(order.state==="cook") renderTicket();
     },250);
   }
@@ -589,10 +591,17 @@
       if(chosen!==null && CAP-slots[chosen].taken<units()) chosen=null; renderOrder(); return; }
     if(t.dataset.slot){ chosen=+t.dataset.slot; renderOrder(); return; }
     if(t.id==="confirm"){
-      order={code:code(),slot:slots[chosen].t,state:"booked",readyAt:0};
-      slots[chosen].taken+=units(); renderTicket(); renderKds(); return;
+      /* the slot is the trigger: on the grill at collection minus ten, ready at collection.
+         the demo runs that real timetable at SPEED so it is watchable. */
+      var wait=Math.max(0,(slots[chosen].t.getTime()-COOK)-Date.now())/SPEED;
+      order={code:code(),slot:slots[chosen].t,state:"booked",onAt:Date.now()+wait,readyAt:Date.now()+wait+COOK/SPEED};
+      slots[chosen].taken+=units(); renderTicket(); renderKds(); startTick(); return;
     }
-    if(t.id==="otw"){ order.state="cook"; order.readyAt=Date.now()+COOK/SPEED; renderTicket(); renderKds(); startTick(); return; }
+    if(t.id==="skip"){
+      if(order.state==="booked"){ var d=order.onAt-Date.now(); order.onAt-=d; order.readyAt-=d; }
+      else if(order.state==="cook"){ order.readyAt=Date.now(); }
+      return;
+    }
     if(t.id==="done"||t.id==="clear"){ order=null; cart={}; chosen=null;
       build(); renderOrder(); renderKds(); return; }
   });
