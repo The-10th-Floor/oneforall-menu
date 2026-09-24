@@ -117,6 +117,7 @@ const build = async (lang, animate) => {
     img.src = 'menu-' + lang + '.svg';
     img.alt = '';
     img.className = 'piece';
+    img.draggable = false;   /* a finger drawn across the card moves its panels; it must not pick up the picture */
     img.dataset.depth = p.depth;
     const st = img.style;
     st.setProperty('--t', p.t + '%'); st.setProperty('--r', p.r + '%'); st.setProperty('--b', p.b + '%'); st.setProperty('--l', p.l + '%');
@@ -151,6 +152,31 @@ const armTilt = () => {
 };
 if (matchMedia('(pointer:fine)').matches) addEventListener('pointermove', e => parallax((e.clientX / innerWidth - .5) * 2, (e.clientY / innerHeight - .5) * 2));
 if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission !== 'function') armTilt();
+
+/* A phone has no pointer to follow, and iOS gives tilt only behind a permission prompt, so there the card
+   went still the moment it landed. On a touch screen the panels now drift in depth on their own, follow a
+   finger drawn across the card, and give way to the phone's tilt wherever the browser supplies it.
+   Paused while the card is off screen or the tab is hidden; nothing at all under reduced motion. */
+if (!matchMedia('(pointer:fine)').matches && !still) {
+  let raf = 0, inView = true, lead = -1e9, since = 0, fx = 0, fy = 0;
+  const drift = t => {
+    raf = requestAnimationFrame(drift);
+    if (!settled || t - lead < 2000) { since = 0; return; }   // landing, or a finger or the tilt is steering
+    if (!since) since = t;
+    const k = Math.min(1, (t - since) / 1200), s = (t - since) / 1000;   // ease in from where the panels are
+    const dx = Math.sin(s * .8), dy = .6 * Math.sin(s * .6 + .5);
+    parallax(fx + (dx - fx) * k, fy + (dy - fy) * k);
+  };
+  const sync = () => { cancelAnimationFrame(raf); raf = inView && !document.hidden ? requestAnimationFrame(drift) : 0; };
+  new IntersectionObserver(([e]) => { inView = e.isIntersecting; sync(); }).observe(stage);
+  document.addEventListener('visibilitychange', sync);
+  stage.addEventListener('touchmove', e => {
+    const p = e.touches[0]; lead = performance.now();
+    fx = clamp((p.clientX / innerWidth - .5) * 2); fy = clamp((p.clientY / innerHeight - .5) * 2);
+    parallax(fx, fy);
+  }, { passive: true });
+  addEventListener('deviceorientation', e => { if (e.gamma != null) lead = performance.now(); }, { passive: true });
+}
 
 /* Language: ?lang= wins, then a remembered choice, then the phone's language, then Arabic.
    Spec: nfc-piece/README.md "Menu language". */
