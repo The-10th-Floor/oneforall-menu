@@ -108,7 +108,7 @@ and leave a redirect at the old URL — no tag needs rewriting as long as the ol
 
 ## What is still open  `[NEEDS ZAID]`
 1. **Push `site/` to the repo** (replaces `index.html`, adds `print.html`, `logo.png`, new `qr.*`). Not pushed — say the word.
-2. **Irbid branch maps link** for the Directions button (currently a Google Maps search for "One For All Irbid").
+2. ~~**Irbid branch maps link** for the Directions button.~~ Done 2026-09-24: the listing is live (CID `2649453184101416150`) and Directions start navigation to it by place ID.
 3. **Acrylic or print?** Print kit is cheaper and faster; acrylic looks more premium under the soffit lights at night (they run to 1 AM).
 4. Site measurements per `install/PLACEMENT.md` before drilling.
 5. Optional: Cloudflare Web Analytics snippet on `index.html` for tap counts (free, no cookies).

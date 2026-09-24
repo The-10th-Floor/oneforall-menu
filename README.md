@@ -9,8 +9,21 @@ This URL is written on the NFC tag at the ordering window (and printed as `qr.sv
 ## Two pages, two jobs
 | Page | For | What is on it |
 |---|---|---|
-| `/` — **the tap page** (`index.html`, kept by hand) | the customer at the window | the menu card, which lands in six panels, and the language switch — **nothing else shows**. The link to the landing page is in the page for screen readers and keyboards only (founder, 2026-09-19: the NFC menu is the menu, no extra line). The **My card** button appears once loyalty is live |
-| `/irbid/` — **the landing page** (`irbid/index.html`, **generated**) | Google, Maps, anyone arriving from Instagram | the menu as real text with prices, set as their printed card; the `Restaurant` + `Menu` schema, Directions, Instagram. It opens as an order being written: the OFA with its price, a pan to the milkshake, then the two together and the bill for exactly what is pictured, 1.98 + 1.38 (the photographed OFA is a triple) + 2.50 = 5.86 - their card's "Deliciously affordable", proven with their own prices (`irbid/scene/`: the OFA studio photograph; the milkshake shot made from their phone photo on the same backdrop, 2026-09-24). Then the menu as the card, then Find us. The motion runs on CSS scroll timelines with no scroll script, so it stays smooth on slow machines; browsers without them get each beat as a still, finished screen. This is the Website and Menu link for the Google Business Profile, and the canonical URL of both pages |
+| `/` — **the tap page** (`index.html`, kept by hand) | the customer at the window | the menu card, which lands in six panels, and the language switch — **nothing else shows**. The link to the landing page is in the page for screen readers and keyboards only (founder, 2026-09-19: the NFC menu is the menu, no extra line). A visitor who opens the card **from the landing page** (`?from=site`) also gets a "← One For All" button back to it; a tap on the NFC piece never does. The **My card** button appears once loyalty is live |
+| `/irbid/` — **the landing page** (`irbid/index.html`, **generated**) | Google, Maps, anyone arriving from Instagram | the menu as real text with prices, set as their printed card; the `Restaurant` + `Menu` schema, Directions, Instagram. It opens as an order being written: the OFA with its price, a pan to the milkshake, then the two together and the bill for exactly what is pictured, 1.98 + 1.38 (the photographed OFA is a triple) + 2.50 = 5.86 - their card's "Deliciously affordable", proven with their own prices (`irbid/scene/`: the OFA studio photograph; the milkshake shot made from their phone photo on the same backdrop, 2026-09-24). Then the menu as the card, then Find us. The top bar carries the way around: the badge (top), **Menu** and **Find us** (jump to their sections), and the language switch. The motion runs on CSS scroll timelines with no scroll script, so it stays smooth on slow machines; browsers without them get each beat as a still, finished screen. This is the Website and Menu link for the Google Business Profile, and the canonical URL of both pages |
+
+## How the pages link
+`/irbid/` is the main page; everything else is one step from it and one step back.
+
+| From | To | How |
+|---|---|---|
+| `/irbid/` | its own menu and Find us sections | Menu / Find us in the top bar; Directions + The whole menu under the bill |
+| `/irbid/` | `/` (the printed card) | "The printed menu card" in Find us, with `?from=site` |
+| `/` from the site | `/irbid/` | the "← One For All" button (only with `?from=site`) |
+| `/` from the NFC tag | — | the card only, by the founder's call |
+| `/irbid/world/` (retired 2026-09-24) | `/irbid/` | an instant redirect; old links keep working |
+
+`/plan/` is the owner's planner: unlisted, `noindex`, linked from nowhere.
 
 One menu per page: a customer never sees the card and the text stacked. `irbid/index.html` is written by `node fill.mjs` in the `nst-irbid-geo` repo (template `templates/oneforall-index.html`, values from `DATA.json`) — do not edit it here; edit the template, run `node fill.mjs --force`, copy `out/oneforall-index.html` over it.
 
