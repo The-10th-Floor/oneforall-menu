@@ -5,7 +5,7 @@ on:
     branches: [main]
     paths: ['irbid/index.html']
   schedule:
-    - cron: '0 6 * * *' # 09:00 Amman
+    - cron: '17 6 * * *' # 09:17 Amman; GitHub drops runs at busy :00 slots
   workflow_dispatch:
     inputs:
       job:
@@ -30,7 +30,7 @@ jobs:
       group: indexnow-ping
       cancel-in-progress: true
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           persist-credentials: false
       - name: Hash the committed page
@@ -99,7 +99,8 @@ jobs:
           fails=0
           bad() { echo "::error::$1"; fails=$((fails+1)); }
           for u in https://the-10th-floor.github.io/oneforall-menu/ "$SITE/sitemap.xml" "$SITE/robots.txt" "$SITE/google85fa2133dd80e4b3.html"; do
-            curl -fsS --max-time 20 -o /dev/null "$u" && echo "ok  $u" || bad "$u did not answer 200"
+            code=$(curl -sS --max-time 20 -o /dev/null -w '%{http_code}' "$u")
+            [ "$code" = 200 ] && echo "ok  $u" || bad "$u answered $code, not 200"
           done
           if curl -fsS --max-time 20 -o key.txt "$SITE/$KEY.txt" && [ "$(cat key.txt)" = "$KEY" ]; then
             echo "ok  $SITE/$KEY.txt holds the key"
