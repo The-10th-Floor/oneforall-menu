@@ -163,8 +163,8 @@ h1,h2,h3,p{margin:0}
 .s-ofa-st{background:var(--spot)}
 .live .s-ofa-st{background:none;pointer-events:none}   /* in the film the dive supplies the red */
 .ofa-ph{position:absolute;left:50%;top:46%;width:min(94%,calc((100svh - var(--bar)) * .58));height:auto;translate:-50% -50%}   /* above centre: the words below sit on the red, not on the bun */
-.live .ofa-ph{animation:ofa-in linear both;animation-timeline:--film;animation-range:contain 61% contain 90%}
-@keyframes ofa-in{0%{opacity:0;scale:1.16}20%{opacity:1}100%{opacity:1;scale:1}}
+.live .ofa-ph{animation:ofa-in linear both;animation-timeline:--film;animation-range:contain 61% contain 100%}   /* the settle runs to the last frame of the shot: a transform that stops in view is redrawn in view */
+@keyframes ofa-in{0%{opacity:0;scale:1.16}15%{opacity:1}100%{opacity:1;scale:1}}
 .txt{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:space-between;
   padding:20px 16px 30px;pointer-events:none}
 .txt-b{display:grid;gap:10px;justify-items:start}
@@ -176,7 +176,11 @@ h1,h2,h3,p{margin:0}
 
 /* --- SHOT 3: the menu, set as their printed card and dealt onto the table --- */
 .card{position:relative;z-index:3;padding:34px 16px 44px;background:var(--red);border-radius:28px 28px 0 0;
-  margin-top:-28px;box-shadow:0 -8px 22px rgba(40,4,4,.28)}
+  margin-top:-28px}
+/* the shade the card casts on the frame it slides over. A strip, not a box-shadow: a blurred shadow round
+   an element this tall was a 0.2-0.4 s draw on the founder's laptop, right as the menu came up. */
+.card::before{content:"";position:absolute;left:0;right:0;top:-22px;height:22px;pointer-events:none;
+  background:linear-gradient(0deg,rgba(40,4,4,.26),rgba(40,4,4,0))}
 .card-in{max-width:760px;margin:0 auto}
 .card-top{display:grid;justify-items:center;margin-bottom:6px;text-align:center}
 .card-top h2{color:var(--yellow);font:800 clamp(3.6rem,17vw,5.6rem)/1.05 "Baloo Bhaijaan 2",system-ui,sans-serif;text-transform:uppercase;
@@ -229,7 +233,7 @@ ul{list-style:none;margin:0;padding:0}
 .acts .btn{justify-content:space-between;gap:12px;min-height:56px}
 .acts .v{font-weight:700;direction:ltr;unicode-bidi:isolate;opacity:.9}
 .card-lk{display:flex;align-items:center;gap:14px;margin-top:8px;padding:6px 0;color:var(--floor);font-weight:800;text-decoration:none}
-.card-lk img{width:104px;height:auto;border-radius:6px;transform:rotate(-3deg);box-shadow:0 10px 22px rgba(90,20,20,.3)}
+.card-lk img{width:104px;height:auto;border-radius:6px;transform:rotate(-3deg);box-shadow:3px 5px 0 rgba(90,20,20,.16)}   /* crisp, not blurred: cheap to draw while it deals in */
 
 .foot{padding:26px 16px calc(28px + env(safe-area-inset-bottom));background:var(--floor);text-align:center;font-size:.95rem}
 .foot p{margin:0 0 14px}
@@ -399,28 +403,28 @@ ul{list-style:none;margin:0;padding:0}
 
   <section class="find on-cream" id="find">
     <div class="find-in" data-l="en">
-      <h2 class="deal">Find us</h2>
-      <p class="addr deal">The NST, Al-Hosn Road, ~200 m from Al-Hosn intersection, Irbid</p>
-      <p class="hours deal" data-on="Open now" data-off="Closed · opens 14:00"><span class="dot" aria-hidden="true"></span><span>Daily 14:00 – 01:30</span><span class="st"></span><span class="x">Takeaway</span></p>
-      <div class="acts deal">
+      <h2>Find us</h2>
+      <p class="addr">The NST, Al-Hosn Road, ~200 m from Al-Hosn intersection, Irbid</p>
+      <p class="hours" data-on="Open now" data-off="Closed · opens 14:00"><span class="dot" aria-hidden="true"></span><span>Daily 14:00 – 01:30</span><span class="st"></span><span class="x">Takeaway</span></p>
+      <div class="acts">
         <a class="btn btn-fill" href="https://www.google.com/maps/dir/?api=1&destination=32.507500,35.874622"><span>Directions</span><span class="v" aria-hidden="true">→</span></a>
         <a class="btn btn-line" href="tel:+962799098080"><span>Call</span><span class="v">079 909 8080</span></a>
         <a class="btn btn-line" href="https://instagram.com/oneforall.jo"><span>Instagram</span><span class="v">@oneforall.jo</span></a>
         <a class="btn btn-line card-link" href="#" hidden><span>My card</span></a>
       </div>
-      <a class="card-lk deal" href="../?lang=en"><img src="menu-en-thumb.jpg" width="245" height="178" alt="" loading="lazy" decoding="async"><span>The printed menu card</span></a>
+      <a class="card-lk" href="../?lang=en"><img src="menu-en-thumb.jpg" width="245" height="178" alt="" loading="lazy" decoding="async"><span>The printed menu card</span></a>
     </div>
     <div class="find-in" data-l="ar" lang="ar" dir="rtl" hidden>
-      <h2 class="deal">كيف توصل</h2>
-      <p class="addr deal"><bdi>The NST</bdi>، طريق الحصن، على بعد 200 م تقريباً من إشارة الحصن، إربد</p>
-      <p class="hours deal" data-on="مفتوح الآن" data-off="مغلق · يفتح 14:00"><span class="dot" aria-hidden="true"></span><span>يومياً 14:00 – 01:30</span><span class="st"></span><span class="x">سفري</span></p>
-      <div class="acts deal">
+      <h2>كيف توصل</h2>
+      <p class="addr"><bdi>The NST</bdi>، طريق الحصن، على بعد 200 م تقريباً من إشارة الحصن، إربد</p>
+      <p class="hours" data-on="مفتوح الآن" data-off="مغلق · يفتح 14:00"><span class="dot" aria-hidden="true"></span><span>يومياً 14:00 – 01:30</span><span class="st"></span><span class="x">سفري</span></p>
+      <div class="acts">
         <a class="btn btn-fill" href="https://www.google.com/maps/dir/?api=1&destination=32.507500,35.874622"><span>الاتجاهات</span><span class="v" aria-hidden="true">←</span></a>
         <a class="btn btn-line" href="tel:+962799098080"><span>اتصل</span><span class="v">079 909 8080</span></a>
         <a class="btn btn-line" href="https://instagram.com/oneforall.jo"><span>إنستغرام</span><span class="v">@oneforall.jo</span></a>
         <a class="btn btn-line card-link" href="#" hidden><span>بطاقتي</span></a>
       </div>
-      <a class="card-lk deal" href="../?lang=ar"><img src="menu-ar-thumb.jpg" width="245" height="178" alt="" loading="lazy" decoding="async"><span>المنيو المصوّر</span></a>
+      <a class="card-lk" href="../?lang=ar"><img src="menu-ar-thumb.jpg" width="245" height="178" alt="" loading="lazy" decoding="async"><span>المنيو المصوّر</span></a>
     </div>
   </section>
 
