@@ -36,12 +36,13 @@ if (window.CSS && CSS.supports('animation-timeline', 'view()') && !matchMedia('(
 </script>
 <style>
 /* DIRECTION. Only professional material, nobody in any frame, every shot at the angle it was made for:
-   SHOT 1  Arrival - IMG_5513, the lane, eye level, a steady walk. The scroll is the walk; our red screen
-           is the only saturated thing in the frame, so the eye goes to it before any word does.
-   MOVE    Crash zoom into the red of that screen, accelerating; the red deepens and we cut on colour.
-   SHOT 2  The hero - the OFA studio photograph, straight on, in its spotlight, on the red it was shot on.
-           It surfaces out of the dark red and settles; name, contents, price and add-ons land in order.
-   SHOT 3  The card - their printed menu, dealt onto the table panel by panel, lines from the reading side.
+   SHOT 1  One continuous shot, one pinned frame, no cut the scroll can stall in:
+           the lane (IMG_5513), eye level, a steady walk - the scroll is the walk, and our red screen is
+           the only saturated thing in the frame, so the eye goes to it before any word does;
+           then a crash zoom into the red of that screen, accelerating, the red deepening;
+           and out of that red the OFA surfaces - the studio photograph, straight on, in its spotlight,
+           on the red it was shot on - and its name, contents, price and add-ons land in order.
+   SHOT 2  The card - their printed menu, dealt onto the table panel by panel, lines from the reading side.
    CLOSE   The way there, on the card's cream.
    Phone snapshots (the night sign, the milkshake on a street) and the NST corner (tilted, BLK's door in
    frame) are out on the founder's word, 2026-09-24. Colours are sampled from menu-en.svg and from the
@@ -84,12 +85,13 @@ h1,h2,h3,p{margin:0}
    is animated on that timeline by the browser, not by script. --- */
 .scene{position:relative}
 .stage{position:relative;height:calc(100svh - var(--bar));min-height:560px;overflow:hidden}
-.live .stage{position:sticky;top:var(--bar)}
-.live .s-lane{height:300vh;view-timeline:--lane block;view-timeline-inset:var(--bar) 0px}
-.live .s-ofa{height:220vh;view-timeline:--ofa block;view-timeline-inset:var(--bar) 0px}
-.live .beat{animation:beat-in linear both;animation-range:contain var(--a) contain var(--b)}
-.live .s-lane .beat{animation-timeline:--lane}
-.live .s-ofa .beat{animation-timeline:--ofa}
+/* The lane stage and the OFA stage share one pinned frame, so the dive into the screen's red hands
+   straight to the burger: no stretch of plain red to scroll through. Scroll lengths: walk 150vh,
+   dive 70vh, the OFA 110vh, hold 20vh - 350vh in all, and every percentage below is of that. */
+.live .s-film{height:calc(350vh + 100svh - var(--bar));view-timeline:--film block;view-timeline-inset:var(--bar) 0px}
+.live .pin{position:sticky;top:var(--bar);height:calc(100svh - var(--bar));min-height:560px}
+.live .pin > .stage{position:absolute;inset:0;height:auto;min-height:0}
+.live .beat{animation:beat-in linear both;animation-timeline:--film;animation-range:contain var(--a) contain var(--b)}
 .live .beat.io{animation-name:beat-io}
 .live .beat.out{animation-name:beat-out}
 @keyframes beat-in{from{opacity:0;translate:0 22px}to{opacity:1;translate:0 0}}
@@ -101,7 +103,7 @@ h1,h2,h3,p{margin:0}
 /* shared lettering */
 .slogan{display:inline-block;margin:0 0 6px;direction:rtl;color:var(--yellow);
   font:700 clamp(2.3rem,10.5vw,4.2rem)/1.15 "Lemonada","Baloo Bhaijaan 2",system-ui,sans-serif;
-  transform:rotate(-2.6deg);transform-origin:0 100%;text-shadow:0 2px 0 rgba(120,18,6,.5),0 10px 26px rgba(0,0,0,.45)}
+  transform:rotate(-2.6deg);transform-origin:0 100%;text-shadow:0 2px 0 rgba(120,18,6,.55)}
 .display{font:800 clamp(3rem,15vw,6.6rem)/.95 "Baloo Bhaijaan 2",system-ui,sans-serif;text-transform:uppercase;letter-spacing:-.01em}
 .kick{font-weight:800;font-size:1.05rem;letter-spacing:.06em;text-transform:uppercase;color:var(--yellow)}
 [dir=rtl] .kick{letter-spacing:0}
@@ -127,47 +129,54 @@ h1,h2,h3,p{margin:0}
 .on-cream .btn-line{color:var(--floor);box-shadow:inset 0 0 0 2px var(--floor)}
 
 /* --- SHOT 1: the lane, then the crash zoom --- */
-.s-lane .stage{background:#2A0D0E}
+.s-lane-st{background:#2A0D0E}
 .cam{position:absolute;inset:0;transform-origin:var(--dive-x,20%) var(--dive-y,50%)}
-.cam img,.cam video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:0% 50%}
-.cam video{opacity:0;transition:opacity .4s ease}
-.cam video.on{opacity:1}
+/* The clip is painted into a canvas, never shown as a <video>: Windows lifts a video onto a hardware
+   overlay, and zooming that overlay stalled the laptop's graphics for seconds a frame. A canvas is an
+   ordinary texture the compositor can scale for free. */
+.cam img,.cam canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:0% 50%}
+.cam canvas{opacity:0;transition:opacity .4s ease}
+.cam canvas.on{opacity:1}
+.feed{position:absolute;width:2px;height:2px;opacity:0;pointer-events:none}
 .cam.rolling picture{display:none}   /* once the clip paints, the still underneath is one layer too many */
-.shade{position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(180deg,rgba(30,6,6,0) 40%,rgba(30,6,6,.5) 62%,rgba(30,6,6,.86))}
+/* only the lower part of the frame, where the words are: a smaller layer to hold */
+.shade{position:absolute;inset:auto 0 0;height:60%;pointer-events:none;
+  background:linear-gradient(180deg,rgba(30,6,6,0),rgba(30,6,6,.5) 37%,rgba(30,6,6,.86))}
 .dive{position:absolute;inset:0;pointer-events:none;background:var(--spot);opacity:0}
-.live .cam{will-change:scale;animation:dive linear both;animation-timeline:--lane;animation-range:contain 60% contain 95%;
+.live .cam{will-change:scale;animation:dive linear both;animation-timeline:--film;animation-range:contain 43% contain 63%;
   animation-timing-function:cubic-bezier(.55,.055,.675,.19)}
 @keyframes dive{from{scale:1}to{scale:var(--dive-s,1)}}
-.live .shade{animation:fade-out linear both;animation-timeline:--lane;animation-range:contain 60% contain 68%}
-.live .dive{animation:fade-in linear both;animation-timeline:--lane;animation-range:contain 80% contain 97%}
+.live .shade{animation:fade-out linear both;animation-timeline:--film;animation-range:contain 43% contain 50%}
+.live .dive{animation:fade-in linear both;animation-timeline:--film;animation-range:contain 55% contain 63%}
 .lane-copy{position:absolute;z-index:2;inset:auto 0 0;max-width:640px;padding:0 16px 30px}
 .lane-copy h1{margin:0 0 6px;font:800 clamp(2rem,9vw,3.6rem)/1 "Baloo Bhaijaan 2",system-ui,sans-serif;text-transform:uppercase;
-  letter-spacing:-.01em;text-shadow:0 4px 24px rgba(0,0,0,.4)}
+  letter-spacing:-.01em}
 .lede{margin:0 0 10px;font-weight:600;font-size:1.08rem;line-height:1.35}
 .go{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
-.cap{display:none;position:absolute;z-index:2;inset:auto 16px 36px;max-width:16ch;
-  font:800 clamp(1.7rem,7.4vw,3rem)/1.08 "Baloo Bhaijaan 2",system-ui,sans-serif;text-shadow:0 3px 22px rgba(0,0,0,.5)}
+/* the caption is words only: it lies over the buttons while invisible, so it must never take a click */
+.cap{display:none;position:absolute;z-index:2;inset:auto 16px 36px;max-width:16ch;pointer-events:none;
+  font:800 clamp(1.7rem,7.4vw,3rem)/1.08 "Baloo Bhaijaan 2",system-ui,sans-serif}
 .live .cap{display:block}
 
 /* --- SHOT 2: the OFA on the red it was photographed on. Its edges are faded into that red in the file,
    so the stage needs no mask at run time. --- */
-.s-ofa .stage{background:var(--spot)}
+.s-ofa-st{background:var(--spot)}
+.live .s-ofa-st{background:none;pointer-events:none}   /* in the film the dive supplies the red */
 .ofa-ph{position:absolute;left:50%;top:46%;width:min(94%,calc((100svh - var(--bar)) * .58));height:auto;translate:-50% -50%}   /* above centre: the words below sit on the red, not on the bun */
-.live .ofa-ph{animation:ofa-in linear both;animation-timeline:--ofa;animation-range:contain 0% contain 60%}
+.live .ofa-ph{animation:ofa-in linear both;animation-timeline:--film;animation-range:contain 61% contain 90%}
 @keyframes ofa-in{0%{opacity:0;scale:1.16}20%{opacity:1}100%{opacity:1;scale:1}}
 .txt{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:space-between;
-  padding:20px 16px 30px;pointer-events:none;text-shadow:0 2px 18px rgba(40,0,0,.55)}
+  padding:20px 16px 30px;pointer-events:none}
 .txt-b{display:grid;gap:10px;justify-items:start}
 .desc{font-weight:700;font-size:1.2rem;line-height:1.3;max-width:26ch}
 @media (min-aspect-ratio:1/1){
   .ofa-ph{left:auto;top:50%;inset-inline-end:7vw;width:auto;height:94%;translate:0 -50%}
-  .s-ofa .txt{justify-content:center;gap:34px;max-width:52%;padding-inline:6vw}
+  .s-ofa-st .txt{justify-content:center;gap:34px;max-width:52%;padding-inline:6vw}
 }
 
 /* --- SHOT 3: the menu, set as their printed card and dealt onto the table --- */
 .card{position:relative;z-index:3;padding:34px 16px 44px;background:var(--red);border-radius:28px 28px 0 0;
-  margin-top:-28px;box-shadow:0 -16px 40px rgba(40,4,4,.3)}
+  margin-top:-28px;box-shadow:0 -8px 22px rgba(40,4,4,.28)}
 .card-in{max-width:760px;margin:0 auto}
 .card-top{display:grid;justify-items:center;margin-bottom:6px;text-align:center}
 .card-top h2{color:var(--yellow);font:800 clamp(3.6rem,17vw,5.6rem)/1.05 "Baloo Bhaijaan 2",system-ui,sans-serif;text-transform:uppercase;
@@ -248,17 +257,18 @@ ul{list-style:none;margin:0;padding:0}
        links, text - must filter to the visible one:
        [...document.querySelectorAll(sel)].filter(e => e.getBoundingClientRect().width > 0) -->
 
-  <section class="scene s-lane" id="top">
-    <div class="stage">
+  <section class="scene s-film" id="top">
+    <div class="pin">
+    <div class="stage s-lane-st">
       <div class="cam" aria-hidden="true">
         <picture>
           <source media="(max-aspect-ratio: 1/1)" srcset="film/lane-m.webp" width="720" height="1280">
           <img src="film/lane.webp" width="1280" height="720" fetchpriority="high" alt="">
         </picture>
-        <video muted playsinline preload="none" tabindex="-1"></video>
+        <canvas></canvas>
       </div>
       <div class="shade" aria-hidden="true"></div>
-      <div class="lane-copy on-dark beat out" style="--a:0%;--b:16%">
+      <div class="lane-copy on-dark beat out" style="--a:0%;--b:8%">
         <p class="slogan" lang="ar">واحد للكل</p>
         <div data-l="en">
           <h1>One For All</h1>
@@ -273,31 +283,29 @@ ul{list-style:none;margin:0;padding:0}
           <div class="go"><a class="btn btn-fill" href="https://www.google.com/maps/dir/?api=1&destination=32.507500,35.874622">الاتجاهات</a><a class="btn btn-line" href="#menu">المنيو</a></div>
         </div>
       </div>
-      <p class="cap beat io" data-l="en" style="--a:28%;--b:56%">You will see us from the lane too.</p>
-      <p class="cap beat io" data-l="ar" lang="ar" dir="rtl" style="--a:28%;--b:56%" hidden>بتشوفنا من الممر كمان.</p>
+      <p class="cap beat io" data-l="en" style="--a:14%;--b:36%">You will see us from the lane too.</p>
+      <p class="cap beat io" data-l="ar" lang="ar" dir="rtl" style="--a:14%;--b:36%" hidden>بتشوفنا من الممر كمان.</p>
       <div class="dive" aria-hidden="true"></div>
     </div>
-  </section>
-
-  <section class="scene s-ofa">
-    <div class="stage">
+    <div class="stage s-ofa-st">
       <img class="ofa-ph" src="scene/ofa.webp" width="900" height="1126" alt="The OFA: three smashed patties, cheese, pickles and One For All sauce, on a red backdrop" fetchpriority="low" decoding="async">
       <div class="txt" data-l="en">
-        <div><p class="kick beat" style="--a:6%;--b:13%">Smashed burgers</p><h2 class="display beat" style="--a:10%;--b:17%">The OFA</h2></div>
+        <div><p class="kick beat" style="--a:64%;--b:69%">Smashed burgers</p><h2 class="display beat" style="--a:66%;--b:71%">The OFA</h2></div>
         <div class="txt-b">
-          <p class="desc beat" style="--a:24%;--b:31%">Patty, cheese, One For All sauce</p>
-          <p class="big-pr beat" style="--a:38%;--b:45%">1<span class="c"><span class="sr">.</span>98</span></p>
-          <p class="beat" style="--a:52%;--b:59%"><span class="pill"><b>Double patty 0.69+</b><i aria-hidden="true">|</i><b>Triple patty 1.38+</b></span></p>
+          <p class="desc beat" style="--a:72%;--b:77%">Patty, cheese, One For All sauce</p>
+          <p class="big-pr beat" style="--a:78%;--b:83%">1<span class="c"><span class="sr">.</span>98</span></p>
+          <p class="beat" style="--a:84%;--b:89%"><span class="pill"><b>Double patty 0.69+</b><i aria-hidden="true">|</i><b>Triple patty 1.38+</b></span></p>
         </div>
       </div>
       <div class="txt" data-l="ar" lang="ar" dir="rtl" hidden>
-        <div><p class="kick beat" style="--a:6%;--b:13%">سماشد برجر</p><h2 class="display beat" style="--a:10%;--b:17%">الـOFA</h2></div>
+        <div><p class="kick beat" style="--a:64%;--b:69%">سماشد برجر</p><h2 class="display beat" style="--a:66%;--b:71%">الـOFA</h2></div>
         <div class="txt-b">
-          <p class="desc beat" style="--a:24%;--b:31%">برجر، صوص ون فور اول، جبنة</p>
-          <p class="big-pr beat" style="--a:38%;--b:45%">1<span class="c"><span class="sr">.</span>98</span></p>
-          <p class="beat" style="--a:52%;--b:59%"><span class="pill"><b>دبل باتي <bdi>0.69+</bdi></b><i aria-hidden="true">|</i><b>تريبل باتي <bdi>1.38+</bdi></b></span></p>
+          <p class="desc beat" style="--a:72%;--b:77%">برجر، صوص ون فور اول، جبنة</p>
+          <p class="big-pr beat" style="--a:78%;--b:83%">1<span class="c"><span class="sr">.</span>98</span></p>
+          <p class="beat" style="--a:84%;--b:89%"><span class="pill"><b>دبل باتي <bdi>0.69+</bdi></b><i aria-hidden="true">|</i><b>تريبل باتي <bdi>1.38+</bdi></b></span></p>
         </div>
       </div>
+    </div>
     </div>
   </section>
 
@@ -457,19 +465,22 @@ if ('IntersectionObserver' in window) {
 /* The lane clip is the only thing script moves. Every frame of it is a keyframe (x264 -g 1, 20 fps), so
    a seek decodes one frame: with keyframes every 3rd frame a desktop seek took up to 0.9 s and the
    picture fell behind the scroll. It is fetched as a Blob (always seekable) after the
-   page has loaded, never on a data saver; scroll sets its time over the first 60% of the lane, then it
+   page has loaded, never on a data saver; scroll sets its time over the first 42% of the film, then it
    holds on the last frame for the crash zoom, which CSS runs. The zoom's origin and depth are measured
    from the file - the red right of the badge in the last frame - and set once per size. Seeks are
    coalesced; phones paint a seeked frame only after one play, so the first touch plays and pauses it.
    Until the clip is ready the zoom depth stays 1: the still is the first frame, the screen is elsewhere. */
 if (document.documentElement.classList.contains('live')) {
-  const sec = document.getElementById('top'), stage = sec.querySelector('.stage'), cam = sec.querySelector('.cam'), v = cam.querySelector('video');
+  const sec = document.getElementById('top'), stage = sec.querySelector('.pin'), cam = sec.querySelector('.cam'), cvs = cam.querySelector('canvas'), ctx = cvs.getContext('2d', { alpha: false });
+  /* the decoder: a video kept in the page (Safari decodes nothing detached) but never drawn by it */
+  const v = document.createElement('video'); v.muted = true; v.playsInline = true; v.preload = 'auto'; v.className = 'feed';
+  v.setAttribute('aria-hidden', 'true'); v.tabIndex = -1; cam.appendChild(v);
   const bar = document.querySelector('.bar');
   const tall = matchMedia('(max-aspect-ratio: 1/1)').matches;
   const VW = tall ? 720 : 1280, VH = tall ? 1280 : 720;
   const D = tall ? [0.556, 0.5, 0.106, 0.0975] : [0.176, 0.5, 0.033, 0.0975];   /* x, y, half-width, half-height */
-  const WALK = 0.6;
-  let dur = 0, want = 0, busy = false, primed = false, tick = false;
+  const WALK = 0.42;
+  let dur = 0, want = 0, shown = 0, raf = 0, busy = false, primed = false, tick = false;
   const measure = () => {
     const W = cam.offsetWidth, H = cam.offsetHeight, k = Math.max(W / VW, H / VH), rw = VW * k, rh = VH * k;
     const px = D[0] * rw, py = (H - rh) / 2 + D[1] * rh, hx = D[2] * rw * 0.9, hy = D[3] * rh * 0.9;
@@ -478,11 +489,17 @@ if (document.documentElement.classList.contains('live')) {
     cam.style.setProperty('--dive-y', py.toFixed(1) + 'px');
     if (dur) cam.style.setProperty('--dive-s', S.toFixed(2));
   };
-  const seek = () => {
-    if (!dur || busy || Math.abs(v.currentTime - want) < 0.034) return;
-    busy = true; v.currentTime = want;
+  /* The clip glides to where the scroll says, a fifth of the way each frame, so one wheel notch reads
+     as a step of the walk and not a jump cut. */
+  const pump = () => {
+    raf = 0;
+    const d = want - shown;
+    shown = Math.abs(d) < 0.01 ? want : shown + d * 0.2;
+    if (dur && !busy && Math.abs(v.currentTime - shown) >= 0.025) { busy = true; v.currentTime = shown; }
+    if (shown !== want) raf = requestAnimationFrame(pump);
   };
-  v.addEventListener('seeked', () => { busy = false; v.classList.add('on'); cam.classList.add('rolling'); seek(); });
+  const seek = () => { if (!raf) raf = requestAnimationFrame(pump); };
+  v.addEventListener('seeked', () => { busy = false; ctx.drawImage(v, 0, 0, cvs.width, cvs.height); cvs.classList.add('on'); cam.classList.add('rolling'); seek(); });
   const read = () => {
     tick = false;
     const r = sec.getBoundingClientRect(), span = r.height - stage.offsetHeight;
@@ -498,7 +515,7 @@ if (document.documentElement.classList.contains('live')) {
     fetch(tall ? 'film/lane-m.mp4' : 'film/lane.mp4')
       .then(r => r.ok ? r.blob() : Promise.reject(r.status))
       .then(b => {
-        v.addEventListener('loadedmetadata', () => { dur = Math.max(0, v.duration - 0.05); measure(); read(); }, { once: true });
+        v.addEventListener('loadedmetadata', () => { cvs.width = v.videoWidth; cvs.height = v.videoHeight; dur = Math.max(0, v.duration - 0.05); measure(); read(); }, { once: true });
         v.src = URL.createObjectURL(b);
       })
       .catch(() => {});
