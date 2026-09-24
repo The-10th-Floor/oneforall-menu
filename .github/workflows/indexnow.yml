@@ -1,0 +1,116 @@
+name: IndexNow
+
+on:
+  push:
+    branches: [main]
+    paths: ['irbid/index.html', 'sitemap.xml']
+  schedule:
+    - cron: '0 6 * * *' # 09:00 Amman
+  workflow_dispatch:
+    inputs:
+      job:
+        type: choice
+        options: [reach, ping]
+        default: reach
+
+env:
+  SITE: https://oneforall-jo.pages.dev
+  KEY: d590794667958097a6f50493ef61101a
+
+jobs:
+  ping:
+    if: github.event_name == 'push' || inputs.job == 'ping'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    permissions:
+      contents: read
+      pages: write
+    # A newer push to the page supersedes this one; its own run pings.
+    concurrency:
+      group: indexnow-ping
+      cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Hash the committed page
+        run: echo "WANT=$(git show "$GITHUB_SHA:irbid/index.html" | sha256sum | cut -d' ' -f1)" >> "$GITHUB_ENV"
+      # On 2026-09-24 Pages did not start a pushed build for 20 min; asking for one started it.
+      - name: Make sure Pages builds this commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          api="https://api.github.com/repos/$GITHUB_REPOSITORY/pages/builds"
+          auth=(-H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json')
+          for i in $(seq 1 18); do
+            latest=$(curl -fsS "${auth[@]}" "$api/latest" | jq -r '"\(.commit) \(.status)"')
+            echo "latest Pages build: ${latest:-unreadable}"
+            [ "${latest%% *}" = "$GITHUB_SHA" ] && exit 0
+            sleep 10
+          done
+          echo "No Pages build of $GITHUB_SHA after 3 min; requesting one."
+          curl -fsS -X POST "${auth[@]}" "$api" || echo "::warning::POST pages/builds failed; waiting for the live page anyway."
+      # The forwarder passes the query on and GitHub's CDN ignores it (same body, same cached
+      # copy, checked 2026-09-24); a deploy purges that cache, and max-age=600 fits in 20 min.
+      - name: Wait for the live page to match
+        run: |
+          for i in $(seq 1 40); do
+            got=$(curl -fsS --max-time 20 "$SITE/irbid/?v=$GITHUB_RUN_ID-$i" | sha256sum | cut -d' ' -f1)
+            [ "$got" = "$WANT" ] && { echo "live /irbid/ matches the commit (try $i)"; exit 0; }
+            echo "try $i: live $got, want $WANT"
+            sleep 30
+          done
+          echo "::error::$SITE/irbid/ still differs from the commit after 20 min. Fix: POST /repos/$GITHUB_REPOSITORY/pages/builds (or push again), then re-run this job."
+          exit 1
+      - name: Check the key file
+        run: |
+          code=$(curl -sS --max-time 20 -o key.txt -w '%{http_code}' "$SITE/$KEY.txt")
+          [ "$code" = 200 ] && [ "$(cat key.txt)" = "$KEY" ] && { echo "ok  $SITE/$KEY.txt holds the key"; exit 0; }
+          echo "::error::$SITE/$KEY.txt answered $code, body '$(head -c 60 key.txt | tr '\n' ' ')'; IndexNow needs 200 and the key."
+          exit 1
+      - name: Ping IndexNow
+        run: |
+          payload=$(printf '{"host":"%s","key":"%s","keyLocation":"%s/%s.txt","urlList":["%s/irbid/"]}' "${SITE#https://}" "$KEY" "$SITE" "$KEY" "$SITE")
+          send() { curl -sS --max-time 30 -o reply.txt -w '%{http_code}' -H 'Content-Type: application/json; charset=utf-8' -d "$payload" https://api.indexnow.org/indexnow; }
+          code=$(send)
+          if [ "$code" = 202 ]; then
+            echo "202: key validation pending; sending once more in 10 min."
+            sleep 600
+            code=$(send)
+          fi
+          echo "IndexNow answered $code $(head -c 200 reply.txt)"
+          case "$code" in
+            200) ;;
+            202) echo "::warning::IndexNow key unconfirmed (202)" ;;
+            403) echo "::error::IndexNow 403: key not valid. Fix: a new key file in the repo root and KEY here to match, which needs the founder's push."; exit 1 ;;
+            *) echo "::error::IndexNow answered $code"; exit 1 ;;
+          esac
+
+  # The NFC tag and the printed QR can never change: if a page breaks, every tap fails and nobody sees it.
+  reach:
+    if: github.event_name == 'schedule' || inputs.job == 'reach'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - name: Check every public address
+        run: |
+          fails=0
+          bad() { echo "::error::$1"; fails=$((fails+1)); }
+          for u in https://the-10th-floor.github.io/oneforall-menu/ "$SITE/sitemap.xml" "$SITE/robots.txt" "$SITE/google85fa2133dd80e4b3.html"; do
+            curl -fsS --max-time 20 -o /dev/null "$u" && echo "ok  $u" || bad "$u did not answer 200"
+          done
+          if curl -fsS --max-time 20 -o key.txt "$SITE/$KEY.txt" && [ "$(cat key.txt)" = "$KEY" ]; then
+            echo "ok  $SITE/$KEY.txt holds the key"
+          else
+            bad "$SITE/$KEY.txt did not answer 200 with the key"
+          fi
+          if curl -fsS --max-time 20 -D irbid.head -o irbid.html "$SITE/irbid/"; then
+            echo "ok  $SITE/irbid/"
+            grep -qF "<link rel=\"canonical\" href=\"$SITE/irbid/\">" irbid.html && echo "ok  canonical is $SITE/irbid/" || bad "/irbid/ lost its canonical link"
+            grep -qi noindex irbid.head irbid.html && bad "/irbid/ carries noindex" || echo "ok  no noindex"
+          else
+            bad "$SITE/irbid/ did not answer 200"
+          fi
+          [ "$fails" = 0 ] || { echo "$fails check(s) failed"; exit 1; }
