@@ -132,6 +132,7 @@ h1,h2,h3,p{margin:0}
 .cam img,.cam video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:0% 50%}
 .cam video{opacity:0;transition:opacity .4s ease}
 .cam video.on{opacity:1}
+.cam.rolling picture{display:none}   /* once the clip paints, the still underneath is one layer too many */
 .shade{position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(180deg,rgba(30,6,6,0) 40%,rgba(30,6,6,.5) 62%,rgba(30,6,6,.86))}
 .dive{position:absolute;inset:0;pointer-events:none;background:var(--spot);opacity:0}
@@ -153,7 +154,7 @@ h1,h2,h3,p{margin:0}
    so the stage needs no mask at run time. --- */
 .s-ofa .stage{background:var(--spot)}
 .ofa-ph{position:absolute;left:50%;top:46%;width:min(94%,calc((100svh - var(--bar)) * .58));height:auto;translate:-50% -50%}   /* above centre: the words below sit on the red, not on the bun */
-.live .ofa-ph{will-change:scale,opacity;animation:ofa-in linear both;animation-timeline:--ofa;animation-range:contain 0% contain 60%}
+.live .ofa-ph{animation:ofa-in linear both;animation-timeline:--ofa;animation-range:contain 0% contain 60%}
 @keyframes ofa-in{0%{opacity:0;scale:1.16}20%{opacity:1}100%{opacity:1;scale:1}}
 .txt{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:space-between;
   padding:20px 16px 30px;pointer-events:none;text-shadow:0 2px 18px rgba(40,0,0,.55)}
@@ -204,11 +205,11 @@ ul{list-style:none;margin:0;padding:0}
 .new{display:inline-block;padding:1px 12px 2px;border-radius:999px;background:var(--yellow);color:var(--navy);
   font:800 .98rem/1.4 "Baloo Bhaijaan 2",system-ui,sans-serif;text-transform:none;transform:rotate(-5deg);vertical-align:.2em;margin-inline-start:8px}
 .sign{width:92px;height:auto;margin:34px auto 0;opacity:.95}
-/* panels are dealt as they come up the screen; each line slides in from the side you read from */
+/* panels are dealt as they come up the screen. The lines inside do not move on their own: every moving
+   element is a layer the graphics chip must hold, and on a laptop with little free memory thirteen more
+   layers were the difference between smooth and not. */
 .live .deal{animation:deal linear both;animation-timeline:view();animation-range:entry 0% entry 70%}
-.live .it{animation:slide linear both;animation-timeline:view();animation-range:entry 10% entry 90%}
 @keyframes deal{from{opacity:0;translate:0 46px;rotate:calc(1.4deg * var(--dx))}to{opacity:1;translate:0 0;rotate:0deg}}
-@keyframes slide{from{opacity:0;translate:calc(30px * var(--dx)) 0}to{opacity:1;translate:0 0}}
 
 /* --- CLOSE: the way there, on the card's cream --- */
 .find{background:var(--cream);color:var(--floor);padding:40px 16px 48px}
@@ -453,7 +454,9 @@ if ('IntersectionObserver' in window) {
     { rootMargin: '-50% 0px -40% 0px' }).observe(document.getElementById('menu'));
 }
 
-/* The lane clip is the only thing script moves. It is fetched as a Blob (always seekable) after the
+/* The lane clip is the only thing script moves. Every frame of it is a keyframe (x264 -g 1, 20 fps), so
+   a seek decodes one frame: with keyframes every 3rd frame a desktop seek took up to 0.9 s and the
+   picture fell behind the scroll. It is fetched as a Blob (always seekable) after the
    page has loaded, never on a data saver; scroll sets its time over the first 60% of the lane, then it
    holds on the last frame for the crash zoom, which CSS runs. The zoom's origin and depth are measured
    from the file - the red right of the badge in the last frame - and set once per size. Seeks are
@@ -479,7 +482,7 @@ if (document.documentElement.classList.contains('live')) {
     if (!dur || busy || Math.abs(v.currentTime - want) < 0.034) return;
     busy = true; v.currentTime = want;
   };
-  v.addEventListener('seeked', () => { busy = false; v.classList.add('on'); seek(); });
+  v.addEventListener('seeked', () => { busy = false; v.classList.add('on'); cam.classList.add('rolling'); seek(); });
   const read = () => {
     tick = false;
     const r = sec.getBoundingClientRect(), span = r.height - stage.offsetHeight;
