@@ -163,6 +163,9 @@ html:not(.live) .st-sum .txt{justify-content:center;padding-top:calc((100svh - v
   font:800 clamp(4rem,21vw,8rem)/.95 "Baloo Bhaijaan 2",system-ui,sans-serif;color:var(--yellow);font-variant-numeric:tabular-nums}
 [dir=rtl] .total{flex-direction:row-reverse;justify-content:flex-end}
 .total small{font-size:.24em;color:var(--cream);font-weight:800}
+/* the total pops in from 1.5x; grown from the middle of its full-width line, the first digit left a 390 px screen */
+.total{transform-origin:0 100%}
+[dir=rtl] .total{transform-origin:100% 100%}
 .st-shake .new{font-size:1.25rem;padding:2px 16px 4px;margin:0 0 6px}
 @media (min-aspect-ratio:1/1){
   :root{--sum-s:.52;--a-t:0 -50%;--r-t:calc(4vw * var(--dx)) -50%;
