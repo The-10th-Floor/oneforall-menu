@@ -6,6 +6,8 @@ This URL is written on the NFC tag at the ordering window (and printed as `qr.sv
 
 **Public address until the shop buys its own domain: https://oneforall-jo.pages.dev/** (2026-09-24). It is a forwarder, not a second copy: `pages-dev/_worker.js`, deployed as the Cloudflare Pages project `oneforall-jo` on Zaid's account, fetches every request from the GitHub Pages site above, so pushing here updates both addresses at once and they cannot drift. The pages' canonical, `og:url` and schema name this address; the tag and the QR keep the github.io one. Redeploy only when `_worker.js` changes: `npx wrangler pages deploy pages-dev --project-name oneforall-jo --branch main`. When the domain is bought, add it to that Pages project as a custom domain and point the canonical at it.
 
+**Search files (2026-09-24):** `sitemap.xml` lists the one canonical page (`/irbid/`); `robots.txt` points to it; `d590794667958097a6f50493ef61101a.txt` is the IndexNow key that lets us tell Bing (and the engines that share IndexNow) about a changed page — do not delete it. Change the URLs in both files when the domain changes.
+
 ## Two pages, two jobs
 | Page | For | What is on it |
 |---|---|---|
