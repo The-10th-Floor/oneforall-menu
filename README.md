@@ -9,10 +9,10 @@ This URL is written on the NFC tag at the ordering window (and printed as `qr.sv
 **Search files (2026-09-24):** `sitemap.xml` lists the one canonical page (`/irbid/`); `robots.txt` points to it; `d590794667958097a6f50493ef61101a.txt` is the IndexNow key that lets us tell Bing (and the engines that share IndexNow) about a changed page — do not delete it. Change the URLs in both files when the domain changes. `google85fa2133dd80e4b3.html` proves ownership of https://oneforall-jo.pages.dev/ in Google Search Console (property on zaidgharaibeh17@gmail.com, verified 2026-09-24) — removing it unverifies the property.
 
 **IndexNow workflow (`.github/workflows/indexnow.yml`, 2026-09-24), two jobs:**
-- `ping` runs on a push to `main` that changes `irbid/index.html` or `sitemap.xml`. It asks GitHub for a Pages build if none starts within 3 min, waits (up to 20 min) until the live `/irbid/` matches the commit byte for byte, checks the key file, then tells IndexNow about `/irbid/`. A 403 means the key is no longer valid: add a new key file and change `KEY` in the workflow.
+- `ping` runs on a push to `main` that changes `irbid/index.html`. It asks GitHub for a Pages build if none starts within 3 min, waits (up to 20 min) until the live `/irbid/` matches the commit byte for byte, checks the key file, then tells IndexNow about `/irbid/`. A 403 means the key is no longer valid: add a new key file and change `KEY` in the workflow.
 - `reach` runs every day at 09:00 Amman. It is the daily check that the NFC tap page (the github.io address on the tag) still opens, and it also checks `/irbid/` (canonical kept, no `noindex`), the sitemap, robots, the key file and the Google file.
 - Run either job by hand: Actions → IndexNow → Run workflow, pick `ping` or `reach`.
-- **Trap:** GitHub turns off scheduled workflows in a public repo after 60 days with no repo activity, and `reach` then stops silently. Any commit resets the clock; if it was turned off, turn it on again in the same Actions page.
+- **Trap:** after 60 days with no repo activity, GitHub turns off the whole IndexNow workflow (this repo is public), so `reach` and `ping` both stop, silently. A later push does not turn it back on. To turn it on again: Actions → IndexNow → Enable workflow (or push a commit that changes the `cron` line). Before the 60 days pass, any commit resets the clock.
 
 ## Two pages, two jobs
 | Page | For | What is on it |

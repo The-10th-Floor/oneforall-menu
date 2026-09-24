@@ -3,7 +3,7 @@ name: IndexNow
 on:
   push:
     branches: [main]
-    paths: ['irbid/index.html', 'sitemap.xml']
+    paths: ['irbid/index.html']
   schedule:
     - cron: '0 6 * * *' # 09:00 Amman
   workflow_dispatch:
