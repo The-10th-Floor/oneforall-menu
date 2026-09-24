@@ -209,6 +209,12 @@ li:last-child{border-bottom:0}
 .card-mk{width:118px;height:auto;flex:none;transform:rotate(-3deg);box-shadow:0 12px 26px rgba(0,0,0,.6)}
 .act-card:active .card-mk{transform:rotate(-3deg) translateY(2px)}
 .act-card .act-v{font-weight:700}
+/* 5 — the loyalty card: their yellow, a full row to tap, the same words as the tap page */
+.card-link{justify-content:space-between;gap:14px;min-height:56px;margin-top:18px;padding:14px 16px;
+  font-weight:800;font-size:1.05rem;color:var(--yellow)!important;
+  border-top:3px solid transparent;border-image:repeating-linear-gradient(90deg,rgba(247,14,0,.5) 0 8px,rgba(244,232,226,.34) 8px 16px) 3}
+.card-link::after{content:"→";font-weight:900}
+[dir=rtl] .card-link::after{content:"←"}
 /* Open or shut, in the shop's own clock. The printed hours stand alone without JavaScript; the
    word and the dot are the upgrade. */
 .hours{display:flex;align-items:center;flex-wrap:wrap;gap:6px 9px;margin:0 0 20px;color:var(--dim);
@@ -352,7 +358,7 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
       <a class="act-tel" href="tel:+962799098080"><span class="act-k">اتصل</span><span class="act-v">079 909 8080</span></a>
       <a class="act-ig" href="https://instagram.com/oneforall.jo"><span class="act-k">إنستغرام</span><span class="act-v"><img class="badge-mk" src="../ofa-badge.webp" alt="" width="480" height="568" loading="lazy">@oneforall.jo</span></a>
       <a class="act-card" href="../?lang=ar"><img class="card-mk" src="menu-ar-thumb.jpg" alt="" width="245" height="178" decoding="async"><span class="act-v">المنيو المصوّر</span></a>
-      <a class="card-link" href="#" hidden>بطاقتي</a>
+      <a class="card-link" href="#" hidden>بطاقتي — اجمع أختامك</a>
     </div>
     <footer>الأسعار بالدينار الأردني · ون فور اول في The NST، طريق الحصن، إربد</footer>
   </section>
@@ -400,7 +406,7 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
       <a class="act-tel" href="tel:+962799098080"><span class="act-k">Call</span><span class="act-v">079 909 8080</span></a>
       <a class="act-ig" href="https://instagram.com/oneforall.jo"><span class="act-k">Instagram</span><span class="act-v"><img class="badge-mk" src="../ofa-badge.webp" alt="" width="480" height="568" loading="lazy">@oneforall.jo</span></a>
       <a class="act-card" href="../?lang=en"><img class="card-mk" src="menu-en-thumb.jpg" alt="" width="245" height="178" decoding="async"><span class="act-v">The menu card</span></a>
-      <a class="card-link" href="#" hidden>My card</a>
+      <a class="card-link" href="#" hidden>My card — collect your stamps</a>
     </div>
     <footer>Prices in Jordanian dinar · One For All at the NST, Al-Hosn Road, Irbid</footer>
   </section>
@@ -434,7 +440,7 @@ footer{font-size:.85rem;color:var(--dim);text-align:center;margin-top:26px;line-
 <script>
 /* the hero loop is decoration: it stays a still poster for people who asked for less motion */
 /* The loyalty card's address. Empty until the card is live: the "My card" button stays hidden. */
-const LOYALTY_URL = '';
+const LOYALTY_URL = 'https://ofa-loyalty.oneforall-loyalty.workers.dev/';
 /* Language: ?lang= wins, then a remembered choice, then English. Same key as the menu card page. */
 const KEY = 'ofa-lang', langBtn = document.getElementById('btn-lang');
 const OTHER = { en: ['ar', 'عربي'], ar: ['en', 'English'] };
