@@ -15,8 +15,7 @@
      oneforall-menu/irbid/. They have broken twice by naming a photo a later change had deleted, and a
      broken og:image is invisible - the share preview just goes blank. Re-check both after any photo swap.
      The same applies to every file this page names that fill.mjs does not produce: lemonada-slogan.woff2,
-     film/lane*.mp4 + .webp, scene/ofa.webp, scene/sign*.webp, n-shake-cut.webp, menu-*-thumb.jpg.
-     They are required assets, not debris. -->
+     film/lane*.mp4 + .webp, scene/ofa.webp, menu-*-thumb.jpg. They are required assets, not debris. -->
 <meta property="og:image" content="https://the-10th-floor.github.io/oneforall-menu/irbid/n-street.jpg">
 <meta property="og:image:width" content="1000">
 <meta property="og:image:height" content="747">
@@ -28,19 +27,26 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="lemonada-slogan.woff2" crossorigin>
 <script>
-/* Decided before first paint, so the page never changes height under the reader: the scenes are tall
-   enough to scroll through only when motion is allowed. Without script, or with reduced motion, every
-   scene is one screen in its finished state. */
-if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('live');
+/* Decided before first paint, so the page never changes height under the reader. The scenes move only
+   where the browser can drive the motion itself (CSS scroll timelines: the motion runs off the main
+   thread, so it stays smooth on a slow laptop) and motion is allowed. Everywhere else every scene is one
+   screen in its finished state. */
+if (window.CSS && CSS.supports('animation-timeline', 'view()') && !matchMedia('(prefers-reduced-motion: reduce)').matches)
+  document.documentElement.classList.add('live');
 </script>
 <style>
-/* The page is one scroll, in five scenes, all on real material and nobody in any frame:
-   the lane (IMG_5513) -> into our red screen -> the OFA on its red -> the menu, set as their printed
-   card -> the milkshake -> their lit sign at night -> the way there. Colours are sampled from
-   menu-en.svg; the scene reds are sampled from the photographs so one hands over to the next.
-   One face does both scripts: Baloo Bhaijaan 2 is variable, so one file per subset covers every weight.
-   Lemonada carries only the six characters of «واحد للكل» and is served from this folder - re-cut it at
-   fonts.googleapis.com/css2?family=Lemonada:wght@700&text= if that line ever changes. */
+/* DIRECTION. Only professional material, nobody in any frame, every shot at the angle it was made for:
+   SHOT 1  Arrival - IMG_5513, the lane, eye level, a steady walk. The scroll is the walk; our red screen
+           is the only saturated thing in the frame, so the eye goes to it before any word does.
+   MOVE    Crash zoom into the red of that screen, accelerating; the red deepens and we cut on colour.
+   SHOT 2  The hero - the OFA studio photograph, straight on, in its spotlight, on the red it was shot on.
+           It surfaces out of the dark red and settles; name, contents, price and add-ons land in order.
+   SHOT 3  The card - their printed menu, dealt onto the table panel by panel, lines from the reading side.
+   CLOSE   The way there, on the card's cream.
+   Phone snapshots (the night sign, the milkshake on a street) and the NST corner (tilted, BLK's door in
+   frame) are out on the founder's word, 2026-09-24. Colours are sampled from menu-en.svg and from the
+   photograph, so each shot hands its colour to the next. One face does both scripts: Baloo Bhaijaan 2 is
+   variable, one file per subset. Lemonada carries only «واحد للكل» and is served from this folder. */
 @font-face{font-family:'Baloo Bhaijaan 2';font-style:normal;font-weight:400 800;font-display:swap;src:url(https://fonts.gstatic.com/s/baloobhaijaan2/v21/zYX9KUwuEqdVGqM8tPDdAA_Y-_bMAIRsdO_q.woff2) format('woff2');unicode-range:U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC}
 @font-face{font-family:'Baloo Bhaijaan 2';font-style:normal;font-weight:400 800;font-display:swap;src:url(https://fonts.gstatic.com/s/baloobhaijaan2/v21/zYX9KUwuEqdVGqM8tPDdAA_Y-_bMAI9sdO_q.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
 @font-face{font-family:'Baloo Bhaijaan 2';font-style:normal;font-weight:400 800;font-display:swap;src:url(https://fonts.gstatic.com/s/baloobhaijaan2/v21/zYX9KUwuEqdVGqM8tPDdAA_Y-_bMAIFsdA.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
@@ -50,7 +56,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
    only LARGE text (19px+ bold) may sit; smaller text sits on a deep panel (cream 4.7:1), on cream
    (deep red 4.7:1), on the footer red (6:1) or on the scene darks. Yellow on the card red is 2.6:1:
    the MENU lettering carries a deep red edge, the way a painted sign does. */
-:root{--red:#EF3D3D;--deep:#D72727;--floor:#B81F1F;--spot:#7A0605;--night:#17131A;--cream:#FFF6ED;
+:root{--red:#EF3D3D;--deep:#D72727;--floor:#B81F1F;--spot:#7A0605;--cream:#FFF6ED;
   --yellow:#FFCC49;--gold:#FBB03C;--navy:#253D8D;--bar:56px;--dx:1}
 [dir=rtl]{--dx:-1}
 *{box-sizing:border-box}
@@ -59,12 +65,12 @@ body{font:500 16px/1.5 "Baloo Bhaijaan 2",system-ui,sans-serif;-webkit-font-smoo
 img{display:block;max-width:100%}
 [hidden]{display:none!important}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-#menu,#find,#go{scroll-margin-top:var(--bar)}
+#menu,#find{scroll-margin-top:var(--bar)}
 a:focus-visible,button:focus-visible{outline:3px solid var(--cream);outline-offset:3px}
 h1,h2,h3,p{margin:0}
 [dir=rtl] h1,[dir=rtl] h2,[dir=rtl] h3,[dir=rtl] .it-n{letter-spacing:0}
 
-/* --- the bar: their badge, and the way to the other language --- */
+/* --- the bar --- */
 .bar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;
   height:calc(var(--bar) + env(safe-area-inset-top));padding:env(safe-area-inset-top) 16px 0;background:var(--red)}
 .bar a{display:flex;align-items:center;min-height:48px}
@@ -73,15 +79,24 @@ h1,h2,h3,p{margin:0}
   font:800 1.2rem/1 "Baloo Bhaijaan 2",system-ui,sans-serif;color:var(--cream)}
 .lang::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:max(100%,48px);height:48px}
 
-/* --- scenes: a sticky stage inside a tall section; the script turns scroll into --p (0..1) --- */
+/* --- scenes: a sticky stage inside a tall section. The section is a named view timeline (inset by the
+   bar, so 0% is the moment the stage sticks and 100% the moment it lets go); everything in the stage
+   is animated on that timeline by the browser, not by script. --- */
 .scene{position:relative}
 .stage{position:relative;height:calc(100svh - var(--bar));min-height:560px;overflow:hidden}
-.live .s-lane{height:300vh}
-.live .s-ofa{height:250vh}
-.live .s-shake{height:200vh}
-.live .s-find{height:220vh}
 .live .stage{position:sticky;top:var(--bar)}
-.live .beat{will-change:opacity,translate}
+.live .s-lane{height:300vh;view-timeline:--lane block;view-timeline-inset:var(--bar) 0px}
+.live .s-ofa{height:220vh;view-timeline:--ofa block;view-timeline-inset:var(--bar) 0px}
+.live .beat{animation:beat-in linear both;animation-range:contain var(--a) contain var(--b)}
+.live .s-lane .beat{animation-timeline:--lane}
+.live .s-ofa .beat{animation-timeline:--ofa}
+.live .beat.io{animation-name:beat-io}
+.live .beat.out{animation-name:beat-out}
+@keyframes beat-in{from{opacity:0;translate:0 22px}to{opacity:1;translate:0 0}}
+@keyframes beat-out{from{opacity:1;translate:0 0;visibility:visible}to{opacity:0;translate:0 -22px;visibility:hidden}}
+@keyframes beat-io{0%{opacity:0;translate:0 22px}25%,75%{opacity:1;translate:0 0}100%{opacity:0;translate:0 -22px}}
+@keyframes fade-in{from{opacity:0}to{opacity:1}}
+@keyframes fade-out{from{opacity:1}to{opacity:0}}
 
 /* shared lettering */
 .slogan{display:inline-block;margin:0 0 6px;direction:rtl;color:var(--yellow);
@@ -111,15 +126,20 @@ h1,h2,h3,p{margin:0}
 .on-cream .btn-fill{background:var(--deep);color:var(--cream)}
 .on-cream .btn-line{color:var(--floor);box-shadow:inset 0 0 0 2px var(--floor)}
 
-/* --- 1. the lane: scroll walks the camera to our red screen, then dives into it --- */
+/* --- SHOT 1: the lane, then the crash zoom --- */
 .s-lane .stage{background:#2A0D0E}
-.cam{position:absolute;inset:0}
+.cam{position:absolute;inset:0;transform-origin:var(--dive-x,20%) var(--dive-y,50%)}
 .cam img,.cam video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:0% 50%}
 .cam video{opacity:0;transition:opacity .4s ease}
 .cam video.on{opacity:1}
 .shade{position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(180deg,rgba(30,6,6,0) 40%,rgba(30,6,6,.5) 62%,rgba(30,6,6,.86))}
 .dive{position:absolute;inset:0;pointer-events:none;background:var(--spot);opacity:0}
+.live .cam{will-change:scale;animation:dive linear both;animation-timeline:--lane;animation-range:contain 60% contain 95%;
+  animation-timing-function:cubic-bezier(.55,.055,.675,.19)}
+@keyframes dive{from{scale:1}to{scale:var(--dive-s,1)}}
+.live .shade{animation:fade-out linear both;animation-timeline:--lane;animation-range:contain 60% contain 68%}
+.live .dive{animation:fade-in linear both;animation-timeline:--lane;animation-range:contain 80% contain 97%}
 .lane-copy{position:absolute;z-index:2;inset:auto 0 0;max-width:640px;padding:0 16px 30px}
 .lane-copy h1{margin:0 0 6px;font:800 clamp(2rem,9vw,3.6rem)/1 "Baloo Bhaijaan 2",system-ui,sans-serif;text-transform:uppercase;
   letter-spacing:-.01em;text-shadow:0 4px 24px rgba(0,0,0,.4)}
@@ -129,23 +149,22 @@ h1,h2,h3,p{margin:0}
   font:800 clamp(1.7rem,7.4vw,3rem)/1.08 "Baloo Bhaijaan 2",system-ui,sans-serif;text-shadow:0 3px 22px rgba(0,0,0,.5)}
 .live .cap{display:block}
 
-/* --- 2. the OFA, on the red it was photographed on --- */
+/* --- SHOT 2: the OFA on the red it was photographed on. Its edges are faded into that red in the file,
+   so the stage needs no mask at run time. --- */
 .s-ofa .stage{background:var(--spot)}
-.ofa-ph{position:absolute;left:50%;top:50%;width:min(100%,calc((100svh - var(--bar)) * .6));height:auto;translate:-50% -50%;
-  -webkit-mask-image:linear-gradient(180deg,transparent,#000 14%,#000 84%,transparent);mask-image:linear-gradient(180deg,transparent,#000 14%,#000 84%,transparent)}
-.live .ofa-ph{opacity:min(1,calc(var(--p,1) * 7));scale:calc(1.16 - .16 * min(1,calc(var(--p,1) * 1.5)))}
+.ofa-ph{position:absolute;left:50%;top:46%;width:min(94%,calc((100svh - var(--bar)) * .58));height:auto;translate:-50% -50%}   /* above centre: the words below sit on the red, not on the bun */
+.live .ofa-ph{will-change:scale,opacity;animation:ofa-in linear both;animation-timeline:--ofa;animation-range:contain 0% contain 60%}
+@keyframes ofa-in{0%{opacity:0;scale:1.16}20%{opacity:1}100%{opacity:1;scale:1}}
 .txt{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:space-between;
   padding:20px 16px 30px;pointer-events:none;text-shadow:0 2px 18px rgba(40,0,0,.55)}
-.txt a{pointer-events:auto}
 .txt-b{display:grid;gap:10px;justify-items:start}
 .desc{font-weight:700;font-size:1.2rem;line-height:1.3;max-width:26ch}
 @media (min-aspect-ratio:1/1){
-  .ofa-ph{left:auto;inset-inline-end:7vw;width:auto;height:92%;translate:0 -50%;
-    -webkit-mask-image:radial-gradient(closest-side,#000 72%,transparent);mask-image:radial-gradient(closest-side,#000 72%,transparent)}
+  .ofa-ph{left:auto;top:50%;inset-inline-end:7vw;width:auto;height:94%;translate:0 -50%}
   .s-ofa .txt{justify-content:center;gap:34px;max-width:52%;padding-inline:6vw}
 }
 
-/* --- 3. the menu, set as their printed card --- */
+/* --- SHOT 3: the menu, set as their printed card and dealt onto the table --- */
 .card{position:relative;z-index:3;padding:34px 16px 44px;background:var(--red);border-radius:28px 28px 0 0;
   margin-top:-28px;box-shadow:0 -16px 40px rgba(40,4,4,.3)}
 .card-in{max-width:760px;margin:0 auto}
@@ -185,50 +204,29 @@ ul{list-style:none;margin:0;padding:0}
 .new{display:inline-block;padding:1px 12px 2px;border-radius:999px;background:var(--yellow);color:var(--navy);
   font:800 .98rem/1.4 "Baloo Bhaijaan 2",system-ui,sans-serif;text-transform:none;transform:rotate(-5deg);vertical-align:.2em;margin-inline-start:8px}
 .sign{width:92px;height:auto;margin:34px auto 0;opacity:.95}
-/* the panels are dealt onto the table as they come up; each line slides in from the reading side */
-.live [data-rise]{opacity:var(--q,1);translate:0 calc((1 - var(--q,1)) * 46px);rotate:calc((1 - var(--q,1)) * 1.4deg * var(--dx))}
-.live .it[data-rise]{translate:calc((1 - var(--q,1)) * 30px * var(--dx)) 0;rotate:none}
+/* panels are dealt as they come up the screen; each line slides in from the side you read from */
+.live .deal{animation:deal linear both;animation-timeline:view();animation-range:entry 0% entry 70%}
+.live .it{animation:slide linear both;animation-timeline:view();animation-range:entry 10% entry 90%}
+@keyframes deal{from{opacity:0;translate:0 46px;rotate:calc(1.4deg * var(--dx))}to{opacity:1;translate:0 0;rotate:0deg}}
+@keyframes slide{from{opacity:0;translate:calc(30px * var(--dx)) 0}to{opacity:1;translate:0 0}}
 
-/* --- 4. the milkshake: it rises, the sticker lands --- */
-.s-shake .stage{background:var(--deep)}
-.shake-ph{position:absolute;left:50%;bottom:0;height:min(60%,600px);width:auto;translate:-50% 0;
-  filter:drop-shadow(0 22px 30px rgba(60,6,6,.5))}
-.live .shake-ph{translate:-50% calc((1 - min(1,calc(var(--p,1) * 2.2))) * 80%)}
-.s-shake .txt{justify-content:flex-start;align-items:center;text-align:center;gap:8px}
-.s-shake .new{font-size:1.3rem;padding:2px 16px 4px;margin:0}
-@media (min-aspect-ratio:1/1){
-  .shake-ph{left:auto;inset-inline-end:16vw;height:min(72%,640px);translate:0 0}   /* the cut-out is 787px tall: no larger */
-  .live .shake-ph{translate:0 calc((1 - min(1,calc(var(--p,1) * 2.2))) * 80%)}
-  .s-shake .txt{justify-content:center;align-items:flex-start;text-align:start;max-width:56%;padding-inline:6vw}
-}
-
-/* --- 5. find us: their lit sign at night, the camera moves in on it --- */
-.s-find .stage{background:var(--night)}
-.find-ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:77% 80%;transform-origin:77% 80%}
-@media (max-aspect-ratio:1/1){.find-ph{object-position:52% 80%;transform-origin:52% 80%}}
-.live .find-ph{scale:calc(1 + .34 * var(--p,1))}
-.s-find .shade{background:linear-gradient(180deg,rgba(14,10,14,.82),rgba(14,10,14,.45) 42%,rgba(14,10,14,0) 62%)}
-.s-find .txt{justify-content:flex-start;gap:12px;max-width:640px}
-.s-find .display{font-size:clamp(2.6rem,12vw,5rem)}
-.s-find .big{font:800 clamp(1.5rem,6.4vw,2.4rem)/1.1 "Baloo Bhaijaan 2",system-ui,sans-serif}
-.s-find .addr{font-weight:700;font-size:1.08rem;max-width:34ch}
-@media (min-aspect-ratio:1/1){.s-find .txt{padding:6vh 6vw}}
-
-/* --- the way there --- */
-.there{background:var(--cream);color:var(--floor);padding:36px 16px 48px}
-.there-in{max-width:640px;margin:0 auto}
-.acts{display:grid;gap:10px}
+/* --- CLOSE: the way there, on the card's cream --- */
+.find{background:var(--cream);color:var(--floor);padding:40px 16px 48px}
+.find-in{max-width:640px;margin:0 auto;display:grid;gap:14px}
+.find h2{font:800 clamp(2.4rem,10vw,3.6rem)/1 "Baloo Bhaijaan 2",system-ui,sans-serif;text-transform:uppercase;color:var(--deep)}
+.find .addr{font-weight:700;font-size:1.12rem}
+.acts{display:grid;gap:10px;margin-top:8px}
 .acts .btn{justify-content:space-between;gap:12px;min-height:56px}
 .acts .v{font-weight:700;direction:ltr;unicode-bidi:isolate;opacity:.9}
-.card-lk{display:flex;align-items:center;gap:14px;margin-top:16px;padding:6px 0;color:var(--floor);font-weight:800;text-decoration:none}
+.card-lk{display:flex;align-items:center;gap:14px;margin-top:8px;padding:6px 0;color:var(--floor);font-weight:800;text-decoration:none}
 .card-lk img{width:104px;height:auto;border-radius:6px;transform:rotate(-3deg);box-shadow:0 10px 22px rgba(90,20,20,.3)}
 
 .foot{padding:26px 16px calc(28px + env(safe-area-inset-bottom));background:var(--floor);text-align:center;font-size:.95rem}
 .foot p{margin:0 0 14px}
 .foot img{height:22px;width:auto;margin:0 auto;opacity:.7}
 
-/* On a phone, Call and Directions ride along the bottom while you read the menu. The scenes keep the
-   whole screen, and the way-there section has the real buttons. */
+/* On a phone, Call and Directions ride along the bottom while you read the menu; the scenes keep the
+   whole screen and Find us has the real buttons. */
 .cta{position:fixed;left:0;right:0;bottom:0;z-index:30;display:none;gap:10px;
   padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:var(--floor);box-shadow:0 -10px 26px rgba(60,6,6,.3)}
 .cta .btn{flex:1;min-height:48px}
@@ -249,8 +247,7 @@ ul{list-style:none;margin:0;padding:0}
        links, text - must filter to the visible one:
        [...document.querySelectorAll(sel)].filter(e => e.getBoundingClientRect().width > 0) -->
 
-  <!-- 1. The lane. Real footage (IMG_5513, 2026-09-21), the one people-free clip of the site. -->
-  <section class="scene s-lane" id="top" data-scene>
+  <section class="scene s-lane" id="top">
     <div class="stage">
       <div class="cam" aria-hidden="true">
         <picture>
@@ -260,7 +257,7 @@ ul{list-style:none;margin:0;padding:0}
         <video muted playsinline preload="none" tabindex="-1"></video>
       </div>
       <div class="shade" aria-hidden="true"></div>
-      <div class="lane-copy on-dark beat" data-in="-1" data-out=".16">
+      <div class="lane-copy on-dark beat out" style="--a:0%;--b:16%">
         <p class="slogan" lang="ar">واحد للكل</p>
         <div data-l="en">
           <h1>One For All</h1>
@@ -275,74 +272,72 @@ ul{list-style:none;margin:0;padding:0}
           <div class="go"><a class="btn btn-fill" href="https://www.google.com/maps/dir/?api=1&destination=32.507500,35.874622">الاتجاهات</a><a class="btn btn-line" href="#menu">المنيو</a></div>
         </div>
       </div>
-      <p class="cap beat" data-l="en" data-in=".28" data-out=".56">You will see us from the lane too.</p>
-      <p class="cap beat" data-l="ar" lang="ar" dir="rtl" data-in=".28" data-out=".56" hidden>بتشوفنا من الممر كمان.</p>
+      <p class="cap beat io" data-l="en" style="--a:28%;--b:56%">You will see us from the lane too.</p>
+      <p class="cap beat io" data-l="ar" lang="ar" dir="rtl" style="--a:28%;--b:56%" hidden>بتشوفنا من الممر كمان.</p>
       <div class="dive" aria-hidden="true"></div>
     </div>
   </section>
 
-  <!-- 2. The OFA, on the red it was photographed on: the dive into the screen ends on this red. -->
-  <section class="scene s-ofa" data-scene>
+  <section class="scene s-ofa">
     <div class="stage">
-      <img class="ofa-ph" src="scene/ofa.webp" width="900" height="1126" alt="The OFA: three smashed patties, cheese, pickles and One For All sauce, on a red backdrop" loading="lazy" decoding="async">
+      <img class="ofa-ph" src="scene/ofa.webp" width="900" height="1126" alt="The OFA: three smashed patties, cheese, pickles and One For All sauce, on a red backdrop" fetchpriority="low" decoding="async">
       <div class="txt" data-l="en">
-        <div><p class="kick beat" data-in=".06">Smashed burgers</p><h2 class="display beat" data-in=".1">The OFA</h2></div>
+        <div><p class="kick beat" style="--a:6%;--b:13%">Smashed burgers</p><h2 class="display beat" style="--a:10%;--b:17%">The OFA</h2></div>
         <div class="txt-b">
-          <p class="desc beat" data-in=".24">Patty, cheese, One For All sauce</p>
-          <p class="big-pr beat" data-in=".38">1<span class="c"><span class="sr">.</span>98</span></p>
-          <p class="beat" data-in=".52"><span class="pill"><b>Double patty 0.69+</b><i aria-hidden="true">|</i><b>Triple patty 1.38+</b></span></p>
+          <p class="desc beat" style="--a:24%;--b:31%">Patty, cheese, One For All sauce</p>
+          <p class="big-pr beat" style="--a:38%;--b:45%">1<span class="c"><span class="sr">.</span>98</span></p>
+          <p class="beat" style="--a:52%;--b:59%"><span class="pill"><b>Double patty 0.69+</b><i aria-hidden="true">|</i><b>Triple patty 1.38+</b></span></p>
         </div>
       </div>
       <div class="txt" data-l="ar" lang="ar" dir="rtl" hidden>
-        <div><p class="kick beat" data-in=".06">سماشد برجر</p><h2 class="display beat" data-in=".1">الـOFA</h2></div>
+        <div><p class="kick beat" style="--a:6%;--b:13%">سماشد برجر</p><h2 class="display beat" style="--a:10%;--b:17%">الـOFA</h2></div>
         <div class="txt-b">
-          <p class="desc beat" data-in=".24">برجر، صوص ون فور اول، جبنة</p>
-          <p class="big-pr beat" data-in=".38">1<span class="c"><span class="sr">.</span>98</span></p>
-          <p class="beat" data-in=".52"><span class="pill"><b>دبل باتي <bdi>0.69+</bdi></b><i aria-hidden="true">|</i><b>تريبل باتي <bdi>1.38+</bdi></b></span></p>
+          <p class="desc beat" style="--a:24%;--b:31%">برجر، صوص ون فور اول، جبنة</p>
+          <p class="big-pr beat" style="--a:38%;--b:45%">1<span class="c"><span class="sr">.</span>98</span></p>
+          <p class="beat" style="--a:52%;--b:59%"><span class="pill"><b>دبل باتي <bdi>0.69+</bdi></b><i aria-hidden="true">|</i><b>تريبل باتي <bdi>1.38+</bdi></b></span></p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 3. The menu, set as their printed card. -->
   <section class="card" id="menu">
     <div class="card-in">
       <div data-l="en">
         <div class="card-top"><span class="k k-h">@oneforall.jo</span><h2>Menu</h2><span class="k k-a">Deliciously affordable</span></div>
         <div class="card-grid">
-          <div class="panel" data-rise>
+          <div class="panel deal">
             <div class="panel-rule">
               <h3>Smashed Burgers</h3>
               <ul>
-                <li class="it" data-rise><span class="it-n">The OFA</span><span class="it-d">Patty, cheese, One For All sauce</span><span class="pr">1<span class="c"><span class="sr">.</span>98</span></span></li>
-                <li class="it" data-rise><span class="it-n">The Mushroom</span><span class="it-d">Patty, cheddar cheese, mushrooms</span><span class="pr">2<span class="c"><span class="sr">.</span>25</span></span></li>
-                <li class="it" data-rise><span class="it-n">The Classic</span><span class="it-d">Patty, cheese, lettuce, tomato, pickles, sauce</span><span class="pr">2<span class="c"><span class="sr">.</span>15</span></span></li>
+                <li class="it"><span class="it-n">The OFA</span><span class="it-d">Patty, cheese, One For All sauce</span><span class="pr">1<span class="c"><span class="sr">.</span>98</span></span></li>
+                <li class="it"><span class="it-n">The Mushroom</span><span class="it-d">Patty, cheddar cheese, mushrooms</span><span class="pr">2<span class="c"><span class="sr">.</span>25</span></span></li>
+                <li class="it"><span class="it-n">The Classic</span><span class="it-d">Patty, cheese, lettuce, tomato, pickles, sauce</span><span class="pr">2<span class="c"><span class="sr">.</span>15</span></span></li>
               </ul>
             </div>
             <p class="addon"><span class="pill"><b>Double patty 0.69+</b><i aria-hidden="true">|</i><b>Triple patty 1.38+</b></span></p>
             <h3 class="sr">Chicken</h3>
             <ul class="ul-pad">
-              <li class="it" data-rise><span class="it-n">Fried Chicken Burger</span><span class="it-d">Spicy or ranch</span><span class="pr">1<span class="c"><span class="sr">.</span>98</span></span></li>
-              <li class="it" data-rise><span class="it-n">Chicken Wrap</span><span class="pr">2<span class="c"><span class="sr">.</span>15</span></span></li>
+              <li class="it"><span class="it-n">Fried Chicken Burger</span><span class="it-d">Spicy or ranch</span><span class="pr">1<span class="c"><span class="sr">.</span>98</span></span></li>
+              <li class="it"><span class="it-n">Chicken Wrap</span><span class="pr">2<span class="c"><span class="sr">.</span>15</span></span></li>
             </ul>
             <p class="meal"><span>Make any sandwich a meal</span><b>1.25+</b></p>
           </div>
           <div class="col">
-            <div class="panel p-cream" data-rise>
+            <div class="panel p-cream deal">
               <h3 class="sr">Fries</h3>
               <ul>
-                <li class="it" data-rise><span class="it-n">One For All Loaded Fries <span class="fav">Crowd's favorite</span></span><span class="it-d">Fries, our sauces, fried chicken bites</span><span class="pr">2<span class="c"><span class="sr">.</span>15</span></span></li>
-                <li class="it" data-rise><span class="it-n">Fries &amp; Sauce</span><span class="it-d">Fries, OFA sauce, ranch &amp; honey mustard</span><span class="pr">1<span class="c"><span class="sr">.</span>45</span></span></li>
+                <li class="it"><span class="it-n">One For All Loaded Fries <span class="fav">Crowd's favorite</span></span><span class="it-d">Fries, our sauces, fried chicken bites</span><span class="pr">2<span class="c"><span class="sr">.</span>15</span></span></li>
+                <li class="it"><span class="it-n">Fries &amp; Sauce</span><span class="it-d">Fries, OFA sauce, ranch &amp; honey mustard</span><span class="pr">1<span class="c"><span class="sr">.</span>45</span></span></li>
               </ul>
             </div>
-            <div class="panel" data-rise>
+            <div class="panel deal">
               <h3 class="sr">Sides and drinks</h3>
               <ul>
-                <li class="it" data-rise><span class="it-n">Fries</span><span class="pr pr-s">0.95</span></li>
-                <li class="it" data-rise><span class="it-n">Sauces</span><span class="it-d">One For All, honey mustard, ranch</span><span class="pr pr-s">0.25</span></li>
-                <li class="it" data-rise><span class="it-n">Milkshake <span class="new">New</span></span><span class="it-d">Extra cream +0.5</span><span class="pr pr-s">2.50</span></li>
-                <li class="it" data-rise><span class="it-n">Fizzy drinks</span><span class="pr pr-s">0.40</span></li>
-                <li class="it" data-rise><span class="it-n">Water</span><span class="pr pr-s">0.25</span></li>
+                <li class="it"><span class="it-n">Fries</span><span class="pr pr-s">0.95</span></li>
+                <li class="it"><span class="it-n">Sauces</span><span class="it-d">One For All, honey mustard, ranch</span><span class="pr pr-s">0.25</span></li>
+                <li class="it"><span class="it-n">Milkshake <span class="new">New</span></span><span class="it-d">Extra cream +0.5</span><span class="pr pr-s">2.50</span></li>
+                <li class="it"><span class="it-n">Fizzy drinks</span><span class="pr pr-s">0.40</span></li>
+                <li class="it"><span class="it-n">Water</span><span class="pr pr-s">0.25</span></li>
               </ul>
             </div>
           </div>
@@ -351,39 +346,39 @@ ul{list-style:none;margin:0;padding:0}
       <div data-l="ar" lang="ar" dir="rtl" hidden>
         <div class="card-top"><span class="k k-h" dir="ltr">@oneforall.jo</span><h2>منيو</h2></div>
         <div class="card-grid">
-          <div class="panel" data-rise>
+          <div class="panel deal">
             <div class="panel-rule">
               <h3>سماشد برجر</h3>
               <ul>
-                <li class="it" data-rise><span class="it-n">الـOFA</span><span class="it-d">برجر، صوص ون فور اول، جبنة</span><span class="pr">1<span class="c"><span class="sr">.</span>98</span></span></li>
-                <li class="it" data-rise><span class="it-n">الماشروم</span><span class="it-d">برجر، فطر، جبنة شيدر</span><span class="pr">2<span class="c"><span class="sr">.</span>25</span></span></li>
-                <li class="it" data-rise><span class="it-n">الكلاسيك</span><span class="it-d">برجر، خس، بندورة، صوص، مخلل، جبنة</span><span class="pr">2<span class="c"><span class="sr">.</span>15</span></span></li>
+                <li class="it"><span class="it-n">الـOFA</span><span class="it-d">برجر، صوص ون فور اول، جبنة</span><span class="pr">1<span class="c"><span class="sr">.</span>98</span></span></li>
+                <li class="it"><span class="it-n">الماشروم</span><span class="it-d">برجر، فطر، جبنة شيدر</span><span class="pr">2<span class="c"><span class="sr">.</span>25</span></span></li>
+                <li class="it"><span class="it-n">الكلاسيك</span><span class="it-d">برجر، خس، بندورة، صوص، مخلل، جبنة</span><span class="pr">2<span class="c"><span class="sr">.</span>15</span></span></li>
               </ul>
             </div>
             <p class="addon"><span class="pill"><b>دبل باتي <bdi>0.69+</bdi></b><i aria-hidden="true">|</i><b>تريبل باتي <bdi>1.38+</bdi></b></span></p>
             <h3 class="sr">دجاج</h3>
             <ul class="ul-pad">
-              <li class="it" data-rise><span class="it-n">برجر الدجاج المقلي</span><span class="it-d">حار أو رانش</span><span class="pr">1<span class="c"><span class="sr">.</span>98</span></span></li>
-              <li class="it" data-rise><span class="it-n">راب الدجاج</span><span class="pr">2<span class="c"><span class="sr">.</span>15</span></span></li>
+              <li class="it"><span class="it-n">برجر الدجاج المقلي</span><span class="it-d">حار أو رانش</span><span class="pr">1<span class="c"><span class="sr">.</span>98</span></span></li>
+              <li class="it"><span class="it-n">راب الدجاج</span><span class="pr">2<span class="c"><span class="sr">.</span>15</span></span></li>
             </ul>
             <p class="meal"><span>خلّي أي ساندويتش وجبة</span><b>1.25+</b></p>
           </div>
           <div class="col">
-            <div class="panel p-cream" data-rise>
+            <div class="panel p-cream deal">
               <h3 class="sr">بطاطا</h3>
               <ul>
-                <li class="it" data-rise><span class="it-n">ون فور اول لودد فرايز <span class="fav">محبوب الجماهير</span></span><span class="it-d">بطاطا مقلية، صوصات، قطع دجاج مقلي</span><span class="pr">2<span class="c"><span class="sr">.</span>15</span></span></li>
-                <li class="it" data-rise><span class="it-n">فرايز و صوص</span><span class="it-d">بطاطا مقلية، صوص ون فور اول، رانش وهوني ماسترد</span><span class="pr">1<span class="c"><span class="sr">.</span>45</span></span></li>
+                <li class="it"><span class="it-n">ون فور اول لودد فرايز <span class="fav">محبوب الجماهير</span></span><span class="it-d">بطاطا مقلية، صوصات، قطع دجاج مقلي</span><span class="pr">2<span class="c"><span class="sr">.</span>15</span></span></li>
+                <li class="it"><span class="it-n">فرايز و صوص</span><span class="it-d">بطاطا مقلية، صوص ون فور اول، رانش وهوني ماسترد</span><span class="pr">1<span class="c"><span class="sr">.</span>45</span></span></li>
               </ul>
             </div>
-            <div class="panel" data-rise>
+            <div class="panel deal">
               <h3 class="sr">إضافات ومشروبات</h3>
               <ul>
-                <li class="it" data-rise><span class="it-n">بطاطا مقلية</span><span class="pr pr-s">0.95</span></li>
-                <li class="it" data-rise><span class="it-n">صوصات</span><span class="it-d">صوص ون فور اول، هوني ماسترد، رانش</span><span class="pr pr-s">0.25</span></li>
-                <li class="it" data-rise><span class="it-n">ميلك شيك <span class="new">جديد</span></span><span class="it-d">كريمة زيادة <bdi>0.5+</bdi></span><span class="pr pr-s">2.50</span></li>
-                <li class="it" data-rise><span class="it-n">مشروبات غازية</span><span class="pr pr-s">0.40</span></li>
-                <li class="it" data-rise><span class="it-n">ماء</span><span class="pr pr-s">0.25</span></li>
+                <li class="it"><span class="it-n">بطاطا مقلية</span><span class="pr pr-s">0.95</span></li>
+                <li class="it"><span class="it-n">صوصات</span><span class="it-d">صوص ون فور اول، هوني ماسترد، رانش</span><span class="pr pr-s">0.25</span></li>
+                <li class="it"><span class="it-n">ميلك شيك <span class="new">جديد</span></span><span class="it-d">كريمة زيادة <bdi>0.5+</bdi></span><span class="pr pr-s">2.50</span></li>
+                <li class="it"><span class="it-n">مشروبات غازية</span><span class="pr pr-s">0.40</span></li>
+                <li class="it"><span class="it-n">ماء</span><span class="pr pr-s">0.25</span></li>
               </ul>
             </div>
           </div>
@@ -393,70 +388,30 @@ ul{list-style:none;margin:0;padding:0}
     </div>
   </section>
 
-  <!-- 4. The milkshake, their newest thing. -->
-  <section class="scene s-shake" data-scene>
-    <div class="stage">
-      <img class="shake-ph" src="n-shake-cut.webp" width="330" height="787" alt="A One For All milkshake, whipped cream and a cherry" loading="lazy" decoding="async">
-      <div class="txt" data-l="en">
-        <p class="beat" data-in=".34" data-fx="slap"><span class="new">New</span></p>
-        <h2 class="display beat" data-in=".12">Milkshake</h2>
-        <p class="desc beat" data-in=".46">Extra cream +0.5</p>
-        <p class="big-pr beat" data-in=".56">2<span class="c"><span class="sr">.</span>50</span></p>
+  <section class="find on-cream" id="find">
+    <div class="find-in" data-l="en">
+      <h2 class="deal">Find us</h2>
+      <p class="addr deal">The NST, Al-Hosn Road, ~200 m from Al-Hosn intersection, Irbid</p>
+      <p class="hours deal" data-on="Open now" data-off="Closed · opens 14:00"><span class="dot" aria-hidden="true"></span><span>Daily 14:00 – 01:30</span><span class="st"></span><span class="x">Takeaway</span></p>
+      <div class="acts deal">
+        <a class="btn btn-fill" href="https://www.google.com/maps/dir/?api=1&destination=32.507500,35.874622"><span>Directions</span><span class="v" aria-hidden="true">→</span></a>
+        <a class="btn btn-line" href="tel:+962799098080"><span>Call</span><span class="v">079 909 8080</span></a>
+        <a class="btn btn-line" href="https://instagram.com/oneforall.jo"><span>Instagram</span><span class="v">@oneforall.jo</span></a>
+        <a class="btn btn-line card-link" href="#" hidden><span>My card</span></a>
       </div>
-      <div class="txt" data-l="ar" lang="ar" dir="rtl" hidden>
-        <p class="beat" data-in=".34" data-fx="slap"><span class="new">جديد</span></p>
-        <h2 class="display beat" data-in=".12">ميلك شيك</h2>
-        <p class="desc beat" data-in=".46">كريمة زيادة <bdi>0.5+</bdi></p>
-        <p class="big-pr beat" data-in=".56">2<span class="c"><span class="sr">.</span>50</span></p>
-      </div>
+      <a class="card-lk deal" href="../?lang=en"><img src="menu-en-thumb.jpg" width="245" height="178" alt="" loading="lazy" decoding="async"><span>The printed menu card</span></a>
     </div>
-  </section>
-
-  <!-- 5. Find us: their own lit sign on the red band, at night. -->
-  <section class="scene s-find" id="find" data-scene>
-    <div class="stage">
-      <picture>
-        <source media="(max-aspect-ratio: 1/1)" srcset="scene/sign-m.webp" width="708" height="1180">
-        <img class="find-ph" src="scene/sign.webp" width="1400" height="1112" alt="One For All's lit sign on the red band of the NST, at night" loading="lazy" decoding="async">
-      </picture>
-      <div class="shade" aria-hidden="true"></div>
-      <div class="txt" data-l="en">
-        <h2 class="display beat" data-in=".04">Find us</h2>
-        <p class="big beat" data-in=".2">Look for the lit sign.</p>
-        <p class="addr beat" data-in=".4">The NST, Al-Hosn Road, ~200 m from Al-Hosn intersection, Irbid</p>
-        <p class="hours beat" data-in=".56" data-on="Open now" data-off="Closed · opens 14:00"><span class="dot" aria-hidden="true"></span><span>Daily 14:00 – 01:30</span><span class="st"></span><span class="x">Takeaway</span></p>
+    <div class="find-in" data-l="ar" lang="ar" dir="rtl" hidden>
+      <h2 class="deal">كيف توصل</h2>
+      <p class="addr deal"><bdi>The NST</bdi>، طريق الحصن، على بعد 200 م تقريباً من إشارة الحصن، إربد</p>
+      <p class="hours deal" data-on="مفتوح الآن" data-off="مغلق · يفتح 14:00"><span class="dot" aria-hidden="true"></span><span>يومياً 14:00 – 01:30</span><span class="st"></span><span class="x">سفري</span></p>
+      <div class="acts deal">
+        <a class="btn btn-fill" href="https://www.google.com/maps/dir/?api=1&destination=32.507500,35.874622"><span>الاتجاهات</span><span class="v" aria-hidden="true">←</span></a>
+        <a class="btn btn-line" href="tel:+962799098080"><span>اتصل</span><span class="v">079 909 8080</span></a>
+        <a class="btn btn-line" href="https://instagram.com/oneforall.jo"><span>إنستغرام</span><span class="v">@oneforall.jo</span></a>
+        <a class="btn btn-line card-link" href="#" hidden><span>بطاقتي</span></a>
       </div>
-      <div class="txt" data-l="ar" lang="ar" dir="rtl" hidden>
-        <h2 class="display beat" data-in=".04">كيف توصل</h2>
-        <p class="big beat" data-in=".2">دوّر عاللوحة المضوية.</p>
-        <p class="addr beat" data-in=".4"><bdi>The NST</bdi>، طريق الحصن، على بعد 200 م تقريباً من إشارة الحصن، إربد</p>
-        <p class="hours beat" data-in=".56" data-on="مفتوح الآن" data-off="مغلق · يفتح 14:00"><span class="dot" aria-hidden="true"></span><span>يومياً 14:00 – 01:30</span><span class="st"></span><span class="x">سفري</span></p>
-      </div>
-    </div>
-  </section>
-
-  <section class="there on-cream" id="go">
-    <div class="there-in">
-      <div data-l="en">
-        <h2 class="sr">Directions and contact</h2>
-        <div class="acts">
-          <a class="btn btn-fill" href="https://www.google.com/maps/dir/?api=1&destination=32.507500,35.874622"><span>Directions</span><span class="v" aria-hidden="true">→</span></a>
-          <a class="btn btn-line" href="tel:+962799098080"><span>Call</span><span class="v">079 909 8080</span></a>
-          <a class="btn btn-line" href="https://instagram.com/oneforall.jo"><span>Instagram</span><span class="v">@oneforall.jo</span></a>
-          <a class="btn btn-line card-link" href="#" hidden><span>My card</span></a>
-        </div>
-        <a class="card-lk" href="../?lang=en"><img src="menu-en-thumb.jpg" width="245" height="178" alt="" loading="lazy" decoding="async"><span>The printed menu card</span></a>
-      </div>
-      <div data-l="ar" lang="ar" dir="rtl" hidden>
-        <h2 class="sr">الاتجاهات والتواصل</h2>
-        <div class="acts">
-          <a class="btn btn-fill" href="https://www.google.com/maps/dir/?api=1&destination=32.507500,35.874622"><span>الاتجاهات</span><span class="v" aria-hidden="true">←</span></a>
-          <a class="btn btn-line" href="tel:+962799098080"><span>اتصل</span><span class="v">079 909 8080</span></a>
-          <a class="btn btn-line" href="https://instagram.com/oneforall.jo"><span>إنستغرام</span><span class="v">@oneforall.jo</span></a>
-          <a class="btn btn-line card-link" href="#" hidden><span>بطاقتي</span></a>
-        </div>
-        <a class="card-lk" href="../?lang=ar"><img src="menu-ar-thumb.jpg" width="245" height="178" alt="" loading="lazy" decoding="async"><span>المنيو المصوّر</span></a>
-      </div>
+      <a class="card-lk deal" href="../?lang=ar"><img src="menu-ar-thumb.jpg" width="245" height="178" alt="" loading="lazy" decoding="async"><span>المنيو المصوّر</span></a>
     </div>
   </section>
 
@@ -478,8 +433,6 @@ ul{list-style:none;margin:0;padding:0}
 const LOYALTY_URL = '';
 const KEY = 'ofa-lang', langBtn = document.getElementById('btn-lang');
 const OTHER = { en: ['ar', 'عربي'], ar: ['en', 'English'] };
-const ramp = (x, a, b) => Math.min(1, Math.max(0, (x - a) / (b - a)));
-const LIVE = document.documentElement.classList.contains('live');
 
 /* Hours: the shop's clock, not the phone's, and its day runs past midnight. */
 try {
@@ -493,83 +446,56 @@ try {
   }
 } catch (e) {}   /* no Intl or no tz database: the printed hours are still right */
 
-/* --- the scroll engine. Each [data-scene] gets --p, 0 to 1, from how far its sticky stage has
-   travelled. Beats ([data-in], optional [data-out]) fade and lift in on that progress and stay unless
-   they have an out. [data-rise] elements get --q, 0 to 1, as they come up the screen. All reads
-   happen before all writes, once per frame. --- */
-const bar = document.querySelector('.bar'), cta = document.getElementById('cta');
-const menuEl = document.getElementById('menu');
-const scenes = LIVE ? [...document.querySelectorAll('[data-scene]')].map(el => ({
-  el, stage: el.querySelector('.stage'), p: -1, hook: null,
-  beats: [...el.querySelectorAll('[data-in]')].map(b => ({ b, a: +b.dataset.in, z: b.dataset.out ? +b.dataset.out : 2, fx: b.dataset.fx || '' })),
-})) : [];
-const rises = LIVE ? [...document.querySelectorAll('[data-rise]')] : [];
-const F = 0.07;
-const beat = (t, p) => {
-  const i = t.a < 0 ? 1 : ramp(p, t.a, t.a + F), o = 1 - ramp(p, t.z - F, t.z), v = Math.min(i, o), s = t.b.style;
-  s.opacity = v.toFixed(3);
-  s.visibility = v < 0.02 ? 'hidden' : '';
-  if (t.fx === 'slap') { s.scale = (1 + (1 - i) * 1.6).toFixed(3); s.rotate = (-(1 - i) * 18).toFixed(1) + 'deg'; }
-  else s.translate = '0 ' + ((1 - i) * 22 - (1 - o) * 22).toFixed(1) + 'px';
-};
-let barH = bar.offsetHeight;
-const frame = () => {
-  const vh = innerHeight;
-  const R = scenes.map(s => [s.el.getBoundingClientRect(), s.stage.offsetHeight]);
-  const Q = rises.map(el => el.getBoundingClientRect().top);
-  const m = menuEl.getBoundingClientRect();
-  scenes.forEach((s, i) => {
-    const [r, sh] = R[i];
-    const p = Math.min(1, Math.max(0, (barH - r.top) / Math.max(1, r.height - sh)));
-    if (p === s.p) return;
-    s.p = p;
-    s.el.style.setProperty('--p', p.toFixed(4));
-    for (const t of s.beats) beat(t, p);
-    if (s.hook) s.hook(p);
-  });
-  rises.forEach((el, i) => el.style.setProperty('--q', ramp(vh - Q[i], 0, vh * 0.28).toFixed(3)));
-  cta.dataset.tuck = (m.top < vh * 0.5 && m.bottom > vh * 0.4) ? '0' : '1';   /* only over the menu */
-};
+/* The Call bar shows only while the menu crosses the middle of the screen. No scroll handler. */
+const cta = document.getElementById('cta');
+if ('IntersectionObserver' in window) {
+  new IntersectionObserver(es => { cta.dataset.tuck = es[es.length - 1].isIntersecting ? '0' : '1'; },
+    { rootMargin: '-50% 0px -40% 0px' }).observe(document.getElementById('menu'));
+}
 
-/* The lane: the clip is fetched as a Blob (always seekable) after the page has loaded and never on a
-   data saver. Scroll walks it; past WALK the camera dives into the red of our screen - the dive point
-   is the red right of the badge in the clip's last frame, measured from the file - and the red deepens
-   to the backdrop the OFA was photographed on. Seeks are coalesced; phones paint a seeked frame only
-   after one play, so the first touch plays and pauses it. With no clip there is no dive, only the fade. */
-if (LIVE) {
-  const sec = document.getElementById('top'), cam = sec.querySelector('.cam'), v = cam.querySelector('video');
-  const dive = sec.querySelector('.dive'), shade = sec.querySelector('.shade');
+/* The lane clip is the only thing script moves. It is fetched as a Blob (always seekable) after the
+   page has loaded, never on a data saver; scroll sets its time over the first 60% of the lane, then it
+   holds on the last frame for the crash zoom, which CSS runs. The zoom's origin and depth are measured
+   from the file - the red right of the badge in the last frame - and set once per size. Seeks are
+   coalesced; phones paint a seeked frame only after one play, so the first touch plays and pauses it.
+   Until the clip is ready the zoom depth stays 1: the still is the first frame, the screen is elsewhere. */
+if (document.documentElement.classList.contains('live')) {
+  const sec = document.getElementById('top'), stage = sec.querySelector('.stage'), cam = sec.querySelector('.cam'), v = cam.querySelector('video');
+  const bar = document.querySelector('.bar');
   const tall = matchMedia('(max-aspect-ratio: 1/1)').matches;
   const VW = tall ? 720 : 1280, VH = tall ? 1280 : 720;
   const D = tall ? [0.556, 0.5, 0.106, 0.0975] : [0.176, 0.5, 0.033, 0.0975];   /* x, y, half-width, half-height */
   const WALK = 0.6;
-  let S = 1, dur = 0, want = 0, busy = false, primed = false, last = 0;
+  let dur = 0, want = 0, busy = false, primed = false, tick = false;
   const measure = () => {
     const W = cam.offsetWidth, H = cam.offsetHeight, k = Math.max(W / VW, H / VH), rw = VW * k, rh = VH * k;
     const px = D[0] * rw, py = (H - rh) / 2 + D[1] * rh, hx = D[2] * rw * 0.9, hy = D[3] * rh * 0.9;
-    S = Math.min(80, 1.15 * Math.max(px / hx, (W - px) / hx, py / hy, (H - py) / hy));
-    cam.style.transformOrigin = px.toFixed(1) + 'px ' + py.toFixed(1) + 'px';
+    const S = Math.min(80, 1.15 * Math.max(px / hx, (W - px) / hx, py / hy, (H - py) / hy));
+    cam.style.setProperty('--dive-x', px.toFixed(1) + 'px');
+    cam.style.setProperty('--dive-y', py.toFixed(1) + 'px');
+    if (dur) cam.style.setProperty('--dive-s', S.toFixed(2));
   };
   const seek = () => {
     if (!dur || busy || Math.abs(v.currentTime - want) < 0.034) return;
     busy = true; v.currentTime = want;
   };
   v.addEventListener('seeked', () => { busy = false; v.classList.add('on'); seek(); });
-  scenes[0].hook = p => {
-    last = p;
-    want = Math.min(1, p / WALK) * dur; seek();
-    const u = dur ? ramp(p, WALK, 0.95) : 0;
-    cam.style.scale = u ? (1 + (S - 1) * u * u * u).toFixed(3) : '';
-    shade.style.opacity = (1 - ramp(p, WALK, WALK + 0.08)).toFixed(3);
-    dive.style.opacity = ramp(p, 0.8, 0.97).toFixed(3);
+  const read = () => {
+    tick = false;
+    const r = sec.getBoundingClientRect(), span = r.height - stage.offsetHeight;
+    const p = Math.min(1, Math.max(0, (bar.offsetHeight - r.top) / Math.max(1, span)));
+    want = Math.min(1, p / WALK) * dur;
+    seek();
   };
+  const onScroll = () => { if (!tick && r0()) { tick = true; requestAnimationFrame(read); } };
+  const r0 = () => scrollY < sec.offsetTop + sec.offsetHeight + innerHeight;   /* nothing to do past the lane */
   const c = navigator.connection || {};
   const load = () => {
     if (c.saveData || /2g/.test(c.effectiveType || '') || !window.fetch) return;
     fetch(tall ? 'film/lane-m.mp4' : 'film/lane.mp4')
       .then(r => r.ok ? r.blob() : Promise.reject(r.status))
       .then(b => {
-        v.addEventListener('loadedmetadata', () => { dur = Math.max(0, v.duration - 0.05); scenes[0].p = -1; frame(); }, { once: true });
+        v.addEventListener('loadedmetadata', () => { dur = Math.max(0, v.duration - 0.05); measure(); read(); }, { once: true });
         v.src = URL.createObjectURL(b);
       })
       .catch(() => {});
@@ -578,19 +504,13 @@ if (LIVE) {
     if (primed || !v.src) return; primed = true;
     try { const q = v.play(); if (q && q.then) q.then(() => v.pause()).catch(() => {}); } catch (e) {}
   };
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', () => { measure(); onScroll(); }, { passive: true });
   addEventListener('touchstart', prime, { passive: true });
   addEventListener('pointerdown', prime, { passive: true });
   if (document.readyState === 'complete') load(); else addEventListener('load', load, { once: true });
   measure();
-  addEventListener('resize', measure, { passive: true });
 }
-let tick = false;
-const onScroll = () => {
-  if (tick) return; tick = true;
-  requestAnimationFrame(() => { tick = false; frame(); });
-};
-addEventListener('scroll', onScroll, { passive: true });
-addEventListener('resize', () => { barH = bar.offsetHeight; for (const s of scenes) s.p = -1; onScroll(); }, { passive: true });
 
 /* Language: ?lang= wins, then a remembered choice, then English. Same key as the menu card page. */
 const show = (l, remember) => {
@@ -604,8 +524,6 @@ const show = (l, remember) => {
   document.documentElement.lang = l;
   document.documentElement.dir = (l === 'ar') ? 'rtl' : 'ltr';
   if (remember) { try { localStorage.setItem(KEY, l); } catch (e) {} }
-  for (const s of scenes) s.p = -1;
-  frame();
 };
 langBtn.onclick = () => show(OTHER[document.documentElement.lang === 'ar' ? 'ar' : 'en'][0], true);
 const param = new URLSearchParams(location.search).get('lang');
