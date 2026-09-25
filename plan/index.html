@@ -201,6 +201,8 @@
   footer{padding-block:34px;color:var(--t3);font-size:13px;border-top:2px solid var(--ink);margin-top:8px}
   footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
   .mark{font-family:"JetBrains Mono",monospace;letter-spacing:.14em;font-size:11px;text-transform:uppercase}
+  a.mark{color:inherit;text-decoration:none;padding:13px 0;margin:-13px 0}   /* a 44 px target; the negative margin keeps the footer as it was */
+  a.mark:hover{text-decoration:underline;text-underline-offset:3px}
   *:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}
     .route{stroke-dashoffset:0!important}}
@@ -459,7 +461,7 @@
 
 <footer><div class="wrap">
   <span>Prepared for One For All &middot; 23 September 2026</span>
-  <span class="mark">The X Floor</span>
+  <a class="mark" href="https://thexfloor.com/" target="_blank" rel="noopener">The X Floor</a>
 </div></footer>
 
 <script>
