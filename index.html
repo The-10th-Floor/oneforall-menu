@@ -44,6 +44,8 @@ main{flex:1;width:100%;display:flex;flex-direction:column;padding-top:env(safe-a
 .floor{flex:1;min-height:160px;display:flex;align-items:flex-end;justify-content:center;padding:32px 0 calc(96px + env(safe-area-inset-bottom));
   background:linear-gradient(rgba(24,22,23,.13) 2px,transparent 2px) 0 0/46px 46px,linear-gradient(90deg,rgba(24,22,23,.13) 2px,transparent 2px) 0 0/46px 46px,linear-gradient(to bottom,var(--red),#C03435);animation:fadeup .6s ease-out 1.1s both}
 .floor img{height:28px;width:auto;display:block}
+.floor a{display:block;padding:8px;margin:-8px}   /* a 44 px target around the 28 px mark; the negative margin keeps the mark where it was */
+.floor a:focus-visible{outline:2px solid var(--cream);outline-offset:2px}
 /* A way back to the main page - shown only to visitors who came from it (?from=site). A tap on the NFC
    piece at the window still opens the card and nothing else, on the founder's call (2026-09-19). */
 .back{position:fixed;top:calc(8px + env(safe-area-inset-top));inset-inline-start:12px;z-index:3;display:inline-flex;align-items:center;
@@ -94,7 +96,7 @@ noscript img{display:block;width:100%;max-width:600px;height:auto;margin:0 auto}
     <a id="card-link" class="pill" href="#"></a>
   </div>
 
-  <div class="floor"><img src="lockup.svg" alt="The X Floor"></div>
+  <div class="floor"><a href="https://thexfloor.com/" target="_blank" rel="noopener"><img src="lockup.svg" alt="The X Floor"></a></div>
 </main>
 <nav class="dock" data-lang="ar" aria-label="Language">
   <span class="thumb" aria-hidden="true"></span>

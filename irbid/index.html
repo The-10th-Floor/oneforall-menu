@@ -300,6 +300,7 @@ ul{list-style:none;margin:0;padding:0}
 .foot{padding:26px 16px calc(28px + env(safe-area-inset-bottom));background:var(--floor);text-align:center;font-size:.95rem}
 .foot p{margin:0 0 14px}
 .foot img{height:22px;width:auto;margin:0 auto;opacity:.7}
+.foot .xf{display:block;width:fit-content;padding:11px;margin:-11px auto}   /* a 44 px target around the 22 px mark; the negative margin keeps the mark where it was */
 
 /* On a phone, Call and Directions ride along the bottom the whole way down; Find us has the real ones. */
 .cta{position:fixed;left:0;right:0;bottom:0;z-index:30;display:none;gap:10px;
@@ -522,7 +523,7 @@ ul{list-style:none;margin:0;padding:0}
 <footer class="foot">
   <p data-l="en">Prices in Jordanian dinar · One For All at the NST, <span class="nw">Al-Hosn</span> Road, Irbid</p>
   <p data-l="ar" lang="ar" dir="rtl" hidden>الأسعار بالدينار الأردني · ون فور اول في <bdi>The NST</bdi>، طريق الحصن، إربد</p>
-  <img src="../lockup.svg" alt="The X Floor" loading="lazy">
+  <a class="xf" href="https://thexfloor.com/" target="_blank" rel="noopener"><img src="../lockup.svg" alt="The X Floor" loading="lazy"></a>
 </footer>
 
 <script>
