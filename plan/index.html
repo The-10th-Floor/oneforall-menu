@@ -352,6 +352,13 @@
     <div class="opt"><span class="v">Later order</span><h4>No car form</h4><p>An order placed from that loyalty card carries its saved vehicle link. A different, shared or rented car is fine: the customer still has the pickup code and can remove the saved car.</p></div>
     <div class="opt"><span class="v">At arrival</span><h4>One clear match</h4><p>A confident plate read may mark one matching open order as arrived on the staff board. An unreadable plate or two possible orders asks for the code. The camera never places an order, starts the grill, charges a payment, stamps a card or authorises hand-over.</p></div>
   </div>
+  <div class="blk" style="margin-top:12px"><div class="bh"><b>What staff see after a match</b><span>proposed arrival signal</span></div>
+    <ul>
+      <li><b>Early:</b> show the chosen collection slot; if food is not ready, direct the car to the pull-in bay. The camera does not move the grill start time.</li>
+      <li><b>On time:</b> prepare hand-over when the order is ready; otherwise show the current kitchen state.</li>
+      <li><b>Late:</b> keep the order visible for staff and record the gap between the chosen slot and arrival so future slot estimates can be checked.</li>
+    </ul>
+  </div>
   <p class="fine">Once its real-camera coverage is accepted, Gospr could report vehicle counts, queue time and window service time without customer identity. The vehicle-to-card link belongs in the private pickup service, not its counts-only analytics. Frigate has local plate recognition, but the current One For All Gospr café profile has it disabled. The first gate is a day/night test of a tight front-plate view on the actual lane; the four existing cameras do not establish that view. <a href="https://docs.frigate.video/configuration/license_plate_recognition/">Frigate LPR documentation</a>.</p>
   <p class="fine">A plate linked to a loyalty card can identify a person. Before launch, the shop needs a clear purpose and retention period, a recorded opt-in, a way to withdraw and delete the link, an entry notice, and Jordanian privacy review for scanning vehicles that have not opted in. Unknown reads should be discarded immediately by the matching service; raw plates and images should not go to the finance or marketing systems. <a href="https://www.modee.gov.jo/EBV4.0/Root_Storage/EN/1/PDP_Law_-_English_Version-_officail_translation.pdf">Jordan Personal Data Protection Law, Articles 2, 4, 5 and 9</a>.</p>
 </div></section>
