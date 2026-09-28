@@ -211,7 +211,7 @@
 <header><div class="wrap">
   <p class="eyebrow">One For All &middot; The NST, Al-Hosn Road, Irbid</p>
   <h1>Order first, <em>then drive</em>.</h1>
-  <p>The decision, the three working parts running, the build, what it costs, what it was checked against, what goes wrong elsewhere, and what nobody has measured yet. One page, start to finish.</p>
+  <p>The order, kitchen and lane, plus an optional way to recognise a returning car. The vehicle addition is a proposal; the route and camera sightline still need to be measured on site.</p>
 </div></header>
 
 <!-- ===================== THE DECISION ===================== -->
@@ -242,11 +242,11 @@
     <div>
       <p><b>Try it.</b> Add two burgers and the times appear with what is left on the grill in each one. Two slots are already full and will not take the order.</p>
       <p><b>There is no second step.</b> The burger takes ten minutes, so the earliest time offered is ten minutes away and the grill starts ten minutes before the time chosen. One number sets both ends, and the cook always fits.</p>
-      <p><b>Nothing else is asked for.</b> Not a name, not a phone number, not the car. The food is handed through a window to the one car standing at it, so five characters on the screen are the whole hand-over. Anything more is a field to fill in that nobody reads back.</p>
+      <p><b>Nothing else is asked while ordering.</b> Not a name, phone number or car. The five-character code works for every pickup. After the first hand-over, a customer may choose to save that car for faster arrival recognition next time.</p>
       <div class="chips">
         <span class="chip"><b>Not asked</b> a name</span>
         <span class="chip"><b>Not asked</b> a phone number</span>
-        <span class="chip"><b>Not asked</b> the car</span>
+        <span class="chip"><b>At booking</b> no car field</span>
         <span class="chip"><b>Not built</b> numbered bays</span>
       </div>
       <p class="fine">Grill capacity is set here at eight per five minutes as a placeholder. That number comes from the real line, and it is the single most important setting in the whole system.</p>
@@ -344,10 +344,31 @@
   </div>
 </div></section>
 
+<!-- ===================== 04 RETURNING VEHICLE ===================== -->
+<section><div class="wrap">
+  <p class="lab">04 &middot; Returning vehicle &middot; proposed</p>
+  <h2>Ask once at pickup. Recognise the next arrival.</h2>
+  <p class="sub">A camera watches one controlled point in the pickup lane. It can read a plate; make and colour alone cannot identify an order. Recognition only helps staff see that a customer with an existing order has arrived.</p>
+  <div class="opts">
+    <div class="opt yes"><span class="v">First pickup</span><h4>Customer chooses</h4><p>After payment and the loyalty tap, ask: &ldquo;Save this car for faster pickup next time?&rdquo; The customer accepts on their own phone. Staff confirm the plate read against the car at the window. Saying no leaves the five-character pickup flow untouched.</p></div>
+    <div class="opt"><span class="v">Later order</span><h4>No car form</h4><p>An order placed from that loyalty card carries its saved vehicle link. A different, shared or rented car is fine: the customer still has the pickup code and can remove the saved car.</p></div>
+    <div class="opt"><span class="v">At arrival</span><h4>One clear match</h4><p>A confident plate read may mark one matching open order as arrived on the staff board. An unreadable plate or two possible orders asks for the code. The camera never places an order, starts the grill, charges a payment, stamps a card or authorises hand-over.</p></div>
+  </div>
+  <div class="blk" style="margin-top:12px"><div class="bh"><b>What staff see after a match</b><span>proposed arrival signal</span></div>
+    <ul>
+      <li><b>Early:</b> show the chosen collection slot; if food is not ready, direct the car to the pull-in bay. The camera does not move the grill start time.</li>
+      <li><b>On time:</b> prepare hand-over when the order is ready; otherwise show the current kitchen state.</li>
+      <li><b>Late:</b> keep the order visible for staff and record the gap between the chosen slot and arrival so future slot estimates can be checked.</li>
+    </ul>
+  </div>
+  <p class="fine">Once its real-camera coverage is accepted, Gospr could report vehicle counts, queue time and window service time without customer identity. The vehicle-to-card link belongs in the private pickup service, not its counts-only analytics. Frigate has local plate recognition, but the current One For All Gospr café profile has it disabled. The first gate is a day/night test of a tight front-plate view on the actual lane; the four existing cameras do not establish that view. <a href="https://docs.frigate.video/configuration/license_plate_recognition/">Frigate LPR documentation</a>.</p>
+  <p class="fine">A plate linked to a loyalty card can identify a person. Before launch, the shop needs a clear purpose and retention period, a recorded opt-in, a way to withdraw and delete the link, an entry notice, and Jordanian privacy review for scanning vehicles that have not opted in. Unknown reads should be discarded immediately by the matching service; raw plates and images should not go to the finance or marketing systems. <a href="https://www.modee.gov.jo/EBV4.0/Root_Storage/EN/1/PDP_Law_-_English_Version-_officail_translation.pdf">Jordan Personal Data Protection Law, Articles 2, 4, 5 and 9</a>.</p>
+</div></section>
+
 <!-- ===================== WHAT GETS BUILT ===================== -->
 <section><div class="wrap">
   <p class="lab">The build</p>
-  <h2>One opening, one bay, two signs</h2>
+  <h2>One opening, one bay, two signs; test one camera</h2>
   <p class="sub">The numbers a builder cannot change afterwards, written down before anyone quotes so the quotes can be compared.</p>
 
   <div class="blk"><div class="bh"><b>A serving window in the east wall</b><span>one opening</span></div>
@@ -365,14 +386,16 @@
 
   <div class="blk"><div class="bh"><b>Two signs</b><span>reflective or lit</span></div>
   <p>One at the entry, left to park and right to the drive-through, and one marking the pull-in bay. Both reflective or internally lit: the night footage shows a great deal of competing light on that forecourt, and a printed panel disappears into it. The bay needs no number, because nobody has to read it back to us.</p></div>
+  <div class="blk"><div class="bh"><b>Arrival camera</b><span>proposed &middot; not yet specified</span></div>
+  <p>Test one narrow view where an arriving car slows and its front plate faces the lens. Confirm day/night reads, glare, mounting and the recorder connection before choosing hardware or cutting cable routes. Keep code-based hand-over if any read is uncertain.</p></div>
   <p class="fine">The sill and opening bands are the drive-through trade's working figures, from Quikserv and Covenant Security Equipment; the air curtain follows California's rule for service openings. None of them is Jordanian, so treat them as the shape of the answer and confirm each against the unit actually supplied.</p>
 </div></section>
 
 <!-- ===================== WHAT IT COSTS ===================== -->
 <section><div class="wrap">
   <p class="lab">The money</p>
-  <h2>Two lines carry a figure. Five do not.</h2>
-  <p class="sub">The five are listed anyway, so a builder&rsquo;s quote can be read against a complete list rather than a short one. No Jordanian price for them exists in any public source.</p>
+  <h2>Two lines carry a figure. Six do not.</h2>
+  <p class="sub">The six are listed anyway, so a builder&rsquo;s quote can be read against a complete list rather than a short one. No Jordanian price for them exists in any public source.</p>
   <div class="tbl"><table>
     <thead><tr><th>Part</th><th>Figure</th><th>Where it comes from</th></tr></thead>
     <tbody>
@@ -382,6 +405,7 @@
       <tr class="z"><td>Night shutter</td><td class="n">not priced</td><td>Security, and it closes the opening between cars</td></tr>
       <tr><td>Hand basin on the kitchen side</td><td class="n">not priced</td><td>Plumbing into an existing wall</td></tr>
       <tr class="z"><td>Paint for one bay, and two signs</td><td class="n">not priced</td><td>Local sign-maker. Reflective or lit, not printed vinyl</td></tr>
+      <tr><td>Arrival camera, mount, power, recorder connection</td><td class="n">not priced</td><td>Choose after a day/night plate-view test and privacy review</td></tr>
       <tr><td><b>One extra person, if the lane needs a runner</b></td><td class="n hi">342.75 JOD</td><td class="hi">The 300 JOD you named, plus the 14.25% employer share. Above the 290 JOD minimum. Every month</td></tr>
     </tbody>
   </table></div>
@@ -418,7 +442,7 @@
       <p><b>No published no-show rate exists for restaurant order-ahead pickup</b>, in any market. The timing this depends on has never been measured by anyone, which is why the first weeks should be counted rather than assumed.</p>
       <p class="src">Searched, not found</p></div>
     <div class="evc"><h4>Jordan, on the one input that matters</h4>
-      <p><b>Internet penetration was 92.5% at the start of 2025</b>, and ordering through a web page rather than an app is already normal locally. The menu page and the tap piece are already live. The loyalty card is built and tested, waiting on one deploy.</p>
+      <p><b>Internet penetration was 92.5% at the start of 2025</b>, and ordering through a web page rather than an app is already normal locally. The menu page and the tap piece are already live. The loyalty card runs as a pilot; its physical signed-puck test is still open.</p>
       <p class="src">DataReportal, Digital 2025 Jordan</p></div>
   </div>
 </div></section>
@@ -427,7 +451,7 @@
 <section><div class="wrap">
   <p class="lab">Known failures</p>
   <h2>What goes wrong, and what stops it</h2>
-  <p class="sub">Every row has happened to somebody. Four of the six are settled by a decision taken before any work starts, which is the reason to take them now.</p>
+  <p class="sub">The construction failures below have occurred elsewhere; the vehicle-match risk is a design case to test before the camera is used for pickup.</p>
   <div class="tbl"><table>
     <thead><tr><th>What goes wrong</th><th>How it shows up</th><th>What stops it</th></tr></thead>
     <tbody>
@@ -437,6 +461,7 @@
       <tr class="z"><td><b>Robbery through the opening</b></td><td>Robbery through a service window left open is a documented failure of the format.</td><td class="hi">The shutter, and a rule that it opens for the hand-over and not before</td></tr>
       <tr><td><b>A car cannot fit or cannot leave</b></td><td>Larger vehicles get stuck mid-turn. It is a recurring incident elsewhere.</td><td class="hi">Proven for a car already: this route was driven in one. Not proven for anything larger, and the route must keep running through to the back</td></tr>
       <tr class="z"><td><b>The queue becomes a dispute</b></td><td>Two lanes feeding off one forecourt, and a normal tenancy caps neither. It has already happened here: the road was closed by a queue on this site.</td><td class="hi">Yours to settle, because you own the building. Set it in the terms rather than argue it later</td></tr>
+      <tr><td><b>A car matches the wrong order</b></td><td>Shared cars, a misread plate or two open orders make an arrival ambiguous.</td><td class="hi">Only one confident match marks an order arrived; staff use the five-character code to hand it over</td></tr>
     </tbody>
   </table></div>
   <p class="fine">An order nobody collects is cooked and paid for in food all the same. Nobody publishes how often that happens, so count it in the first weeks beside lateness, and decide then whether taking payment at the order is worth the card fee.</p>
@@ -456,11 +481,11 @@
     <div class="nrow"><b>05</b><div>The walk from the kitchen to the window position<span>Paced and timed at a busy hour.</span></div></div>
     <div class="nrow" style="border-bottom:0"><b>06</b><div>What happens when both lanes fill at once<span>Yours to set, not to ask for: you own the building and BLK rents in it. A queue on this site has already closed the road once.</span></div></div>
   </div>
-  <p class="fine">This page is the whole plan. The same content is set as an eight-page A4 document, for printing and for handing over on paper.</p>
+  <p class="fine">The eight-page A4 construction plan is dated 23 September 2026. The optional vehicle-arrival proposal was added to this web plan on 29 September; its camera position, accuracy and privacy process are still unverified.</p>
 </div></section>
 
 <footer><div class="wrap">
-  <span>Prepared for One For All &middot; 23 September 2026</span>
+  <span>Prepared for One For All &middot; updated 29 September 2026</span>
   <a class="mark" href="https://thexfloor.com/" target="_blank" rel="noopener">The X Floor</a>
 </div></footer>
 
