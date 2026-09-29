@@ -4,10 +4,19 @@ Generates, from one geometry definition (mm, front view, Y up):
   stl/*.stl                      printable parts (face-down orientation) + assembled preview
   laser/*.svg                    laser-cut / UV-print files (1 user unit = 1 mm), text as paths
   preview/front_view.svg         coloured front view for approval
-Run:  python build_holder.py [--url https://short.link/for/qr]
-Deps: trimesh shapely manifold3d mapbox_earcut fonttools uharfbuzz  (qrcode optional)
+Run:  python build_holder.py
+The former --url engraving path is disabled pending a quiet-zone and physical-proof design.
+Deps: trimesh shapely manifold3d mapbox_earcut fonttools uharfbuzz
 """
 import sys, os, math, argparse
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Build the existing small NFC prototype, not the final 350 mm sign.")
+    parser.add_argument("--url", help=argparse.SUPPRESS)
+    args = parser.parse_args()
+    if args.url is not None:
+        parser.error("Optional engraved QR is not accepted: missing quiet zone. Use the root qr.svg/qr.png unchanged and physically proof the intended placement.")
+
 import numpy as np
 from shapely.geometry import Polygon, MultiPolygon, Point, LineString, box
 from shapely.ops import unary_union
@@ -270,9 +279,6 @@ def write(path, s):
 
 # ----------------------------------------------------------------------------- build
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("--url", default=None, help="URL to encode as optional QR on the bottom bun (laser engrave variant)")
-    a = ap.parse_args()
-
     print("Shaping text …")
     # "TAP FOR" in the menu's clean font + the real "MENU" wordmark, one centred group on the beef band (-2..-16)
     import json
@@ -347,18 +353,6 @@ def main():
     layer("L2_inlay_lettuce_GREEN_3mm.svg", [S["lettuce"].buffer(-TOL, join_style=1)])
     layer("L2_inlay_tomato_RED_3mm.svg", [S["tomato"].buffer(-TOL, join_style=1)])
     layer("L2_inlay_patty_BROWN_3mm.svg", [S["patty"].buffer(-TOL, join_style=1)], [en])
-
-    # optional QR (engrave on bottom bun, right side) — only if a URL is given
-    if a.url:
-        try:
-            import qrcode
-            q = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_M, border=0); q.add_data(a.url); q.make(fit=True)
-            mat = q.get_matrix(); n = len(mat); size = 18.0; mod = size/n; x0, y0 = 60 - 8 - size, -42 + 2
-            cells = [box(x0 + j*mod, y0 + (n-1-i)*mod, x0 + (j+1)*mod, y0 + (n-i)*mod) for i in range(n) for j in range(n) if mat[i][j]]
-            layer("OPTIONAL_qr_on_bun_bottom_engrave.svg", [S["bun_bottom"].buffer(-TOL, join_style=1)], [unary_union(cells), affinity.translate(ar, -12, 0)])
-            print(f"  QR: {n}x{n} modules at {mod:.2f} mm (>= 0.4 mm/module is scannable)")
-        except ImportError:
-            print("  (pip install qrcode to generate the optional QR layer)")
 
     # nested sheet with all layers + legend
     tiles = [("L0 back plate · RED", [H], [nfc_pocket]), ("L1 frame · RED", [frame], []),
