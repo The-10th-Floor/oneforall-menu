@@ -38,19 +38,12 @@ if (window.CSS && CSS.supports('animation-timeline', 'view()') && !matchMedia('(
   document.documentElement.classList.add('live');
 </script>
 <style>
-/* DIRECTION. What the page must do: someone who found One For All on Maps or Instagram leaves hungry, sure it
-   is cheap, sure it is open and near - and taps Directions. Their card already says "Deliciously
-   affordable"; the page proves it with a real bill, and the scroll is how the bill is written:
-   BEAT 1  The OFA, the studio photograph on the red it was shot on, with its price. The opening screen.
-   BEAT 2  A whip pan - the next thing on the counter: the milkshake, lit the same, NEW landing on it.
-   BEAT 3  The milkshake steps aside, the OFA comes back beside it, and the bill lands. The photographed OFA
-           has three patties, so the bill is the price of what is pictured, all from their card:
-           1.98 + 1.38 (triple patty) + 2.50 = 5.86. Nothing else is claimed.
-   Then the whole card, then the way there. Every move adds an item or a number; nothing moves only to
-   move. The milkshake photograph is made from their own phone photo of it, relit on the burger's backdrop
-   (2026-09-24, the founder's choice); everything else is theirs as shot or printed. The lane film is out:
-   BLK's lane, and a dive into red that meant nothing. One face does both scripts (Baloo Bhaijaan 2,
-   variable); Lemonada carries only «واحد للكل» and is served from this folder. */
+/* DIRECTION. Introduce the burger range and its entry sandwich price, then the milkshake, then the
+   menu action. The existing burger photograph is category imagery: its visible bread layers do not
+   establish one specific patty configuration. Do not attach a single-item description or a calculated
+   combo bill to it. Exact item names, ingredients and add-on prices remain in the menu below.
+   Keep the existing native scroll motion and reduced-motion still layout. The milkshake composition
+   was made from the branch phone photo on the existing backdrop; no replacement image is generated. */
 @font-face{font-family:'Baloo Bhaijaan 2';font-style:normal;font-weight:400 800;font-display:swap;src:url(https://fonts.gstatic.com/s/baloobhaijaan2/v21/zYX9KUwuEqdVGqM8tPDdAA_Y-_bMAIRsdO_q.woff2) format('woff2');unicode-range:U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC}
 @font-face{font-family:'Baloo Bhaijaan 2';font-style:normal;font-weight:400 800;font-display:swap;src:url(https://fonts.gstatic.com/s/baloobhaijaan2/v21/zYX9KUwuEqdVGqM8tPDdAA_Y-_bMAI9sdO_q.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
 @font-face{font-family:'Baloo Bhaijaan 2';font-style:normal;font-weight:400 800;font-display:swap;src:url(https://fonts.gstatic.com/s/baloobhaijaan2/v21/zYX9KUwuEqdVGqM8tPDdAA_Y-_bMAIFsdA.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
@@ -118,6 +111,7 @@ h1,h2,h3,p{margin:0}
 [dir=rtl] .kick{letter-spacing:0}
 .big-pr{direction:ltr;unicode-bidi:isolate;font:800 clamp(3.4rem,17vw,6.4rem)/1 "Baloo Bhaijaan 2",system-ui,sans-serif}
 [dir=rtl] .big-pr{text-align:right}
+.big-pr small{font-size:.24em}
 .big-pr .c{font-size:.5em;vertical-align:.95em;margin-inline-start:2px}
 .pill{display:inline-flex;flex-wrap:wrap;justify-content:center;gap:2px 10px;align-items:center;padding:7px 18px;
   border-radius:999px;background:var(--navy);color:var(--cream);font-weight:700;font-size:.98rem;font-variant-numeric:tabular-nums}
@@ -157,15 +151,6 @@ h1,h2,h3,p{margin:0}
 .st-sum .ph-r{translate:var(--r-t)}
 .st-sum .txt{justify-content:flex-end}
 html:not(.live) .st-sum .txt{justify-content:center;padding-top:calc((100svh - var(--bar)) * .5)}
-.sum{direction:ltr;unicode-bidi:isolate;font-weight:800;font-size:1.3rem;font-variant-numeric:tabular-nums}
-[dir=rtl] .sum{direction:rtl}
-.total{display:flex;align-items:baseline;gap:10px;direction:ltr;unicode-bidi:isolate;
-  font:800 clamp(4rem,21vw,8rem)/.95 "Baloo Bhaijaan 2",system-ui,sans-serif;color:var(--yellow);font-variant-numeric:tabular-nums}
-[dir=rtl] .total{flex-direction:row-reverse;justify-content:flex-end}
-.total small{font-size:.24em;color:var(--cream);font-weight:800}
-/* the total pops in from 1.5x; grown from the middle of its full-width line, the first digit left a 390 px screen */
-.total{transform-origin:0 100%}
-[dir=rtl] .total{transform-origin:100% 100%}
 .st-shake .new{font-size:1.25rem;padding:2px 16px 4px;margin:0 0 6px}
 @media (min-aspect-ratio:1/1){
   :root{--sum-s:.52;--a-t:0 -50%;--r-t:calc(4vw * var(--dx)) -50%;
@@ -176,7 +161,6 @@ html:not(.live) .st-sum .txt{justify-content:center;padding-top:calc((100svh - v
   .st-sum .txt{max-width:36%;justify-content:center}
   .go{display:flex}
   .display{font-size:clamp(3rem,7.5vw,6.6rem)}
-  .total{font-size:clamp(4rem,8.5vw,8rem)}
 }
 /* Short screens. The frame is one screen tall whatever the phone, so on a short phone - or any phone turned
    sideways - the extras step out (the painted slogan, the hours, the address line: Find us repeats all
@@ -334,22 +318,22 @@ ul{list-style:none;margin:0;padding:0}
   <section class="scene s-order" id="top">
     <div class="pin">
     <div class="stage st st-ofa">
-      <img class="ph" src="scene/ofa.webp" width="900" height="1126" alt="The OFA with a triple patty: three smashed patties with cheese and sauce, on a red backdrop" data-alt-ar="الـOFA تريبل باتي: ثلاث قطع لحم سماشد مع جبنة وصوص، على خلفية حمراء" fetchpriority="high">
+      <img class="ph" src="scene/ofa.webp" width="900" height="1126" alt="Stacked burgers with cheese and sauce on a red backdrop" data-alt-ar="برجر مكدّس مع جبنة وصوص على خلفية حمراء" fetchpriority="high">
       <div class="txt" data-l="en">
-        <div><p class="slogan" lang="ar">واحد للكل</p><h1 class="kick">One For All · Smashed burgers · Irbid</h1><h2 class="display">The OFA</h2></div>
+        <div><p class="slogan" lang="ar">واحد للكل</p><h1 class="kick">One For All · Smashed burgers · Irbid</h1><h2 class="display">Smashed burgers</h2></div>
         <div class="txt-b">
-          <p class="desc">Patty, cheese, One For All sauce</p>
-          <p class="big-pr"><span class="sr">1.98</span><span aria-hidden="true">1<span class="c">98</span></span></p>
+          <p class="desc">Sandwiches from</p>
+          <p class="big-pr"><span class="sr">1.98 JD</span><span aria-hidden="true">1<span class="c">98</span> <small>JD</small></span></p>
           <p><span class="pill"><b>Double patty 0.69+</b><i aria-hidden="true">|</i><b>Triple patty 1.38+</b></span></p>
           <p class="hours" data-on="Open now" data-off="Closed · opens 14:00"><span class="dot" aria-hidden="true"></span><span>Daily 14:00 – 01:30</span><span class="st"></span><span class="x">Takeaway</span></p>
           <div class="go on-dark"><a class="btn btn-fill" href="https://www.google.com/maps/dir/?api=1&destination=One%20For%20All&destination_place_id=ChIJ6eYJb9R3HBUR1nxkL6K_xCQ">Directions</a><a class="btn btn-line" href="#menu">Menu</a></div>
         </div>
       </div>
       <div class="txt" data-l="ar" lang="ar" dir="rtl" hidden>
-        <div><p class="slogan">واحد للكل</p><h1 class="kick">ون فور اول · سماشد برجر · إربد</h1><h2 class="display">الـOFA</h2></div>
+        <div><p class="slogan">واحد للكل</p><h1 class="kick">ون فور اول · سماشد برجر · إربد</h1><h2 class="display">سماشد برجر</h2></div>
         <div class="txt-b">
-          <p class="desc">برجر، صوص ون فور اول، جبنة</p>
-          <p class="big-pr"><span class="sr">1.98</span><span aria-hidden="true">1<span class="c">98</span></span></p>
+          <p class="desc">الساندويشة ابتداءً من</p>
+          <p class="big-pr"><span class="sr">1.98 دينار</span><span aria-hidden="true">1<span class="c">98</span> <small>دينار</small></span></p>
           <p><span class="pill"><b>دبل باتي <bdi>0.69+</bdi></b><i aria-hidden="true">|</i><b>تريبل باتي <bdi>1.38+</bdi></b></span></p>
           <p class="hours" data-on="مفتوح الآن" data-off="مغلق · يفتح 14:00"><span class="dot" aria-hidden="true"></span><span>يومياً 14:00 – 01:30</span><span class="st"></span><span class="x">سفري</span></p>
           <div class="go on-dark"><a class="btn btn-fill" href="https://www.google.com/maps/dir/?api=1&destination=One%20For%20All&destination_place_id=ChIJ6eYJb9R3HBUR1nxkL6K_xCQ">الاتجاهات</a><a class="btn btn-line" href="#menu">المنيو</a></div>
@@ -378,18 +362,16 @@ ul{list-style:none;margin:0;padding:0}
       <img class="ph ph-r" src="scene/shake.webp" width="900" height="1126" alt="" decoding="async">
       <div class="txt" data-l="en">
         <div class="txt-b">
-          <p class="kick beat" style="--a:58%;--b:64%">The OFA, triple patty + Milkshake</p>
-          <p class="sum beat" style="--a:62%;--b:68%"><bdi>1.98</bdi> + <bdi>1.38</bdi> + <bdi>2.50</bdi></p>
-          <p class="total beat pop" style="--a:66%;--b:74%">5.86<small>JD</small></p>
+          <p class="kick beat" style="--a:58%;--b:64%">Burgers, sides and milkshakes</p>
+          <h2 class="display beat" style="--a:62%;--b:68%">Choose your order</h2>
           <p class="desc beat" style="--a:72%;--b:80%">Takeaway at The NST, <span class="nw">Al-Hosn</span> Road, Irbid.</p>
           <div class="go on-dark beat" style="--a:72%;--b:80%"><a class="btn btn-fill" href="https://www.google.com/maps/dir/?api=1&destination=One%20For%20All&destination_place_id=ChIJ6eYJb9R3HBUR1nxkL6K_xCQ">Directions</a><a class="btn btn-line" href="#menu">The whole menu</a></div>
         </div>
       </div>
       <div class="txt" data-l="ar" lang="ar" dir="rtl" hidden>
         <div class="txt-b">
-          <p class="kick beat" style="--a:58%;--b:64%">الـOFA تريبل باتي + ميلك شيك</p>
-          <p class="sum beat" style="--a:62%;--b:68%"><bdi>1.98</bdi> + <bdi>1.38</bdi> + <bdi>2.50</bdi></p>
-          <p class="total beat pop" style="--a:66%;--b:74%">5.86<small>دينار</small></p>
+          <p class="kick beat" style="--a:58%;--b:64%">برجر، فرايز وميلك شيك</p>
+          <h2 class="display beat" style="--a:62%;--b:68%">اختار طلبك</h2>
           <p class="desc beat" style="--a:72%;--b:80%">سفري من <bdi>The NST</bdi>، طريق الحصن، إربد.</p>
           <div class="go on-dark beat" style="--a:72%;--b:80%"><a class="btn btn-fill" href="https://www.google.com/maps/dir/?api=1&destination=One%20For%20All&destination_place_id=ChIJ6eYJb9R3HBUR1nxkL6K_xCQ">الاتجاهات</a><a class="btn btn-line" href="#menu">المنيو كامل</a></div>
         </div>
