@@ -1,25 +1,32 @@
 # ONE FOR ALL — "Tap for menu" NFC point · Irbid branch (NST complex)
 Built 2026-09-16 · Owner: Zaid · Status markers as in KHBRIA: `[CONFIRMED]` `[DRAFT]` `[NEEDS ZAID]` `[ASSUMPTION]`
 
-## START HERE — the whole job in 5 moves
-1. **Buy the tag.** Genuine NXP **NTAG213**, round label **30–38 mm**. Prototype today: Waslleh.com "NTAG213 White Round NFC Tag Sticker" 0.635 JOD
-   (+962 7 80 83 83 00, same-day dispatch). Final/spares: a 38 mm NTAG213 pack on AliExpress (ships to Jordan, 16% tax on arrival).
-   Check every tag with the free **NXP TagInfo** app. Details: `nfc/PROGRAMMING.md`.
-2. **Write the tag.** NFC Tools app → Write → URL → `https://the-10th-floor.github.io/oneforall-menu/` → Write → then **Lock**.
-   That is the live menu, the same URL already on the current tag. **The menu itself is not touched by this project.**
-3. **Make the piece (acrylic, UV-printed).** Give the shop these three files from `holder/laser/`:
-   `L0_backplate_RED_3mm.svg` (cut, engrave the Ø40 pocket) · `L1_frame_RED_3mm.svg` (cut) ·
-   `L2_FACE_single_piece_CREAM_3mm_UVPRINT.svg` (cut) + `L2_FACE_artwork_UVPRINT_304dpi.png` (print on it, matte varnish).
-   Cast acrylic 3 mm, red + cream. Amman: Acrylic and More (Sweifieh, @acrylic_more) or CPF Makerspace (King Hussein Business Park, walk-in).
-   3D-printed alternative: `holder/stl/` (PETG, colours per part) — Jordan3DPrint +962 79 747 9825 or PRINTie 3D +962 79 101 7999.
-4. **Assemble.** Weld L0+L1 → tag into the pocket → face into the frame. Test the tap through the finished piece on an iPhone and an Android.
-5. **Install.** Plaster wall left of the ordering window, centre 1100 mm high, ≥150 mm from the blue frame, two screws in the keyhole
-   slots or 3M VHB. Full spec and site checklist: `install/PLACEMENT.md`. Preview of the piece: `holder/preview/front_view.png`.
+## Current handoff — 30 September 2026
+
+**Use the existing files for prototype review only.** The founder's later placement direction is roughly **350 mm across, RIGHT of the ordering window**, between the window and door; final size follows a measured site fit. The checked-in files are a smaller prototype. Do not send them to a shop as the final sign or enlarge every dimension uniformly.
+
+1. Read `install/PLACEMENT.md` and measure the right-hand wall panel; the earlier left-side instruction is superseded.
+2. Run `python3 holder/check_geometry.py` from this folder. It measures the actual cut paths and binary STL vertices, not the SVG page margin.
+3. Select the fabrication route and prepare the larger geometry with the supplier. Preserve the real tag size, material thickness and mounting clearances; agree fixing and print registration on a proof.
+4. Write the exact existing menu URL to an unlocked test tag and read it back. Test both phones through the finished prototype at the intended wall position. Follow `nfc/PROGRAMMING.md`.
+5. Record acceptance before authorizing production or irreversible locking. No tag programming, purchase, fabrication or installation is authorized by this document.
+
+### Measured files, not final sign dimensions
+
+| Existing output | Actual geometry (mm) | What it establishes |
+|---|---|---|
+| L0 backplate / L1 frame | 143.799 × 111.200 | Outer cut bounds; SVG sheet adds 5 mm margin on each side |
+| L2 UV-print face | 131.499 × 98.900 | Cut face bounds inside frame |
+| STL base | 143.799 × 111.200 × 7.000 | Base extents only |
+| One-piece STL | 143.799 × 111.200 × 9.500 | Overall relief-model extents |
+| Acrylic assembly | Nominal 6 mm | L0 3 mm + L1 3 mm; L2 fills the frame, not a third stacked sheet |
+
+These files do not implement the requested 350 mm sign. Current 3D-print files include keyholes; the acrylic backplate does **not** include corresponding mounting holes. Supplier fixing design and site proof remain necessary. Existing SVG preview still contains a historical size label; measured geometry above takes precedence.
 
 ## What this is
-A burger-shaped wall piece (130 × 104 mm, brand-red plate, cream buns, yellow cheese, dark patty) with an
+A burger-shaped prototype (143.799 × 111.200 mm outline, brand-red plate, cream buns, yellow cheese, dark patty) with an
 NFC tag hidden behind the patty. Customers at the ordering window hold their phone to it and the bilingual
-menu opens — no app, no QR hunting. Two build routes, same geometry: **3D-printed kit** (PETG, 5 parts)
+menu opens — no app, no QR hunting. Two build routes, same geometry: **3D-printed kit** (PETG, base + six inlays)
 or **laser-cut layered acrylic** (3 mm, flush inlay, UV-printed graphics). Preview: `holder/preview/front_view.png`.
 
 ## Folder map
@@ -27,9 +34,9 @@ or **laser-cut layered acrylic** (3 mm, flush inlay, UV-printed graphics). Previ
 |---|---|---|
 | repo root (`../index.html`, `../qr.*`, `../source/`) | **The live menu, untouched.** This folder is the NFC piece only; the menu page stays exactly as deployed at https://the-10th-floor.github.io/oneforall-menu/ | `[CONFIRMED]` |
 | `holder/ofa_burger_nfc_holder.scad` | Parametric OpenSCAD source (edit sizes/text; `part=` selector; exports STL) | `[DRAFT]` |
-| `holder/build_holder.py` | Generates everything below from one geometry; `--url` adds an optional engraved QR | done |
-| `holder/stl/` | `ofa_base` `ofa_bun_top` `ofa_cheese` `ofa_patty` `ofa_bun_bottom` (kit) · `ofa_one_piece_single_colour` · `ofa_assembled_preview.glb` | print-ready |
-| `holder/laser/` | `L0_backplate_RED` `L1_frame_RED` `L2_inlay_bun_CREAM` `L2_inlay_cheese_YELLOW` `L2_inlay_patty_BROWN` · `ALL_LAYERS_nested_3mm.svg` (red = cut, blue = engrave/UV print; 1 unit = 1 mm; text already outlined) | cut-ready |
+| `holder/build_holder.py` | Generates the small prototype; optional `--url` engraving is disabled pending QR proof | done |
+| `holder/stl/` | `ofa_base` `ofa_bun_top` `ofa_cheese` `ofa_patty` `ofa_bun_bottom` (kit) · `ofa_one_piece_single_colour` · `ofa_assembled_preview.glb` | prototype export; measure/test before fabrication |
+| `holder/laser/` | `L0_backplate_RED` `L1_frame_RED` `L2_inlay_bun_CREAM` `L2_inlay_cheese_YELLOW` `L2_inlay_patty_BROWN` · `ALL_LAYERS_nested_3mm.svg` (red = cut, blue = engrave/UV print; 1 unit = 1 mm; text already outlined) | prototype export; supplier review required |
 | `install/PLACEMENT.md` | Where it goes on the Irbid wall, height, fixing, site checklist | `[DRAFT]` measure on site |
 | `nfc/PROGRAMMING.md` | Tag choice, where to buy in Jordan, URL strategy, writing + locking steps | `[CONFIRMED]` tech; prices dated |
 | `research/RESEARCH.md` | Full graded research (5 dimensions, 19 skeptic verdicts) | reference |
@@ -51,13 +58,13 @@ or **laser-cut layered acrylic** (3 mm, flush inlay, UV-printed graphics). Previ
   wobbled edges, marker-soft corners) so all three lines read as one hand.
 - **Build:** UV-printed face on cream acrylic inside the red frame (Route A) is the intended build — outlines and gradients
   print as-is. Solid-colour inlay files (Route B) and STL parts are generated from the same shapes without gradients.
-- **Size:** 145 × 113 mm, 8.9 mm deep (kit).
+- **Size:** measured outline 143.799 × 111.200 mm; STL one-piece depth 9.500 mm. These are the smaller prototype files, not the later 350 mm sign.
 - **Tag:** genuine NXP NTAG213, 30–38 mm round label, pocket Ø40 mm under the inlays (kit) / from the back (one-piece).
-- **Fixing:** two hidden keyhole slots on the back (4 mm screws + plugs into the plaster) or 3M VHB tape. Nothing visible.
+- **Fixing:** STL base has two keyhole slots. Acrylic cut files have no equivalent mounting holes; supplier must design and proof the fixing for the actual substrate and final size.
 - **Materials:** PETG or ASA for print (no PLA outside); cast acrylic for the laser version (extruded yellows fade).
 - **Menu language:** Arabic default; switches by phone language, `?lang=en` forces English; choice remembered.
 
-## Bill of materials (one unit)
+## Historical prototype estimates — 16 September 2026, obtain a current quote
 | Item | Qty | Source | Cost |
 |---|---|---|---|
 | NTAG213 round label 30–38 mm | 1 (+ spares) | Waslleh 0.635 JOD (prototype) / AliExpress 38 mm pack | < 1 JOD |
@@ -65,7 +72,7 @@ or **laser-cut layered acrylic** (3 mm, flush inlay, UV-printed graphics). Previ
 | — or — layered cast acrylic 3 mm, 5 colours, laser-cut + UV print | 1 set | Acrylic and More (Sweifieh) · Printman · CPF Makerspace | quote (small job, expect 15–35 JOD) |
 | 2× 4 × 30 mm pan-head screws + 6 mm plugs, or 4 strips 3M VHB 5952 | 1 | any hardware shop | ≈ 1–3 JOD |
 | Short.io Free + Cloudflare Pages (hosting) | — | online | 0 JOD (+50 JOD/yr if you buy oneforall.jo) |
-**Total per unit ≈ 15–40 JOD.** Second unit for the other window or another branch = same files.
+Historical prototype estimate only; not a quote for the larger sign. Do not order from these figures.
 
 ## Fabrication contacts (Amman — research graded HIGH from first-party pages; a second verification pass did not run)
 - **Jordan3DPrint** · +962 79 747 9825 · PETG 0.12 JD/g, 1–3 business days, upload STL, quotes per gram.
@@ -77,21 +84,21 @@ or **laser-cut layered acrylic** (3 mm, flush inlay, UV-printed graphics). Previ
 - `[NEEDS ZAID]` Irbid-local printers were not researched (the brief said Amman before the branch correction). Yarmouk/JUST
   university labs and Irbid sign shops likely exist; Amman vendors ship or the piece rides with anyone driving up.
 
-## Print instructions (give this to the shop with the STLs)
+## Existing small-prototype print notes (not a final-sign work order)
 - Print every part **as exported**: front face already on the bed. 0.2 mm layers, 4 walls, 20% infill (base), 100% (inlays).
 - Colours: base **red**; bun_top + bun_bottom **cream**; cheese **yellow**; patty **dark brown**.
 - Two-tone text on a single-extruder printer: the letters/symbol are the first 0.6 mm. Pause at 0.6 mm and swap
   filament (patty: start **cream** → swap to **brown**; buns: start **brown** → swap to **cream**). Multi-material printers: just assign.
-- Assembly: stick the NFC tag in the base's front pocket → drop the four inlays into the recess (0.15 mm clearance, they self-align) →
+- Assembly: stick the NFC tag in the base's front pocket → drop the six inlays into the recess (0.15 mm clearance, they self-align) →
   thin CA glue on the recess floor, not on the edges → done.
-- Single-colour fallback: `ofa_one_piece_single_colour.stl` (relief only, paint the face if wanted; tag goes in the back pocket).
+- Single-colour prototype: `ofa_one_piece_single_colour.stl` (tag goes in the back pocket). Its cover is thicker than the earlier target; NFC performance is unaccepted until tested through this exact piece. Do not select it as a proven fallback.
 
-## Laser instructions (acrylic version) — the recommended build
+## Existing small-prototype laser notes — supplier proof required
 **Route A, UV-printed face (looks like the preview):** 3 mm cast acrylic, three sheets.
 - L0 back plate (red): cut `L0_backplate_RED_3mm.svg`; engrave the Ø40 circle 0.5–1 mm for the tag.
-- L1 frame (red): cut `L1_frame_RED_3mm.svg`; UV-print or engrave-and-fill the handle on the tab (blue paths).
+- L1 frame (red): cut `L1_frame_RED_3mm.svg`; it contains cut paths only, with no tab/handle engraving.
 - L2 face (cream or white): cut `L2_FACE_single_piece_CREAM_3mm_UVPRINT.svg`, then UV-print `L2_FACE_artwork_UVPRINT_304dpi.png`
-  on it (1 px = 1/12 mm, artwork is already cropped to the cut outline; ask for a matte/satin varnish — no glare under the soffit LEDs).
+  on it at the original physical scale (12 px/mm, 304.8 dpi). The 1586 × 1195 px canvas is about 132.167 × 99.583 mm and includes transparent margin around the smaller face cut; do not stretch the canvas to the cut bounds or use fit-to-page. Ask the shop to register artwork to the contour and proof the finish under the actual lights.
 - Stack: L0 + L1 solvent-welded → tag in the pocket → face dropped into the frame, flush → 6 mm total, hairline seam only around the burger.
 **Route B, solid colour inlays (no UV printer):** the `L2_inlay_*` files, one sheet per colour, text engraved-and-filled. Flatter look.
 **Edge-lit option (night variant):** make L0 from 5 mm clear acrylic instead of red, sand the back matte, run a 12 V warm-white
@@ -101,13 +108,12 @@ The plate glows amber at night in the same tone as the plinth LED on the facade.
 
 ## URL decision (resolved)
 The tag URL is **https://the-10th-floor.github.io/oneforall-menu/** — already written on the window tag and printed as QR
-per the earlier repo. Everything here targets it: `site/qr.svg`, the optional QR engrave layer
-(`holder/laser/OPTIONAL_qr_on_bun_bottom_engrave.svg`), and the placement/programming docs.
+per the earlier repo. The current root `qr.svg` / `qr.png` and programming docs target it. The historical `site/` outputs and optional engraved QR layer are not approved production inputs. The generator now rejects `--url`; use the corrected root QR files with their full white margin and a physical proof.
 Caveat from research: GitHub Pages' terms discourage commercial sites; if that ever bites, move the files to Cloudflare Pages
 and leave a redirect at the old URL — no tag needs rewriting as long as the old URL still answers.
 
 ## What is still open  `[NEEDS ZAID]`
-1. **Push `site/` to the repo** (replaces `index.html`, adds `print.html`, `logo.png`, new `qr.*`). Not pushed — say the word.
+1. **Create and test the final-size sign.** Preserve the live root menu; `site/` is historical and must not replace it.
 2. ~~**Irbid branch maps link** for the Directions button.~~ Done 2026-09-24: the listing is live (CID `2649453184101416150`) and Directions start navigation to it by place ID.
 3. **Acrylic or print?** Print kit is cheaper and faster; acrylic looks more premium under the soffit lights at night (they run to 1 AM).
 4. Site measurements per `install/PLACEMENT.md` before drilling.

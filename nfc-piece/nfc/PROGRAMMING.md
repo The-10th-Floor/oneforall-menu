@@ -5,7 +5,7 @@
   password + permanent lock). NTAG215/216 add memory you will never use; NTAG 424 DNA is anti-counterfeit
   money for nothing here; ICODE SLIX has an iPhone background-read failure mode. Avoid all three.
 - Form: **round label 30–38 mm, antenna ≥25 mm** (ideally 34–35 mm). Antenna size sets read range, not chip.
-- Body material in front of the tag: ≤3 mm acrylic or ≤4 mm PETG/ASA. Never PLA outdoors.
+- Earlier prototype target: ≤3 mm acrylic or ≤4 mm PETG/ASA over the tag. This is not a read-performance guarantee. The one-piece STL has a thicker cover (about 4.9 mm before relief), so it does not meet that earlier target and needs its own physical read test.
 - Never mount on or within 40 mm of metal (the blue window frame). Plaster, glass, tile, plastic: all fine.
 - Counterfeit NTAG chips are common in no-name packs → check every batch with the free **NXP TagInfo** app
   (Android/iOS): a genuine chip passes the "originality signature" check.
@@ -33,17 +33,18 @@ Later upgrade (optional, research HIGH): put **Short.io Free** or Cloudflare in 
 rewrite the existing tag once. The brand's live ordering storefront, `bitesnbags.com/choose-delivery-type/one-for-all`,
 is the natural "Order" link to add on the page, not a tag target.
 
-## Writing the tag (5 minutes, any NFC phone)
-1. Install **NFC Tools** (Android/iOS) or **NXP TagWriter** (Android).
-2. Write → Add a record → **URL/URI** → paste the short link → Write. Hold the phone's top edge on the tag.
-3. Read it back: it must show exactly one URI record, `https://…`.
-4. Test on an iPhone in background mode (screen on, no app open) and on an Android; both should pop the link.
-5. **Lock it.** Public wall = anyone could rewrite it to a phishing page. NFC Tools → Other → *Lock tag*
-   (permanent, irreversible; that is why the URL is a redirect) — or at minimum set a password
-   (NFC Tools → Other → Set password) if you want to keep the option to rewrite.
-6. Only now stick the tag into the holder pocket. Test again through the assembled holder.
+## Program and accept a prototype before protecting the production tag
 
-## Phone behaviour to expect
-- iPhone XS and newer: reads in the background, screen on, no app. Not while the camera or Wallet is open.
-- Android: reads whenever the screen is unlocked; Android 16 opens https tags straight in the browser.
-- iPhone antenna is the top-back edge; most Androids centre/upper-back. The burger's centre is the tap spot.
+1. Use an unlocked test tag. In NFC Tools or NXP TagWriter, create one URL/URI record containing exactly `https://the-10th-floor.github.io/oneforall-menu/` — not a new short link.
+2. Read the NDEF record back and compare the **whole URL**, including the path and trailing slash. Open it and confirm the current bilingual menu loads.
+3. Temporarily place the tag inside the assembled prototype. Test a supported iPhone and an NFC-enabled Android at the actual mounting location, with the final face material, normal approach and phone cases. Record phone/OS, material, orientation and result. A bare-tag bench read does not accept the installed piece.
+4. Keep development tags writable and supervised. Do not permanently lock them or glue them into an inaccessible build before acceptance.
+5. After the owner approves the tested destination and finished piece, apply the chosen write protection to the production tag and read/test it again. Permanent read-only lock bits cannot be undone; password protection is a different mechanism, not an equivalent guarantee. Do not leave a writable tag unattended on a public wall.
+
+NXP documents the NTAG213 memory and lock behaviour in its [NTAG213/215/216 data sheet](https://www.nxp.com/docs/en/data-sheet/NTAG213_215_216.pdf). No tag was programmed or locked during this review.
+
+## Phone acceptance
+
+Supported iPhones can read URI tags in the background, but availability depends on device state. Apple documents restrictions including active Camera/Wallet use and the post-restart locked state. Follow [Apple's background-reading guidance](https://developer.apple.com/documentation/corenfc/adding-support-for-background-tag-reading) and [NFC interaction guidance](https://developer.apple.com/design/human-interface-guidelines/nfc).
+
+Android behaviour depends on NFC support, settings, device and OS; test the actual phones rather than promise every Android opens automatically. Find the antenna's reliable approach on each test phone. An unreadable tag, wrong destination or failure through the mounted assembly is a failed test; correct it before public placement or locking.
