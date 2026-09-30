@@ -4,6 +4,9 @@
 //   npx wrangler pages deploy pages-dev --project-name oneforall-jo --branch main
 // Nothing on the NFC tag or the printed QR points here; they keep the github.io address.
 const ORIGIN = 'https://the-10th-floor.github.io/oneforall-menu';
+// Once the repo has a custom domain, GitHub answers every path here with a 301 to it. Google's ownership check and
+// IndexNow's key check both reject a redirect, so these two files are fetched through it and answered with 200.
+const EXEMPT = new Set(['/google85fa2133dd80e4b3.html', '/d590794667958097a6f50493ef61101a.txt']);
 
 export default {
   async fetch(request) {
@@ -19,7 +22,7 @@ export default {
       const v = request.headers.get(h);
       if (v) headers.set(h, v);
     }
-    const res = await fetch(upstream, { method: request.method, headers, redirect: 'manual' });
+    const res = await fetch(upstream, { method: request.method, headers, redirect: EXEMPT.has(url.pathname) ? 'follow' : 'manual' });
 
     const out = new Headers(res.headers);
     // GitHub answers /irbid with a 301 to the absolute github.io /irbid/; keep the visitor on this host.
