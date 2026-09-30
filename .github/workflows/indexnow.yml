@@ -14,7 +14,7 @@ on:
         default: reach
 
 env:
-  SITE: https://oneforall-jo.pages.dev
+  SITE: https://oneforalljo.com
   KEY: d590794667958097a6f50493ef61101a
 
 jobs:
@@ -50,7 +50,7 @@ jobs:
           done
           echo "No Pages build of $GITHUB_SHA after 3 min; requesting one."
           curl -fsS -X POST "${auth[@]}" "$api" || echo "::warning::POST pages/builds failed; waiting for the live page anyway."
-      # The forwarder passes the query on and GitHub's CDN ignores it (same body, same cached
+      # GitHub's CDN ignores the query (same body, same cached
       # copy, checked 2026-09-24); a deploy purges that cache, and max-age=600 fits in 20 min.
       - name: Wait for the live page to match
         run: |
@@ -98,7 +98,19 @@ jobs:
         run: |
           fails=0
           bad() { echo "::error::$1"; fails=$((fails+1)); }
-          for u in https://the-10th-floor.github.io/oneforall-menu/ "$SITE/sitemap.xml" "$SITE/robots.txt" "$SITE/google85fa2133dd80e4b3.html"; do
+          # The tag and the old address both 301 to the shop's domain; the tag must also land on a 200.
+          moved() {
+            got=$(curl -sS --max-time 20 -o /dev/null -w '%{http_code} %{redirect_url}' "$1")
+            [ "$got" = "301 $2" ] && echo "ok  $1 -> $2" || bad "$1 answered '$got', want '301 $2'"
+          }
+          moved https://the-10th-floor.github.io/oneforall-menu/ "$SITE/"
+          moved https://oneforall-jo.pages.dev/irbid/ "$SITE/irbid/"
+          code=$(curl -sSL --max-time 30 -o /dev/null -w '%{http_code}' https://the-10th-floor.github.io/oneforall-menu/)
+          [ "$code" = 200 ] && echo "ok  the tag lands on 200" || bad "the tag URL ends on $code, not 200"
+          # The Search Console proof and the IndexNow key stay 200 on the old address (pages-dev/_worker.js exempts them).
+          for u in "$SITE/sitemap.xml" "$SITE/robots.txt" "$SITE/google85fa2133dd80e4b3.html" \
+                   https://oneforall-jo.pages.dev/google85fa2133dd80e4b3.html "https://oneforall-jo.pages.dev/$KEY.txt" \
+                   https://card.oneforalljo.com/; do
             code=$(curl -sS --max-time 20 -o /dev/null -w '%{http_code}' "$u")
             [ "$code" = 200 ] && echo "ok  $u" || bad "$u answered $code, not 200"
           done
