@@ -107,10 +107,8 @@ The plate glows amber at night in the same tone as the plinth LED on the facade.
 - Ask for 0.1 mm kerf compensation (face cut inside the line, frame outside) or accept a hairline gap — both look fine.
 
 ## URL decision (resolved)
-The tag URL is **https://the-10th-floor.github.io/oneforall-menu/** — already written on the window tag and printed as QR
-per the earlier repo. The current root `qr.svg` / `qr.png` and programming docs target it. The historical `site/` outputs and optional engraved QR layer are not approved production inputs. The generator now rejects `--url`; use the corrected root QR files with their full white margin and a physical proof.
-Caveat from research: GitHub Pages' terms discourage commercial sites; if that ever bites, move the files to Cloudflare Pages
-and leave a redirect at the old URL — no tag needs rewriting as long as the old URL still answers.
+The tag URL is **https://the-10th-floor.github.io/oneforall-menu/** — printed as QR per the earlier repo; whether the window tag is written and locked is checked on site (domain plan step 1). Since 2026-10-01 GitHub 301s it to https://oneforalljo.com/, path and query kept, so the tag never needs rewriting while `CNAME` stays on `main`. The current root `qr.svg` / `qr.png` and programming docs target it. The historical `site/` outputs and optional engraved QR layer are not approved production inputs. The generator now rejects `--url`; use the corrected root QR files with their full white margin and a physical proof.
+Caveat from research: GitHub Pages' terms discourage commercial sites; if that ever bites, move the files to another host and point the oneforalljo.com DNS there. The github.io tag URL keeps working only while this repo's Pages site has the custom domain.
 
 ## What is still open  `[NEEDS ZAID]`
 1. **Create and test the final-size sign.** Preserve the live root menu; `site/` is historical and must not replace it.
