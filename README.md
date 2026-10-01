@@ -56,3 +56,7 @@ One menu per page: a customer never sees the card and the text stacked. `irbid/i
 
 ## NFC burger piece
 The acrylic "Tap for menu" piece for the Irbid window (files, install spec, NFC guide) lives in [`nfc-piece/`](nfc-piece/README.md). The menu page above is unaffected by it.
+
+## Home Screen and loyalty (2026-10-01)
+
+`native.js`, `manifest.webmanifest` and `sw.js` provide translated Home Screen help and native Chrome install prompts; notifications open the stamp card at `card.oneforalljo.com`, where consent is recorded. Menus remain network-first with an offline explanation; no stale prices are cached. The authoritative landing template is `nst-irbid-geo/templates/oneforall-index.html`; regenerate and copy it here after edits. The remaining `feat/landing-real` lane footage is incorporated with native, user-controlled video; its older layout/scroll scripting is superseded by the current template. `feat/my-card` links are incorporated at the current host. The returning-vehicle plan content already existed on main with newer domain/footer fixes. Those old branch pointers are preserved and reconciled into main, without restoring stale hosts/layouts.

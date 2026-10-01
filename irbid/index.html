@@ -301,6 +301,12 @@ ul{list-style:none;margin:0;padding:0}
 @media (prefers-reduced-motion:no-preference){.cta{transition:transform .24s ease,opacity .24s ease,visibility 0s linear .24s}
   .cta[data-tuck="0"]{transition-delay:0s}}
 </style>
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<script src="../native.js" defer></script>
+<style>html{-webkit-text-size-adjust:100%;text-size-adjust:100%}button,a{touch-action:manipulation}button{-webkit-tap-highlight-color:transparent}</style>
 </head>
 <body>
 <header class="bar">
@@ -471,6 +477,10 @@ ul{list-style:none;margin:0;padding:0}
   </section>
 
   <section class="find on-cream" id="find">
+    <figure class="lane-film" style="max-width:640px;margin:0 auto 24px">
+      <video controls muted playsinline preload="none" poster="find/lane.webp" style="display:block;width:100%;border-radius:12px" aria-label="The pickup lane at The NST" data-label-ar="مسار الاستلام في The NST"><source src="find/lane-m.mp4" type="video/mp4" media="(max-width:600px)"><source src="find/lane.mp4" type="video/mp4"></video>
+      <figcaption data-l="en">The approach to The NST pickup lane.</figcaption><figcaption data-l="ar" dir="rtl" hidden>الطريق لمسار الاستلام في The NST.</figcaption>
+    </figure>
     <div class="find-in" data-l="en">
       <h2>Find us</h2>
       <p class="addr">The NST, Al-Hosn Road, ~200 m from Al-Hosn intersection, Irbid</p>
@@ -512,7 +522,7 @@ ul{list-style:none;margin:0;padding:0}
 
 <script>
 /* The loyalty card's address. Empty until the card is live: the "My card" button stays hidden. */
-const LOYALTY_URL = '';
+const LOYALTY_URL = 'https://card.oneforalljo.com/';
 const KEY = 'ofa-lang', langBtn = document.getElementById('btn-lang');
 const OTHER = { en: ['ar', 'عربي'], ar: ['en', 'English'] };
 
@@ -563,7 +573,7 @@ langBtn.onclick = () => show(OTHER[document.documentElement.lang === 'ar' ? 'ar'
 const param = new URLSearchParams(location.search).get('lang');
 let saved = null; try { saved = localStorage.getItem(KEY); } catch (e) {}
 /* English is the default, on the founder's call, and the served document says so. */
-show(param || saved || 'en', false);
+show(param || saved || (navigator.language.startsWith('ar') ? 'ar' : 'en'), false);
 </script>
 
 <script type="application/ld+json">

@@ -83,6 +83,12 @@ noscript img{display:block;width:100%;max-width:600px;height:auto;margin:0 auto}
 </style>
 <noscript><style>.stage{display:none}</style></noscript>
 <meta name="msvalidate.01" content="887562503970031B17304F8E550CACF3">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<script src="native.js" defer></script>
+<style>html{-webkit-text-size-adjust:100%;text-size-adjust:100%}button,a{touch-action:manipulation}button{-webkit-tap-highlight-color:transparent}</style>
 </head>
 <body>
 
@@ -116,7 +122,7 @@ const BACK = {ar: '→ ون فور اول', en: '← One For All'};
 const SITE = 'https://oneforalljo.com/';
 const FROM_SITE = new URLSearchParams(location.search).get('from') === 'site';
 /* The loyalty card's address. Empty until the card is live: the "My card" button stays hidden. */
-const LOYALTY_URL = '';
+const LOYALTY_URL = 'https://card.oneforalljo.com/';
 const KEY = 'ofa-lang';
 const stage = document.getElementById('stage');
 const dock = document.querySelector('.dock');
