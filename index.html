@@ -87,12 +87,12 @@ noscript img{display:block;width:100%;max-width:600px;height:auto;margin:0 auto}
 <body>
 
 <main>
-  <a id="back" class="back" href="irbid/" hidden></a>
+  <a id="back" class="back" href="https://oneforalljo.com/irbid/" hidden></a>
   <div class="awning" aria-hidden="true"></div>
   <div class="stage" id="stage" role="img" aria-label="قائمة ون فور اول"></div>
   <noscript><img src="menu-ar.png" width="1300" height="1845" alt="قائمة ون فور اول"></noscript>
 
-<a id="more" class="sr" href="irbid/">المنيو كنص مقروء · The full menu as text</a>
+<a id="more" class="sr" href="https://oneforalljo.com/irbid/">المنيو كنص مقروء · The full menu as text</a>
   <div class="under" id="under" hidden>
     <a id="card-link" class="pill" href="#"></a>
   </div>
@@ -112,6 +112,8 @@ const LABEL = {ar: 'قائمة ون فور اول', en: 'One For All menu'};
 const MORE = {ar: 'المنيو كنص مقروء، مع الموقع والاتجاهات', en: 'The menu as readable text, with location and directions'};
 const CARD = {ar: 'بطاقتي — اجمع أختامك', en: 'My card — collect your stamps'};
 const BACK = {ar: '→ ون فور اول', en: '← One For All'};
+/* Absolute: the tag opens this page on github.io, and the main page lives on the shop's domain. */
+const SITE = 'https://oneforalljo.com/';
 const FROM_SITE = new URLSearchParams(location.search).get('from') === 'site';
 /* The loyalty card's address. Empty until the card is live: the "My card" button stays hidden. */
 const LOYALTY_URL = '';
@@ -200,8 +202,8 @@ const show = (l, first, remember) => {
   l = (l === 'en') ? 'en' : 'ar';
   for (const k of ['ar', 'en']) document.getElementById('btn-' + k).setAttribute('aria-pressed', k === l);
   const more = document.getElementById('more'), card = document.getElementById('card-link');
-  more.textContent = MORE[l]; more.href = 'irbid/?lang=' + l; more.lang = l;
-  if (FROM_SITE) { const back = document.getElementById('back'); back.hidden = false; back.textContent = BACK[l]; back.lang = l; back.href = 'irbid/?lang=' + l; }
+  more.textContent = MORE[l]; more.href = SITE + 'irbid/?lang=' + l; more.lang = l;
+  if (FROM_SITE) { const back = document.getElementById('back'); back.hidden = false; back.textContent = BACK[l]; back.lang = l; back.href = SITE + 'irbid/?lang=' + l; }
   card.textContent = CARD[l]; card.lang = l; if (LOYALTY_URL) { card.href = LOYALTY_URL + '?lang=' + l; document.getElementById('under').hidden = false; }
   dock.dataset.lang = l;
   stage.setAttribute('aria-label', LABEL[l]);

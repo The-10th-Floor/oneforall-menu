@@ -98,14 +98,23 @@ jobs:
         run: |
           fails=0
           bad() { echo "::error::$1"; fails=$((fails+1)); }
-          # The tag must end on the shop's domain with a 200. GitHub's 301 names http:// about half the time
-          # (checked 2026-10-01), then GitHub sends http:// on to https://, so only the end is checked.
+          # The tag must answer 200 itself, with no redirect, and show the menu card: since 2026-10-01 the repo has
+          # no custom domain, so GitHub serves it at github.io. A 301 here means someone gave the repo a domain again.
           tag=https://the-10th-floor.github.io/oneforall-menu/
-          got=$(curl -sSL --max-time 30 -o /dev/null -w '%{http_code} %{url_effective}' "$tag")
-          [ "$got" = "200 $SITE/" ] && echo "ok  the tag lands on $SITE/" || bad "the tag URL ended on '$got', want '200 $SITE/'"
-          # The old address builds its own 301 (pages-dev/_worker.js), so it is exact.
-          got=$(curl -sS --max-time 20 -o /dev/null -w '%{http_code} %{redirect_url}' https://oneforall-jo.pages.dev/irbid/)
-          [ "$got" = "301 $SITE/irbid/" ] && echo "ok  pages.dev/irbid/ -> $SITE/irbid/" || bad "pages.dev/irbid/ answered '$got', want '301 $SITE/irbid/'"
+          got=$(curl -sS --max-time 30 -o tag.html -w '%{http_code}' "$tag")
+          if [ "$got" = 200 ] && grep -q 'id="back"' tag.html; then echo "ok  the tag page answers 200 with the menu"
+          else bad "the tag URL answered '$got' (want 200 and the menu card; a 301 means the repo has a custom domain again)"; fi
+          # The domain is the Pages project oneforall-jo (pages-dev/_worker.js), which builds its own redirects, so they are exact.
+          for pair in "$SITE/ $SITE/irbid/" "$SITE/menu $SITE/menu/" "https://www.oneforalljo.com/ $SITE/" "https://oneforall-jo.pages.dev/irbid/ $SITE/irbid/"; do
+            from=${pair% *}; to=${pair#* }
+            got=$(curl -sS --max-time 20 -o /dev/null -w '%{http_code} %{redirect_url}' "$from")
+            [ "$got" = "301 $to" ] && echo "ok  $from -> $to" || bad "$from answered '$got', want '301 $to'"
+          done
+          if curl -fsS --max-time 20 -o menu.html "$SITE/menu/" && grep -q 'id="back"' menu.html && [ "$(curl -sS --max-time 20 -o /dev/null -w '%{http_code}' "$SITE/menu/menu-ar.svg")" = 200 ]; then
+            echo "ok  $SITE/menu/ shows the menu card"
+          else
+            bad "$SITE/menu/ or its menu-ar.svg did not answer 200"
+          fi
           # The Search Console proof and the IndexNow key stay 200 on the old address (pages-dev/_worker.js exempts them).
           for u in "$SITE/sitemap.xml" "$SITE/robots.txt" "$SITE/google85fa2133dd80e4b3.html" \
                    https://oneforall-jo.pages.dev/google85fa2133dd80e4b3.html "https://oneforall-jo.pages.dev/$KEY.txt" \
