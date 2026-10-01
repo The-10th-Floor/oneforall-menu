@@ -55,7 +55,8 @@
     navigator.serviceWorker.register(new URL('sw.js',base)).then(async reg=>{
       if(!isCard)return;
       config=await fetch('/api/push/config').then(r=>r.json());
-      if(reg.pushManager)subscription=await reg.pushManager.getSubscription();
+      const active=await navigator.serviceWorker.ready;
+      if(active.pushManager)subscription=await active.pushManager.getSubscription();
       render();
     }).catch(()=>{if(isCard)say('error');});
   }
