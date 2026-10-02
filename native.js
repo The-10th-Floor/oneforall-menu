@@ -4,8 +4,8 @@
   const standalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone;
   let installEvent, subscription, config, busy = false, syncedLang;
   const copy = {
-    en: { title:'Keep One For All close', install:'Add to Home Screen', offers:'Enable exclusive offer notifications', stop:'Turn off offer notifications', consent:'Optional. Only OFA offers; turn them off here at any time.', ios:'On iPhone: open Share, choose Add to Home Screen, then open the saved app to enable notifications. Save your card link below first so you can restore the same stamps.', manual:'Use your browser menu and choose Install app or Add to Home Screen.', denied:'Notifications are blocked. You can allow them in your browser or device settings.', error:'Could not save your preference. Check your connection and try again.', on:'Offer notifications are on.', off:'Offer notifications are off.', unsupported:'This browser does not support notifications. Try Chrome on Android or the Home Screen app on iPhone (iOS 16.4 or later).', open:'Open your stamp card to enable offers', installing:'Open the saved app from your Home Screen.' },
-    ar: { title:'ون فور اول أقرب إلك', install:'أضف للشاشة الرئيسية', offers:'فعّل إشعارات العروض الحصرية', stop:'أوقف إشعارات العروض', consent:'اختياري. بس عروض ون فور اول؛ بتقدر توقفها من هون بأي وقت.', ios:'على الآيفون: افتح مشاركة، واختار إضافة إلى الشاشة الرئيسية. افتح التطبيق المحفوظ لتفعّل الإشعارات. احفظ رابط بطاقتك أولاً لتقدر ترجع نفس الأختام.', manual:'من قائمة المتصفح اختار تثبيت التطبيق أو إضافة للشاشة الرئيسية.', denied:'الإشعارات محظورة. بتقدر تسمح فيها من إعدادات المتصفح أو التلفون.', error:'ما قدرنا نحفظ اختيارك. تأكد من الإنترنت وجرّب مرة ثانية.', on:'إشعارات العروض مفعّلة.', off:'إشعارات العروض متوقفة.', unsupported:'المتصفح ما بدعم الإشعارات. جرّب كروم على أندرويد أو التطبيق المحفوظ على شاشة الآيفون (iOS 16.4 أو أحدث).', open:'افتح بطاقة الأختام لتفعّل العروض', installing:'افتح التطبيق المحفوظ من الشاشة الرئيسية.' }
+    en: { title:'Want exclusive offers?', install:'Add to Home Screen', offers:'Enable exclusive offer notifications', stop:'Turn off offer notifications', consent:'Optional. Only OFA offers; turn them off here at any time.', ios:'On iPhone: open Share, choose Add to Home Screen, then open the saved app to enable notifications. Save your card link below first so you can restore the same stamps.', manual:'Use your browser menu and choose Install app or Add to Home Screen.', denied:'Notifications are blocked. You can allow them in your browser or device settings.', error:'Could not save your preference. Check your connection and try again.', on:'Offer notifications are on.', off:'Offer notifications are off.', unsupported:'This browser does not support notifications. Try Chrome on Android or the Home Screen app on iPhone (iOS 16.4 or later).', open:'Open your stamp card to enable offers', installing:'Open the saved app from your Home Screen.' },
+    ar: { title:'حابب توصلك عروض حصرية', install:'أضف للشاشة الرئيسية', offers:'فعّل إشعارات العروض الحصرية', stop:'أوقف إشعارات العروض', consent:'اختياري. بس عروض ون فور اول؛ بتقدر توقفها من هون بأي وقت.', ios:'على الآيفون: افتح مشاركة، واختار إضافة إلى الشاشة الرئيسية. افتح التطبيق المحفوظ لتفعّل الإشعارات. احفظ رابط بطاقتك أولاً لتقدر ترجع نفس الأختام.', manual:'من قائمة المتصفح اختار تثبيت التطبيق أو إضافة للشاشة الرئيسية.', denied:'الإشعارات محظورة. بتقدر تسمح فيها من إعدادات المتصفح أو التلفون.', error:'ما قدرنا نحفظ اختيارك. تأكد من الإنترنت وجرّب مرة ثانية.', on:'إشعارات العروض مفعّلة.', off:'إشعارات العروض متوقفة.', unsupported:'المتصفح ما بدعم الإشعارات. جرّب كروم على أندرويد أو التطبيق المحفوظ على شاشة الآيفون (iOS 16.4 أو أحدث).', open:'افتح بطاقة الأختام لتفعّل العروض', installing:'افتح التطبيق المحفوظ من الشاشة الرئيسية.' }
   };
   const section = document.createElement('section'); section.className='native-prompt plain';
   const title=document.createElement('h2'), install=document.createElement('button'), offer=document.createElement('button'), note=document.createElement('p'), status=document.createElement('p');
@@ -18,14 +18,16 @@
   function render() {
     if(status.dataset.message)status.textContent=t()[status.dataset.message];
     title.textContent=t().title; install.textContent=t().install; install.hidden=!!standalone(); offer.textContent=isCard?(subscription?t().stop:t().offers):t().offers;
-    note.textContent=ios&&!standalone()?t().ios:t().consent;
-    if (isCard) offer.hidden=!config?.publicKey; // Do not offer a permission prompt when the server is not configured.
+    offer.hidden=!standalone() || (isCard && !config?.publicKey);
+    note.hidden=!standalone();
+    note.textContent=t().consent;
     if (subscription && syncedLang!==lang()) sync().catch(()=>{ say('error'); });
   }
   const api=async(path,body)=>{ const r=await fetch('/api/push/'+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)}); if(!r.ok) throw new Error('save'); };
   async function sync() { const l=lang(); syncedLang=l; try { await api('subscribe',{subscription:subscription.toJSON(),lang:l,consent:true}); } catch(e) { syncedLang=null; throw e; } }
   install.onclick=async()=>{ if(installEvent){const e=installEvent;installEvent=null;await e.prompt();const choice=await e.userChoice;if(choice.outcome==='accepted')say('installing');}else say(ios?'ios':'manual'); };
   offer.onclick=async()=>{
+    if(!standalone())return;
     if (!isCard) { location.href='https://card.oneforalljo.com/?lang='+lang(); return; }
     if(busy)return; busy=true; offer.disabled=true;
     try {
@@ -47,6 +49,7 @@
   };
   window.addEventListener('beforeinstallprompt', e=>{e.preventDefault();installEvent=e;render();});
   window.addEventListener('appinstalled',()=>{install.hidden=true;});
+  matchMedia('(display-mode: standalone)').addEventListener('change',render);
   new MutationObserver(render).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
   render();
   if('serviceWorker' in navigator){
