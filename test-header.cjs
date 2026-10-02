@@ -14,6 +14,12 @@ const { chromium } = require(process.env.PLAYWRIGHT || 'playwright');
    const layout = await button.evaluate(el=>{const b=el.getBoundingClientRect(), head=el.closest('header'), logo=head.querySelector('img').getBoundingClientRect();return {sameRow:Math.abs(b.y+b.height/2-logo.y-logo.height/2)<5,rightOfLogo:b.x>=logo.right,overflow:document.documentElement.scrollWidth>innerWidth,border:getComputedStyle(el).backgroundImage};});
    assert.ok(layout.sameRow && layout.rightOfLogo && !layout.overflow,JSON.stringify({landing,width,lang,layout}));
    assert.ok(layout.border.includes('svg'));
+   assert.equal(await page.locator('.native-prompt').isVisible(),false);
+   if(!landing){
+    assert.equal(await page.locator('#menu-title').textContent(),lang==='ar'?'منيو':'Menu');
+    const centered=await page.locator('.menu-brand').evaluate(el=>{const r=el.getBoundingClientRect(),h=el.closest('header').getBoundingClientRect();return Math.abs(r.x+r.width/2-h.x-h.width/2)<2;});
+    assert.ok(centered);
+   }
    if(lang==='ar'&&width===390)await page.screenshot({path:'/Users/admin/projects/OFA/.local/' + (landing?'landing':'menu') + '-organic-language-2026-10-02.png'});
    await button.click();
    assert.equal(await page.locator('html').getAttribute('lang'),lang==='ar'?'en':'ar');
