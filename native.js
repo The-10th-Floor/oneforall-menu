@@ -15,7 +15,18 @@
   const style=document.createElement('style'); style.textContent='.native-prompt{max-width:480px;width:calc(100% - 32px);margin:20px auto;padding-bottom:env(safe-area-inset-bottom);text-align:start}.native-prompt h2{font-size:1.15rem;margin-bottom:12px}.native-prompt button{display:block;min-height:44px;width:100%;margin:10px 0;padding:12px 16px;border:1px solid currentColor;border-radius:12px;background:transparent;color:inherit;font:inherit;cursor:pointer}.native-prompt p{font-size:.9rem;line-height:1.6;margin-top:10px}.native-prompt [hidden]{display:none!important}'; document.head.append(style);
   const say=key=>{status.dataset.message=key;status.textContent=t()[key];};
   const lang=()=>document.documentElement.lang==='ar'?'ar':'en', t=()=>copy[lang()];
+  // One same-origin form inside a footer frame: reuse the card API without cross-origin credential access.
+  const footer=document.querySelector('footer');
+  let offersFrame;
+  const offersOrigin=location.hostname.startsWith('card.') || isCard && location.hostname==='localhost' ? location.origin : 'https://card.oneforalljo.com';
+  if(footer){
+    offersFrame=document.createElement('iframe');offersFrame.className='ofa-offers';offersFrame.title='One For All WhatsApp offers';
+    offersFrame.src=offersOrigin+'/offers.html?lang='+lang();offersFrame.style.cssText='display:block;border:0;width:100%;max-width:420px;height:300px;margin:0 auto 24px;color-scheme:light';
+    footer.style.flexDirection='column';footer.style.alignItems='center';footer.prepend(offersFrame);
+    window.addEventListener('message',e=>{if(e.origin===offersOrigin && e.source===offersFrame.contentWindow && e.data?.type==='ofa-offers-height' && Number.isFinite(e.data.height))offersFrame.style.height=Math.max(100,Math.min(600,e.data.height))+'px';});
+  }
   function render() {
+    if(offersFrame)offersFrame.contentWindow.postMessage({type:'ofa-offers-language',lang:lang()},offersOrigin);
     if(status.dataset.message)status.textContent=t()[status.dataset.message];
     section.hidden=!standalone() || (isCard && !config?.publicKey);
     title.textContent=t().title; offer.textContent=isCard?(subscription?t().stop:t().offers):t().offers;
