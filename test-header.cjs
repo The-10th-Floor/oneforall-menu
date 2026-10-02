@@ -18,10 +18,11 @@ const { chromium } = require(process.env.PLAYWRIGHT || 'playwright');
    assert.equal(await page.locator('footer iframe.ofa-offers').count(),1);
    if(!landing){
     assert.equal(await page.locator('#menu-title').textContent(),lang==='ar'?'منيو':'Menu');
-    const centered=await page.locator('.menu-brand').evaluate(el=>{const r=el.getBoundingClientRect(),h=el.closest('header').getBoundingClientRect();return Math.abs(r.x+r.width/2-h.x-h.width/2)<2;});
+    const centered=await page.locator('#menu-title').evaluate(el=>{const r=el.getBoundingClientRect(),h=el.closest('header').getBoundingClientRect();return Math.abs(r.x+r.width/2-h.x-h.width/2)<2;});
     assert.ok(centered);
-    const singleRow=await page.locator('.menu-head').evaluate(el=>{const parts=[el.querySelector('.instagram-hit'),el.querySelector('.menu-brand'),el.querySelector('.dock')].map(e=>e.getBoundingClientRect());return parts.every(r=>Math.abs(r.y+r.height/2-parts[0].y-parts[0].height/2)<2)&&parts[0].right<=parts[1].x&&parts[1].right<=parts[2].x;});
-    assert.ok(singleRow,'social, brand and language must share a single row without overlap');
+    const singleRow=await page.locator('.menu-head').evaluate(el=>{const parts=[el.querySelector('.menu-brand'),el.querySelector('#menu-title'),el.querySelector('.dock')].map(e=>e.getBoundingClientRect());return parts.every(r=>Math.abs(r.y+r.height/2-parts[0].y-parts[0].height/2)<2)&&parts[0].right<=parts[1].x&&parts[1].right<=parts[2].x;});
+    assert.ok(singleRow,'brand/handle, title and language must share one row without overlap');
+    const order=await page.locator('.menu-brand').evaluate(el=>{const logo=el.querySelector('img').getBoundingClientRect(),handle=el.querySelector('.instagram-hit').getBoundingClientRect();return logo.right<=handle.x && logo.width>=36;});assert.ok(order,'larger logo precedes social handle');
    }
    if(lang==='ar'&&width===390)await page.screenshot({path:'/Users/admin/projects/OFA/.local/' + (landing?'landing':'menu') + '-organic-language-2026-10-02.png'});
    await button.click();

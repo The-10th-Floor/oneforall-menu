@@ -56,7 +56,7 @@ if (window.CSS && CSS.supports('animation-timeline', 'view()') && !matchMedia('(
    (deep red 4.7:1), on the footer red (6:1) or on the scene darks. Yellow on the card red is 2.6:1:
    the MENU lettering carries a deep red edge, the way a painted sign does. */
 :root{--red:#EF3D3D;--deep:#D72727;--floor:#B81F1F;--spot:#7A0605;--cream:#FFF6ED;
-  --yellow:#FFCC49;--gold:#FBB03C;--navy:#253D8D;--bar:56px;--dx:1}
+  --yellow:#FFCC49;--gold:#FBB03C;--navy:#253D8D;--bar:80px;--dx:1}
 [dir=rtl]{--dx:-1}
 *{box-sizing:border-box}
 html,body{margin:0;overflow-x:clip;background:var(--red);color:var(--cream)}
@@ -73,7 +73,7 @@ h1,h2,h3,p{margin:0}
 
 /* --- the bar --- */
 .bar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;
-  height:calc(var(--bar) + env(safe-area-inset-top));padding:env(safe-area-inset-top) 16px 0;background:var(--red)}
+  height:calc(var(--bar) + env(safe-area-inset-top));padding:calc(10px + env(safe-area-inset-top)) clamp(16px,4vw,32px) 10px;background:var(--red)}
 .bar a{display:flex;align-items:center;min-height:48px}
 /* The site's way around: the badge is the top, Menu and Find us jump to their sections, the language
    switch sits last. The same three words on every screen size - no menu button to open. */
@@ -308,7 +308,7 @@ ul{list-style:none;margin:0;padding:0}
 <link rel="apple-touch-icon" href="../icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<script src="../native.js" defer></script>
+<script src="../native.js?v=20261002-footer-3" defer></script>
 <style>html{-webkit-text-size-adjust:100%;text-size-adjust:100%}button,a{touch-action:manipulation}button{-webkit-tap-highlight-color:transparent}.bar,.cta{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}</style>
 </head>
 <body>
@@ -479,10 +479,6 @@ ul{list-style:none;margin:0;padding:0}
   </section>
 
   <section class="find on-cream" id="find">
-    <figure class="lane-film" style="max-width:640px;margin:0 auto 24px">
-      <video controls muted playsinline preload="none" poster="find/lane.webp" style="display:block;width:100%;border-radius:12px" aria-label="The pickup lane at The NST" data-label-ar="مسار الاستلام في The NST"><source src="find/lane-m.mp4" type="video/mp4" media="(max-width:600px)"><source src="find/lane.mp4" type="video/mp4"></video>
-      <figcaption data-l="en">The approach to The NST pickup lane.</figcaption><figcaption data-l="ar" dir="rtl" hidden>الطريق لمسار الاستلام في The NST.</figcaption>
-    </figure>
     <div class="find-in" data-l="en">
       <h2>Find us</h2>
       <p class="addr">The NST, Al-Hosn Road, ~200 m from Al-Hosn intersection, Irbid</p>
